@@ -1,0 +1,117 @@
+.header {
+    padding: 0;
+    box-shadow: 4px 4px 40px 0 rgba(0,0,0,0.05);
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: 72px;
+    z-index: 9;
+    align-items: center;
+    background-color: #fff;
+}
+.header.fixed {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: calc(100% - 256px);
+    z-index: 29;
+    transition: width 0.2s;
+}
+.header.fixed.collapsed {
+    width: calc(100% - 80px);
+}
+.header :global .ant-menu-submenu-title {
+    height: 72px;
+    display: flex;
+    align-items: center;
+}
+.header :global .ant-menu-horizontal {
+    line-height: 72px;
+}
+.header :global .ant-menu-horizontal > .ant-menu-submenu:hover {
+    color: #1890FF;
+    background-color: #f9f9fc;
+}
+.header :global .ant-menu {
+    border-bottom: none;
+    height: 72px;
+}
+.header :global .ant-menu-horizontal > .ant-menu-submenu {
+    top: 0;
+    margin-top: 0;
+}
+.header :global .ant-menu-horizontal > .ant-menu-item, .header :global .ant-menu-horizontal > .ant-menu-submenu {
+    border-bottom: none;
+}
+.header :global .ant-menu-horizontal > .ant-menu-item-active, .header :global .ant-menu-horizontal > .ant-menu-item-open, .header :global .ant-menu-horizontal > .ant-menu-item-selected, .header :global .ant-menu-horizontal > .ant-menu-item:hover, .header :global .ant-menu-horizontal > .ant-menu-submenu-active, .header :global .ant-menu-horizontal > .ant-menu-submenu-open, .header :global .ant-menu-horizontal > .ant-menu-submenu-selected, .header :global .ant-menu-horizontal > .ant-menu-submenu:hover {
+    border-bottom: none;
+}
+.header .rightContainer {
+    display: flex;
+    align-items: center;
+}
+.header .button {
+    width: 72px;
+    height: 72px;
+    line-height: 72px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+}
+.header .button:hover {
+    color: #1890FF;
+    background-color: #f9f9fc;
+}
+.iconButton {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px;
+    cursor: pointer;
+}
+.iconButton:hover .iconFont {
+    color: #1890ff;
+}
+.iconButton + .iconButton {
+    margin-left: 8px;
+}
+.iconButton .iconFont {
+    color: #b2b0c7;
+    font-size: 24px;
+}
+.notification {
+    padding: 24px 0;
+    width: 320px;
+}
+.notification .notificationItem {
+    transition: all 0.3s;
+    padding: 12px 24px;
+    cursor: pointer;
+}
+.notification .notificationItem:hover {
+    background-color: #f9f9fc;
+}
+.notification .clearButton {
+    text-align: center;
+    height: 48px;
+    line-height: 48px;
+    cursor: pointer;
+}
+.notificationPopover :global .ant-popover-inner-content {
+    padding: 0;
+}
+.notificationPopover :global .ant-popover-arrow {
+    display: none;
+}
+.notificationPopover :global .ant-list-item-content {
+    flex: 0;
+    margin-left: 16px;
+}
+@media (max-width: 767px) {
+    .header {
+        width: 100% !important;
+   }
+}
