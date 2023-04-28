@@ -9,8 +9,11 @@ import App from "./App";
 import "./assets/styles/app.css";
 import "./assets/styles/responsive.css";
 import "./assets/styles/index.css";
-//  import "antd/dist/antd.min.css";
- import "antd/dist/antd.css";
+
+// //  import "antd/dist/antd.min.css";
+//import "antd/dist/antd.css";
+
+
 // import 'antd/dist/reset.css';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
