@@ -45,10 +45,11 @@ router.post("/get-doctor-info-by-id", authMiddleware, async (req, res) => {
   }
 });
 
-router.get("/get-appointments-by-doctor-id", authMiddleware, async (req, res) => {
+router.get("/get-appointments-by-doctor-id", async (req, res) => {
   try {
-    const doctor = await Doctor.findOne({ userId: req.body.userId });
-    const appointments = await Appointment.find({doctorId: doctor._id});
+    const doctor = "6332d5898231d41a72504a14";
+    // const doctor = await Doctor.findOne({ _id: req.body.id });
+    const appointments = await Appointment.find({doctorId: doctor});
     res.status(200).send({
       message: "Appointments fetched successfully",
       success: true,

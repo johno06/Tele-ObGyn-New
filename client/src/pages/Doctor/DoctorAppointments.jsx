@@ -13,11 +13,7 @@ function DoctorAppointments() {
   const getAppointmentsData = async () => {
     try {
       dispatch(showLoading());
-      const response = await axios.get("/api/doctor/get-appointments-by-doctor-id", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.get("/api/doctor/get-appointments-by-doctor-id");
       dispatch(hideLoading());
       if (response.data.success) {
         setAppointments(response.data.data);
@@ -59,12 +55,12 @@ function DoctorAppointments() {
       title: "Patient",
       dataIndex: "name",
       //req.body.userInfo.name
-      render: (text, record) => <span>{record.userInfo.user.name}</span>,
+      render: (text, record) => <span>{record.userInfo.name}</span>,
     },
     {
       title: "Phone",
-      dataIndex: "phoneNumber",
-      render: (text, record) => <span>{record.doctorInfo.phoneNumber}</span>,
+      dataIndex: "phone",
+      render: (text, record) => <span>{record.userInfo.phone}</span>,
     },
     {
       title: "Date & Time",
