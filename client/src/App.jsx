@@ -25,6 +25,7 @@ import {
   Reset,
   UsersList,
   Verify,
+  ViewAppointments,
 } from "./pages";
 
 import {
@@ -159,6 +160,15 @@ function App() {
           element={
             <ProtectedRoute>
               <PatientProfile />
+            </ProtectedRoute>
+          }
+        />
+        {/* View Appointments */}
+        <Route
+          path="/doctor/appointments/:userId"
+          element={
+            <ProtectedRoute>
+              <ViewAppointments />
             </ProtectedRoute>
           }
         />
