@@ -26,3 +26,5 @@ export { default as Consultation2 } from "./Doctor/Consultation";
 
 export {default as Messenger2} from "./Doctor/Messenger";
 export {default as AddAdmin} from "./Admin/AddAdmin";
+
+export {default as ViewAppointments} from "./Doctor/ViewAppointments";
