@@ -227,6 +227,14 @@ function App() {
           }
         />
         <Route
+          path="/doctor/userslist"
+          element={
+            <ProtectedRoute>
+              <UsersList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/admin/doctorslist"
           element={
             <ProtectedRoute>

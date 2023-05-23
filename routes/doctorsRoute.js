@@ -5,7 +5,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 const Appointment = require("../models/appointmentModel");
 const User = require("../models/userModels");
 
-router.post("/get-doctor-info-by-user-id", authMiddleware, async (req, res) => {
+router.post("/get-doctor-info-by-user-id", async (req, res) => {
   try {
     const doctor = await Doctor.findOne({ userId: req.body.userId });
     res.status(200).send({
@@ -32,7 +32,7 @@ router.post("/update-doctor-profile", authMiddleware, async (req, res) => {
   }
 });
 
-router.post("/get-doctor-info-by-id", authMiddleware, async (req, res) => {
+router.post("/get-doctor-info-by-id", async (req, res) => {
   try {
     const doctor = await Doctor.findOne({ _id: req.body.doctorId });
     res.status(200).send({
@@ -45,11 +45,10 @@ router.post("/get-doctor-info-by-id", authMiddleware, async (req, res) => {
   }
 });
 
-router.get("/get-appointments-by-doctor-id", async (req, res) => {
+router.post("/get-appointments-by-doctor-id", async (req, res) => {
   try {
-    const doctor = "6332d5898231d41a72504a14";
-    // const doctor = await Doctor.findOne({ _id: req.body.id });
-    const appointments = await Appointment.find({doctorId: doctor});
+    const doctor = await Doctor.findOne({ _id: req.body.doctorId });
+    const appointments = await Appointment.find({doctorId: doctor._id});
     res.status(200).send({
       message: "Appointments fetched successfully",
       success: true,

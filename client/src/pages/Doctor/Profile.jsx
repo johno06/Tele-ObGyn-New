@@ -22,9 +22,7 @@ function Profile() {
   const [doctor, setDoctor] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const onFinish = async (values) => {
-
     try {
       dispatch(showLoading());
       const response = await axios.post(
