@@ -62,7 +62,22 @@ function Sidenav({ color }) {
               <span className="label">Profile</span>
             </NavLink>
           </Menu.Item>
+
           <Menu.Item key="4">
+            <NavLink to="/doctor/userslist">
+              <span
+                className="icon"
+                style={{
+                  background: page === "doctor/userslist" ? color : "",
+                }}
+              >
+                <FaUserFriends />
+              </span>
+              <span className="label">Users</span>
+            </NavLink>
+          </Menu.Item>
+
+          <Menu.Item key="5">
             <NavLink to={`/user/messenger/${user?._id}`}>
               <span
                 className="icon"
@@ -76,7 +91,7 @@ function Sidenav({ color }) {
               <span className="label">Messages</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="5">
+          <Menu.Item key="6">
             <NavLink to={`/doctor/consultation`}>
               <span
                 className="icon"
