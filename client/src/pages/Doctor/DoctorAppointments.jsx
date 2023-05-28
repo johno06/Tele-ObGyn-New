@@ -8,6 +8,8 @@ import Main from "../../layouts/Main";
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
 
+import { NavLink } from "react-router-dom";
+
 
 
 function DoctorAppointments() {
@@ -133,14 +135,21 @@ function DoctorAppointments() {
       dataIndex: "actions",
       render: (text, record) => (
         <div className="d-flex">
-          {record.status === "pending" && (
+          {record.status === "approved" && (
             <div className="d-flex">
-              <h1 className="anchor px-2" onClick={() => changeAppointmentStatus(record, "approved")}>
-                Approve
-              </h1>
-              <h1 className="anchor" onClick={() => changeAppointmentStatus(record, "rejected")}>
+              {/* babaguhin pa function nito */}
+              <NavLink to={`/doctor/appointments/userId`}>
+                    <a>Edit</a>
+                  </NavLink>
+              {/* <h1 className="anchor px-2" onClick={() => changeAppointmentStatus(record, "approved")}>
+                Edit
+              </h1> */}
+              {/* <h1 className="anchor px-2" onClick={() => changeAppointmentStatus(record, "approved")}>
+                Edit
+              </h1> */}
+              {/* <h1 className="anchor" onClick={() => changeAppointmentStatus(record, "rejected")}>
                 Reject
-              </h1>
+              </h1> */}
             </div>
           )}
         </div>

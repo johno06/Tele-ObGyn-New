@@ -2626,12 +2626,13 @@ section.ant-layout.layout-content .ant-layout-content.content-ant {
   padding-top: 0px;
 }
 .profile-nav-bg {
-  height: 200px;
+  height: 200px !important;; 
   margin-top: -137.8px !important; 
-  border-radius: 12px;
-  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
-  background-size: cover;
-  background-position: 50%;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%) !important;
+  background-size: cover !important;
+  background-position: 50% !important;
+  
 }
 
 section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile
@@ -2670,10 +2671,15 @@ section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile
 }
 
 .card-profile-head {
-  margin: -63px 24px 24px !important;
+  margin: -50px 24px 24px !important;
   /* margin: -63px 0 24px auto !important; */
   /* align-self: center !important; */
   width: 988px;
+}
+
+.card-profile-overlap{
+  margin: -130px 10px 10px !important;
+
 }
 
 .card-profile-head .ant-card-head .ant-avatar {

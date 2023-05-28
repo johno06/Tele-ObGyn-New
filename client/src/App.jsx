@@ -163,9 +163,9 @@ function App() {
             </ProtectedRoute>
           }
         />
-        {/* View Appointments */}
+        {/* View Appointments, di ko muna nilagyan ng id para lumabas agad ui */}
         <Route
-          path="/doctor/appointments/:userId"
+          path="/doctor/appointments/userId"
           element={
             <ProtectedRoute>
               <ViewAppointments />
