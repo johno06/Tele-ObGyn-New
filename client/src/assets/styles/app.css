@@ -1,3 +1,15 @@
+/* 2023 New CSS */
+.card-title-green{
+  color: #57C84D;
+}
+
+.resched-button{
+  margin: 10px 0px 0px 0px!important;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
 .site-layout .site-layout-background {
   background: #fff;
 }
@@ -2726,7 +2738,7 @@ section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile
   padding-top: 0;
 }
 .settings-list > li {
-  padding: 12px 0;
+  padding: 5px 0;
 }
 
 .settings-list > li h6 {

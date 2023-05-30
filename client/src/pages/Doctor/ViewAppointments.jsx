@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from "react";
 import {
-  Row,
-  Col,
-  Card,
   Avatar,
   Button,
+  Card,
+  Col,
   Descriptions,
+  Row,
+  Space,
+  Typography,
 } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { showLoading, hideLoading } from "../../redux/alertSlice";
-import { toast } from "react-hot-toast";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import DoctorForm from "../../components/Forms/DoctorForm";
 import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { AiOutlineCalendar, AiOutlineUser } from "react-icons/ai";
+import { BsCheckCircleFill } from "react-icons/bs";
+import { BiClinic } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import check from "../../assets/images/check-mark.png";
+import guide from "../../assets/images/guidelines.png";
 import Main from "../../layouts/Main";
-import BgProfile from "../../assets/images/pinkBg.jpg";
-import profilavatar from "../../assets/images/face-1.jpg";
+import { hideLoading, showLoading } from "../../redux/alertSlice";
+
+const { Meta } = Card;
 
 function ViewAppointments() {
   const { user } = useSelector((state) => state.user);
@@ -24,6 +30,8 @@ function ViewAppointments() {
   const [doctor, setDoctor] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { Title, Text } = Typography;
 
   const pencil = [
     <svg
@@ -46,7 +54,6 @@ function ViewAppointments() {
   ];
 
   const onFinish = async (values) => {
-
     try {
       dispatch(showLoading());
       const response = await axios.post(
@@ -113,157 +120,165 @@ function ViewAppointments() {
 
   return (
     <Main>
-      {/* <Card
-        className="card-profile-head"
-        bodyStyle={{ display: "none" }}
-        title={
-          <Row justify="space-between" align="middle" gutter={[24, 0]}>
-            <Col span={24} md={12} className="col-info">
-              <Avatar.Group>
-                <Avatar size={74} shape="square" src={profilavatar} />
-
-                <div className="avatar-info">
-                  <h4 className="font-semibold m-0">{FN} {LN}</h4>
-                  <p>{role}</p>
-                </div>
-              </Avatar.Group>
-            </Col>
-          </Row>
-        }
-      /> */}
       <Row gutter={[24, 0]}>
-      <Col span={24} xs={24} md={12} sm={24} lg={12} xl={14} className="mb-24">
-            <Card bordered={false} className="criclebox h-full" title="Appointment Booked!">
-              <Row gutter>
-                <Col
-                  xs={24}
-                  md={12}
-                  sm={24}
-                  lg={12}
-                  xl={14}
-                  className="mobile-24"
-                >
-                  
-                </Col>
-                <Col
-                  xs={24}
-                  md={12}
-                  sm={24}
-                  lg={12}
-                  xl={10}
-                  className="col-img"
-                >
-                  <div className="ant-cret text-right">
-                    {/* <img src={card} alt="" className="border10" /> */}
-                  </div>
-                </Col>
-              </Row>
-            </Card>
-          </Col>
-        <Col span={24} md={8} className="mb-24 ">
-          <Card
-            bordered={false}
-            className="header-solid h-full"
-            title={<h6 className="font-semibold m-0">Platform Settings</h6>}
-          >
-            {/* <ul className="list settings-list">
-              <li>
-                <h6 className="list-header text-sm text-muted">ACCOUNT</h6>
-              </li>
-              <li>
-                <Switch defaultChecked />
+        <Col
+          span={24}
+          xs={24}
+          md={12}
+          sm={24}
+          lg={12}
+          xl={14}
+          className="mb-24"
+        >
+          <Card bordered={false} className="criclebox h-full">
+            <Meta
+              avatar={<Avatar src={check} />}
+              title={<h5 className="card-title-green">Appointment Booked!</h5>}
+            />
 
-                <span>Email me when someone follows me</span>
-              </li>
-              <li>
-                <Switch />
-                <span>Email me when someone answers me</span>
-              </li>
-              <li>
-                <Switch defaultChecked />
-                <span>Email me when someone mentions me</span>
-              </li>
-              <li>
-                <h6 className="list-header text-sm text-muted m-0">
-                  APPLICATION
-                </h6>
-              </li>
-              <li>
-                <Switch defaultChecked />
-                <span>New launches and projects</span>
-              </li>
-              <li>
-                <Switch defaultChecked />
-                <span>Monthly product updates</span>
-              </li>
-              <li>
-                <Switch defaultChecked />
-                <span>Subscribe to newsletter</span>
-              </li>
-            </ul> */}
+            <hr />
+            <div className="ant-muse">
+              <Text>Clinic</Text>
+              <br />
+              {/* change code na makukuha yung address ni doctor */}
+              <Space>
+                <BiClinic />
+                <h6 className="font-semibold m-0">Fuentes Clinic</h6>
+              </Space>
+              <br />
+              <Text>2445 Rodriguez St. Tondo Manila</Text>
+            </div>
+            <Row gutter={16}>
+              <Col span={12}>
+                {" "}
+                <div className="ant-muse pt-3">
+                  <Text>Booked by</Text>
+                  <br />
+                  {/* change code na makukuha yung name ni patient */}
+                  <Space>
+                    <AiOutlineUser />
+                    <h6 className="font-semibold m-0">Patient Name</h6>
+                  </Space>
+                </div>
+              </Col>
+              <Col span={12}>
+                <div className="ant-muse pt-3">
+                  <Text>Appointment ID</Text>
+                  <br />
+                  {/* change code na makukuha yung appointment id */}
+
+                  <h6 className="font-semibold m-0">945458493</h6>
+                </div>
+              </Col>
+
+              <Col span={12}>
+                <div className="ant-muse pt-3">
+                  {/* change code na makukuha yung date and time ng appointment */}
+                  <Text>Date & Time</Text>
+                  <br />
+                  <Space>
+                    <AiOutlineCalendar />
+                    <h6 className="font-semibold m-0">
+                      08:00-09:00 2023-05-15
+                    </h6>
+                  </Space>
+                </div>
+              </Col>
+              <Col span={12}>
+                <div className="resched-button pt-3">
+                  <Button style={{width: "150px", height: "40px"}}>Reschedule</Button>
+                </div>
+              </Col>
+            </Row>
           </Card>
         </Col>
         <Col span={12} md={8} className="mb-24">
           <Card
             bordered={false}
-            title={<h6 className="font-semibold m-0">Profile Information</h6>}
+            title={<h6 className="font-semibold m-0">Patient Information</h6>}
             className="header-solid h-full card-profile-information "
             extra={<Button type="link">{pencil}</Button>}
             bodyStyle={{ paddingTop: 0, paddingBottom: 16 }}
           >
-            <p className="text-dark">
-              {" "}
-              Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer
-              is no. If two equally difficult paths, choose the one more painful
-              in the short term (pain avoidance is creating an illusion of
-              equality).{" "}
-            </p>
-            <hr className="my-25" />
-            <Descriptions title="Oliver Liam">
+            <Descriptions>
+              {/* change code na makukuha yung data na nasa label */}
               <Descriptions.Item label="Full Name" span={3}>
                 Sarah Emily Jacob
               </Descriptions.Item>
+              {/* change code na makukuha yung data na nasa label */}
               <Descriptions.Item label="Mobile" span={3}>
                 (44) 123 1234 123
               </Descriptions.Item>
+              {/* change code na makukuha yung data na nasa label */}
               <Descriptions.Item label="Email" span={3}>
                 sarahjacob@mail.com
               </Descriptions.Item>
-              <Descriptions.Item label="Location" span={3}>
-                USA
+              {/* change code na makukuha yung data na nasa label */}
+              <Descriptions.Item label="Address" span={3}>
+                119 Tolentino Manila
               </Descriptions.Item>
-              
+              {/* change code na makukuha yung data na nasa label */}
+              <Descriptions.Item label="Date of Birth" span={3}>
+                1990-05-15
+              </Descriptions.Item>
             </Descriptions>
           </Card>
         </Col>
-        <Col span={24} md={8} className="mb-24">
-          {/* <Card
-            bordered={false}
-            title={<h6 className="font-semibold m-0">Conversations</h6>}
-            className="header-solid h-full"
-            bodyStyle={{ paddingTop: 0, paddingBottom: 16 }}
-          >
-            <List
-              itemLayout="horizontal"
-              dataSource={data}
-              split={false}
-              className="conversations-list"
-              renderItem={(item) => (
-                <List.Item actions={[<Button type="link">REPLY</Button>]}>
-                  <List.Item.Meta
-                    avatar={
-                      <Avatar shape="square" size={48} src={item.avatar} />
-                    }
-                    title={item.title}
-                    description={item.description}
-                  />
-                </List.Item>
-              )}
-            />
-          </Card> */}
+        <Col
+          span={24}
+          xs={24}
+          md={12}
+          sm={24}
+          lg={12}
+          xl={14}
+          className="mb-24 "
+        >
+          <Card bordered={false} className="header-solid h-full">
+            <Meta avatar={<Avatar src={guide} />} title="Guidelines" />
+            <ul className="list settings-list">
+              <li className="pt-2 font-semibold" style={{ margin: "0 49px" }}>
+                <BsCheckCircleFill color="#5EDD60" />
+                <span>
+                  Ensure that you have a reliable internet connection and any
+                  necessary equipment (e.g., webcam, microphone) for virtual
+                  appointments.
+                </span>
+              </li>
+              <li className="font-semibold" style={{ margin: "0 49px" }}>
+                <BsCheckCircleFill color="#5EDD60" />
+                <span>
+                  Provide clear instructions to patients on how to access the
+                  virtual appointment platform and any necessary pre-appointment
+                  preparations.
+                </span>
+              </li>
+              <li className="font-semibold" style={{ margin: "0 49px" }}>
+                <BsCheckCircleFill color="#5EDD60" />
+                <span>
+                  Conduct the virtual appointment in a private and secure
+                  location to protect patient privacy.{" "}
+                </span>
+              </li>
+              <li className="font-semibold" style={{ margin: "0 49px" }}>
+                <BsCheckCircleFill color="#5EDD60" />
+                <span>
+                  Review the patient's medical records, previous test results,
+                  and any relevant information before the virtual appointment.
+                </span>
+              </li>
+              <li className="font-semibold" style={{ margin: "0 49px" }}>
+                <BsCheckCircleFill color="#5EDD60" />
+                <span>
+                  Visual assessment: If feasible, request that the patient
+                  performs certain physical assessments or self-examinations
+                  during the virtual appointment while guiding them through the
+                  process.
+                </span>
+              </li>
+            </ul>
+          </Card>
         </Col>
       </Row>
-      
     </Main>
   );
 }
