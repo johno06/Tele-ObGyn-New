@@ -137,17 +137,33 @@ function ViewAppointments() {
             />
 
             <hr />
-            <div className="ant-muse">
-              <Text>Clinic</Text>
-              <br />
-              {/* change code na makukuha yung address ni doctor */}
-              <Space>
-                <BiClinic />
-                <h6 className="font-semibold m-0">Fuentes Clinic</h6>
-              </Space>
-              <br />
-              <Text>2445 Rodriguez St. Tondo Manila</Text>
-            </div>
+            <Row gutter={16}>
+              <Col span={12}>
+                <div className="ant-muse">
+                  <Text>Clinic</Text>
+                  <br />
+                  {/* change code na makukuha yung address ni doctor */}
+                  <Space>
+                    <BiClinic />
+                    <h6 className="font-semibold m-0">Fuentes Clinic</h6>
+                  </Space>
+                  <br />
+                  <Text>2445 Rodriguez St. Tondo Manila</Text>
+                </div>
+              </Col>
+              <Col span={12}>
+                <div className="ant-muse">
+                  <Text>Consultation Type</Text>
+                  <br />
+                  {/* change code na makukuha yung consultation type */}
+
+                  <h6 className="font-semibold m-0">Online</h6>
+
+                
+                </div>
+              </Col>
+            </Row>
+
             <Row gutter={16}>
               <Col span={12}>
                 {" "}
@@ -186,7 +202,9 @@ function ViewAppointments() {
               </Col>
               <Col span={12}>
                 <div className="resched-button pt-3">
-                  <Button style={{width: "150px", height: "40px"}}>Reschedule</Button>
+                  <Button style={{ width: "150px", height: "40px" }}>
+                    Reschedule
+                  </Button>
                 </div>
               </Col>
             </Row>
