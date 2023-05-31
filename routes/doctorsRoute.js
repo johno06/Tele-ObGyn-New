@@ -64,6 +64,26 @@ router.post("/get-appointments-by-doctor-id", async (req, res) => {
   }
 });
 
+router.post('/get-appointment-id', async (req, res) => {
+  try {
+    // const doctor = await Doctor.findOne ({_id: req.body.doctorId});
+    const appointments = await Appointment.findById ({_id: req.body._id});
+    res.status (200).send ({
+      message: 'Appointment fetched successfully',
+      success: true,
+      data: appointments,
+    });
+  } catch (error) {
+    console.log (error);
+    res.status (500).send ({
+      message: 'Error fetching appointment',
+      success: false,
+      error,
+    });
+  }
+});
+
+
 // router.post("/get-appointment-by-user-id", async (req, res) => {
 //   try {
 //     const doctor = await Doctor.findOne({ _id: req.body.doctorId });
