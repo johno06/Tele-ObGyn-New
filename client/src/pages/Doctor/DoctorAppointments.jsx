@@ -138,7 +138,7 @@ function DoctorAppointments() {
           {record.status === "approved" && (
             <div className="d-flex">
               {/* babaguhin pa function nito */}
-              <NavLink to={`/doctor/appointments/userId`}>
+              <NavLink to={`/doctor/appointments/`+record._id}>
                     <a>Edit</a>
                   </NavLink>
               {/* <h1 className="anchor px-2" onClick={() => changeAppointmentStatus(record, "approved")}>
@@ -164,6 +164,9 @@ function DoctorAppointments() {
       <Table columns={columns} dataSource={appointments} />
       </Main>
   );
+
+  
+
 }
 
 export default DoctorAppointments;
