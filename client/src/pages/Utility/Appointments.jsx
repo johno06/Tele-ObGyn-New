@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Table } from "antd";
 import Main from "../../layouts/Main";
-import moment from "moment";
+import moment from 'moment';
 
 function Appointments() {
   const [appointments, setAppointments] = useState([]);

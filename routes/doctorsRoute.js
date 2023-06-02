@@ -4,6 +4,7 @@ const Doctor = require("../models/doctorModel");
 const authMiddleware = require("../middleware/authMiddleware");
 const Appointment = require("../models/appointmentModel");
 const User = require("../models/userModels");
+const moment = require('moment');  
 
 router.post("/get-doctor-info-by-user-id", async (req, res) => {
   try {
@@ -128,6 +129,71 @@ router.post("/change-appointment-status", authMiddleware, async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Error changing appointment status", success: false, error });
+  }
+});
+
+// yung dalawang codes dito yung codes na ginamit ko sa book appointment ng user, syempre iuupgrade mo kasi si god ramos ka 
+
+router.post("/book-appointment", authMiddleware, async (req, res) => {
+  try {
+    req.body.status = "pending";
+    req.body.date = moment(req.body.date, "DD-MM-YYYY").toISOString();
+    req.body.time = moment(req.body.time, "HH:00").toISOString();
+    
+    const newAppointment = new Appointment(req.body);
+    await newAppointment.save();
+    //pushing notification to doctor based on his userid
+    const user = await User.findOne({ _id: req.body.doctorInfo.userId });
+    user.unseenNotifications.push({
+      type: "new-appointment-request",
+      //req.body.userInfo.name
+      message: `A new appointment request has been made by ${req.body.userInfo.user.name}`,
+      onClickPath: "/doctor/appointments",
+    });
+    await user.save();
+    res.status(200).send({
+      message: "Appointment booked successfully",
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Error booking appointment",
+      success: false,
+      error,
+    });
+  }
+});
+
+router.post("/check-booking-availability", authMiddleware, async (req, res) => {
+  try {
+    const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
+    const fromTime = moment(req.body.time, "HH:00").subtract(1, "hours").toISOString();
+    const toTime = moment(req.body.time, "HH:00").add(1, "hours").toISOString();
+    const doctorId = req.body.doctorId;
+    const appointments = await Appointment.find({
+      doctorId,
+      date,
+      time: { $gte: fromTime, $lte: toTime },
+    });
+    if (appointments.length > 0) {
+      return res.status(200).send({
+        message: "Appointments not available",
+        success: false,
+      });
+    } else {
+      return res.status(200).send({
+        message: "Appointments available",
+        success: true,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Error booking appointment",
+      success: false,
+      error,
+    });
   }
 });
 

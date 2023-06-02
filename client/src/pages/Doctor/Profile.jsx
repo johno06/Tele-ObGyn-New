@@ -11,7 +11,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import DoctorForm from "../../components/Forms/DoctorForm";
-import moment from "moment";
+import moment from 'moment'
 import Main from "../../layouts/Main";
 import BgProfile from "../../assets/images/pinkBg.jpg";
 import profilavatar from "../../assets/images/face-1.jpg";

@@ -1,6 +1,6 @@
 import { Button, Col, Form, Input, Row, Select, DatePicker } from "antd";
 import React, { useState } from "react";
-import moment from "moment";
+import moment from 'moment'
 
 function PatientForm({ onFinish, initialValues }) {
   const [birthdate, setDate] = useState();

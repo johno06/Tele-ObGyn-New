@@ -260,6 +260,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        {/* 03/06/2023, BABAGUHIN ROUTE... SIGURO? */}
         <Route
           path="/book-appointment/:doctorId"
           element={
