@@ -1,50 +1,145 @@
 import AgoraUIKit, { layout } from "agora-react-uikit";
 import "agora-react-uikit/dist/index.css";
-
-import React, { useState } from "react";
+import axios from 'axios';
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "../../assets/styles/agora.css";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../../redux/alertSlice";
 import toast from "react-hot-toast";
 
 function Consultation() {
   // const [name, setName] = useState("");
   const [channelName, setChannelName] = useState("");
-  const [token, setToken] = useState("");
+  const [channelN, setChannelN] = useState("");
+  var [token, setToken] = useState("");
   // const dispatch = useDispatch();
-  // const getAgoraToken = async (channelName) => {
-  //   try {
-  //     dispatch(showLoading());
-  //     const response = await axios.get(
-  //       "https://generate-token-teleconsultatio.herokuapp.com/rtc/" +
-  //         channelName +
-  //         "/publisher/uid/0",
-  //       // {
-  //       //   // headers: {
-  //       //   //   Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       //   // },
-  //       // }
-  //     );
-  //     dispatch(hideLoading());
-  //     if (response.success) {
-  //       toast.success("Token generated successfully");
-  //       setToken(response.rtcToken);
-  //       console.log(response.rtcToken);
-        
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //     dispatch(hideLoading());
-  //   }
-  // };
-
   const [videoCall, setVideoCall] = useState(false);
   const isHost = useState(true);
   const [isPinned, setPinned] = useState(false);
   const { user } = useSelector((state) => state.user);
+  const params = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [doctor, setDoctor] = useState(null);
 
+
+   const getDoctorData = async () => {
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        "/api/doctor/get-user-info-by-id",
+        {
+          _id: user._id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+
+      if (response.data.success) {
+        setDoctor(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(hideLoading());
+    }
+  };
+
+  useEffect(() => {
+    getDoctorData();
+  }, []);
+
+
+  ////////////////////////
+
+    const [inputValue, setInputValue] = useState ('');
+
+    const handleChange = e => {
+      setChannelName (e.target.value);
+    };
+
+
+    const handleValue = e => {
+      setChannelN(e.target.value);
+    };
+
+    const handleSubmit = e => {
+      e.preventDefault ();
+      // Perform any actions with the input value here
+      console.log ('Input value:', channelName);
+    };
+
+
+  //////////////////////
+
+    const onCreate = async () => {
+    if (channelName.trim () === '') {
+      // setValidateError (true);
+      return;
+    }
+
+    try {
+      const url = `https://token-server-20wg.onrender.com/rtc/${channelName}/publisher/uid/0`;
+      const response = await axios.get (url);
+      const data = response.data;
+      const token = data.rtcToken;
+      setToken (token);
+      update(token);
+      localStorage.setItem ('rtcToken', token);
+
+      console.log (token);
+
+      // Display success message
+      console.log ('Create channel completed');
+    } catch (error) {
+      console.error ('Error creating channel:', error);
+    }
+  };
+
+
+
+  const update = async (token) => {
+    try {
+      const data = {
+        rtcToken: token,
+      };
+      const id = "6332d5608231d41a72504a13";
+      const response = await axios.patch(
+        `/api/doctor/updateRtcToken/${user._id}`,
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error updating RTC token:', error);
+    }
+  };
+
+  // console.log("asdasdsadsadas"+token);
+  var dbToken = doctor?.rtcToken;
+  // console.log("dbToken"+dbToken);
+  if(token === ""){
+    token = dbToken;
+    // console.log("eto"+token);
+  }
   return (
     //<Main>
+
+    
+
+
+
+    ////////////////////
     <div
       style={{
         width: "100vw",
@@ -54,7 +149,10 @@ function Consultation() {
         backgroundColor: "#FAFAFA",
       }}
     >
+
+    
       <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+      
         {videoCall ? (
           <>
             <div
@@ -63,8 +161,8 @@ function Consultation() {
             <AgoraUIKit
               rtcProps={{
                 appId: process.env.REACT_APP_AGORA_APP_ID,
-                channel: "consult",
-                token: "007eJxTYHjDEs3SEmjD/DxfcvOzDcoqm6+q8vjETO9fydayffJKRTcFBmNTi0QDA8tEozQDQ5NECwOLlGSzpLRUC2MjEDJJVDlZlNwQyMiQPCuVgREKQXx2huT8vOLSnBIGBgDSWx3s", //add your token if using app in secured mode
+                channel: channelN,
+                token: token, //add your token if using app in secured mode
                 role: isHost ? "host" : "audience",
                 layout: isPinned ? layout.pin : layout.grid,
                 //...parseParams(),
@@ -92,12 +190,13 @@ function Consultation() {
                       <div className="join">
                         <div className="row">
                           <div className="col">
-                            {/* <input
+                            <input
                               className="text-danger"
                               type="text"
                               placeholder="Enter Channel Name"
-                             
-                            /> */}
+                              value={channelN}
+                              onChange={handleValue}
+                            />
                             <button
                               className="text-danger"
                               onClick={() => setVideoCall(true)}
@@ -106,20 +205,21 @@ function Consultation() {
                             </button>
                           </div>
 
-                          {/* <div className="col">
+                          <div className="col">
                             <input
                               className="text-danger"
                               type="text"
                               placeholder="Create Channel"
-                              onChange={handleInput}
+                              value={channelName}
+                              onChange={handleChange}
                             />
                             <button
                               className="text-danger"
-                              onClick={() => getAgoraToken(handleInput)}
+                              onClick={onCreate}
                             >
                               Create Channel
                             </button>
-                          </div> */}
+                          </div>
                         </div>
                       </div>
                     </div>

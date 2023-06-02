@@ -28,6 +28,7 @@ function ViewAppointments() {
   const { user } = useSelector((state) => state.user);
   const params = useParams();
   const [doctor, setDoctor] = useState(null);
+  const [appointment, setAppointment] = useState (null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -91,7 +92,7 @@ function ViewAppointments() {
       const response = await axios.post(
         "/api/doctor/get-doctor-info-by-user-id",
         {
-          userId: params.userId,
+          _id: params.userId,
         },
         {
           headers: {
@@ -110,14 +111,44 @@ function ViewAppointments() {
     }
   };
 
+  const getAppointmentsData = async () => {
+  try {
+    dispatch (showLoading ());
+    const response = await axios.post (
+      '/api/doctor/get-appointment-id',
+      {
+        _id: params.userId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem ('token')}`,
+        },
+      }
+    );
+    dispatch (hideLoading ());
+
+    if (response.data.success) {
+      setAppointment(response.data.data);
+      // console.log(response.data.data);
+    }
+  } catch (error) {
+    console.log (error);
+    dispatch (hideLoading ());
+  }
+};
+
+
   useEffect(() => {
-    getDoctorData();
+    // getDoctorData();
+    getAppointmentsData();
   }, []);
 
   const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "User";
-  const FN = doctor?.firstName;
-  const LN = doctor?.lastName;
-
+  const FN = appointment?.userInfo?.name;
+  const LN = appointment?.userInfo?.surname;
+  const consultationType = appointment?.consultationType;
+  const date = appointment?.date;
+  const time = appointment?.time;
   return (
     <Main>
       <Row gutter={[24, 0]}>
@@ -157,7 +188,7 @@ function ViewAppointments() {
                   <br />
                   {/* change code na makukuha yung consultation type */}
 
-                  <h6 className="font-semibold m-0">Online</h6>
+                  <h6 className="font-semibold m-0">{consultationType}</h6>
 
                 
                 </div>
@@ -173,7 +204,7 @@ function ViewAppointments() {
                   {/* change code na makukuha yung name ni patient */}
                   <Space>
                     <AiOutlineUser />
-                    <h6 className="font-semibold m-0">Patient Name</h6>
+                    <h6 className="font-semibold m-0">{FN+" "+LN}</h6>
                   </Space>
                 </div>
               </Col>
@@ -183,7 +214,7 @@ function ViewAppointments() {
                   <br />
                   {/* change code na makukuha yung appointment id */}
 
-                  <h6 className="font-semibold m-0">945458493</h6>
+                  <h6 className="font-semibold m-0">{params.userId}</h6>
                 </div>
               </Col>
 
@@ -195,7 +226,7 @@ function ViewAppointments() {
                   <Space>
                     <AiOutlineCalendar />
                     <h6 className="font-semibold m-0">
-                      08:00-09:00 2023-05-15
+                      {date+" & "+time}
                     </h6>
                   </Space>
                 </div>
@@ -221,24 +252,24 @@ function ViewAppointments() {
             <Descriptions>
               {/* change code na makukuha yung data na nasa label */}
               <Descriptions.Item label="Full Name" span={3}>
-                Sarah Emily Jacob
+                {FN+" "+LN}
               </Descriptions.Item>
               {/* change code na makukuha yung data na nasa label */}
               <Descriptions.Item label="Mobile" span={3}>
-                (44) 123 1234 123
+                {appointment?.userInfo?.phone}
               </Descriptions.Item>
               {/* change code na makukuha yung data na nasa label */}
               <Descriptions.Item label="Email" span={3}>
-                sarahjacob@mail.com
+                {appointment?.userInfo?.email}
               </Descriptions.Item>
               {/* change code na makukuha yung data na nasa label */}
-              <Descriptions.Item label="Address" span={3}>
+              {/* <Descriptions.Item label="Address" span={3}>
                 119 Tolentino Manila
-              </Descriptions.Item>
+              </Descriptions.Item> */}
               {/* change code na makukuha yung data na nasa label */}
-              <Descriptions.Item label="Date of Birth" span={3}>
+              {/* <Descriptions.Item label="Date of Birth" span={3}>
                 1990-05-15
-              </Descriptions.Item>
+              </Descriptions.Item> */}
             </Descriptions>
           </Card>
         </Col>
