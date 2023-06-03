@@ -16,7 +16,7 @@ import { AiOutlineCalendar, AiOutlineUser } from "react-icons/ai";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { BiClinic } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import check from "../../assets/images/check-mark.png";
 import guide from "../../assets/images/guidelines.png";
 import Main from "../../layouts/Main";
@@ -28,7 +28,7 @@ function ViewAppointments() {
   const { user } = useSelector((state) => state.user);
   const params = useParams();
   const [doctor, setDoctor] = useState(null);
-  const [appointment, setAppointment] = useState (null);
+  const [appointment, setAppointment] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -112,31 +112,30 @@ function ViewAppointments() {
   };
 
   const getAppointmentsData = async () => {
-  try {
-    dispatch (showLoading ());
-    const response = await axios.post (
-      '/api/doctor/get-appointment-id',
-      {
-        _id: params.userId,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem ('token')}`,
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        "/api/doctor/get-appointment-id",
+        {
+          _id: params.userId,
         },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+
+      if (response.data.success) {
+        setAppointment(response.data.data);
+        // console.log(response.data.data);
       }
-    );
-    dispatch (hideLoading ());
-
-    if (response.data.success) {
-      setAppointment(response.data.data);
-      // console.log(response.data.data);
+    } catch (error) {
+      console.log(error);
+      dispatch(hideLoading());
     }
-  } catch (error) {
-    console.log (error);
-    dispatch (hideLoading ());
-  }
-};
-
+  };
 
   useEffect(() => {
     // getDoctorData();
@@ -189,8 +188,6 @@ function ViewAppointments() {
                   {/* change code na makukuha yung consultation type */}
 
                   <h6 className="font-semibold m-0">{consultationType}</h6>
-
-                
                 </div>
               </Col>
             </Row>
@@ -204,7 +201,7 @@ function ViewAppointments() {
                   {/* change code na makukuha yung name ni patient */}
                   <Space>
                     <AiOutlineUser />
-                    <h6 className="font-semibold m-0">{FN+" "+LN}</h6>
+                    <h6 className="font-semibold m-0">{FN + " " + LN}</h6>
                   </Space>
                 </div>
               </Col>
@@ -225,15 +222,18 @@ function ViewAppointments() {
                   <br />
                   <Space>
                     <AiOutlineCalendar />
-                    <h6 className="font-semibold m-0">
-                      {date+" & "+time}
-                    </h6>
+                    <h6 className="font-semibold m-0">{date + " & " + time}</h6>
                   </Space>
                 </div>
               </Col>
               <Col span={12}>
                 <div className="resched-button pt-3">
-                  <Button style={{ width: "150px", height: "40px" }}>
+                  <Button
+                    type="primary"
+                    style={{ width: "150px", height: "40px" }}
+                    //baguhin function nung id hahaha
+                    onClick={() => navigate(`/book-appointment/${doctor._id}`)}
+                  >
                     Reschedule
                   </Button>
                 </div>
@@ -252,7 +252,7 @@ function ViewAppointments() {
             <Descriptions>
               {/* change code na makukuha yung data na nasa label */}
               <Descriptions.Item label="Full Name" span={3}>
-                {FN+" "+LN}
+                {FN + " " + LN}
               </Descriptions.Item>
               {/* change code na makukuha yung data na nasa label */}
               <Descriptions.Item label="Mobile" span={3}>

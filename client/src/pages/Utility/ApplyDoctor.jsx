@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { DoctorForm } from "../../components";
-import moment from "moment";
+import moment from 'moment';
 
 function ApplyDoctor() {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ function ApplyDoctor() {
           userId: user._id,
           timings: [
             moment(values.timings[0]).format("HH:00"),
-            moment(values.timings[1]).format("HH:00"),
+            (values.timings[1]).format("HH:00"),
           ],
         },
 

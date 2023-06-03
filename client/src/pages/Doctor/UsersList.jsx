@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../../redux/alertSlice";
 import axios from "axios";
 import { Avatar, Card, Col, Row, Space, Table, Typography } from "antd";
-import moment from "moment";
+import moment from 'moment'
 import face from "../../assets/images/avatar-1.png";
 import { NavLink } from "react-router-dom";
 

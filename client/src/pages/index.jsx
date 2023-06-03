@@ -10,7 +10,7 @@ export { default as Verify } from "./Auth/Verify";
 export { default as DoctorAppointments } from "./Doctor/DoctorAppointments";
 export { default as DoctorProfile } from "./Doctor/Profile";
 
-export { default as BookAppointment } from "./User/BookAppointment";
+export { default as BookAppointment } from "./Doctor/BookAppointment";
 export { default as PatientProfile } from "./User/Profile";
 export { default as Messenger } from "./User/Messenger";
 

@@ -18,6 +18,7 @@ import Main from "../../layouts/Main";
 const urlParams = new URLSearchParams(window.location.search);
 const apiKey = process.env.REACT_APP_API_KEY;
 const userToken = localStorage.getItem("streamToken");
+
 const skipNameImageSet = urlParams.get("skip_name_image_set") || false;
 
 export const GiphyContext = React.createContext({});
@@ -28,6 +29,7 @@ const Messenger = () => {
   const [isMobileNavVisible, setMobileNav] = useState(false);
   const { user } = useSelector((state) => state.user);
   const [theme] = useState("light");
+
 
   const userToConnect = {
     id: user?._id,

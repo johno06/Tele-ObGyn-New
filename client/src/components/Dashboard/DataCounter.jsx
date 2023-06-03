@@ -1,12 +1,8 @@
 import { Card, Col, Row, Typography } from "antd";
-import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {useDispatch, useSelector} from 'react-redux';
-import {showLoading, hideLoading} from '../../redux/alertSlice';
-import {Avatar, Space, Table} from 'antd';
-import moment from 'moment';
-import face from '../../assets/images/avatar-1.png';
-import {NavLink} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { hideLoading, showLoading } from '../../redux/alertSlice';
 
 
 

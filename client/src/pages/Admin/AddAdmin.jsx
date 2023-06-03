@@ -7,7 +7,7 @@ import { showLoading, hideLoading } from "../../redux/alertSlice";
 import Main from "../../layouts/Main";
 
 import { CreateAdminForm, CreateDoctorForm, DoctorForm } from "../../components";
-import moment from "moment";
+
 
 function AddAdmin() {
   const { user } = useSelector((state) => state.user);
@@ -60,8 +60,8 @@ function AddAdmin() {
   //         ...values,
   //         userId: user._id,
   //         timings: [
-  //           moment(values.timings[0]).format("HH:00"),
-  //           moment(values.timings[1]).format("HH:00"),
+  //           dayjs(values.timings[0]).format("HH:00"),
+  //           dayjs(values.timings[1]).format("HH:00"),
   //         ],
   //       },
   //       {

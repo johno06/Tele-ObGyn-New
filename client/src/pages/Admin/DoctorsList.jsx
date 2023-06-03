@@ -3,7 +3,7 @@ import { hideLoading, showLoading } from "../../redux/alertSlice";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Main from "../../layouts/Main";
-import moment from "moment";
+import moment from 'moment'
 import {useDispatch, useSelector} from 'react-redux';
 import {Avatar, Card, Col, Row, Space, Table, Typography} from 'antd';
 import face from '../../assets/images/avatar-1.png';

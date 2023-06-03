@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Main from "../../layouts/Main";
 import { hideLoading, showLoading } from "../../redux/alertSlice";
-import moment from "moment";
+import moment from 'moment'
 import toast from "react-hot-toast";
 
 function BookAppointment() {
@@ -76,7 +76,7 @@ function BookAppointment() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/book-appointment",
+        "/api/doctor/book-appointment",
         {
           doctorId: params.doctorId,
           userId: user._id,
@@ -108,7 +108,7 @@ function BookAppointment() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/check-booking-availability",
+        "/api/doctor/check-booking-availability",
         {
           doctorId: params.doctorId,
           date: date,
