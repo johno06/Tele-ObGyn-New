@@ -6,6 +6,27 @@ const Appointment = require("../models/appointmentModel");
 const User = require("../models/userModels");
 const moment = require('moment');  
 
+
+
+
+router.post ('/get-user-info-by-id', async (req, res) => {
+  try {
+    // const user = await User.findOne({ userId: req.body.userId });
+    const user = await User.findById ({_id: req.body._id});
+    res.status (200).send ({
+      success: true,
+      message: 'Doctor info fetched successfully',
+      data: user,
+    });
+  } catch (error) {
+    res
+      .status (500)
+      .send ({message: 'Error getting doctor info', success: false, error});
+  }
+});
+
+
+
 router.post("/get-doctor-info-by-user-id", async (req, res) => {
   try {
     const doctor = await Doctor.findOne({ userId: req.body.userId });
@@ -132,6 +153,19 @@ router.post("/change-appointment-status", authMiddleware, async (req, res) => {
   }
 });
 
+
+router.patch ('/updateRtcToken/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const updates = req.body;
+    const options = {new: true};
+
+    const result = await User.findByIdAndUpdate (id, updates, options);
+    res.send (result);
+  } catch (error) {
+    console.log (error.message);
+    // res.json({message:'email is already used'})
+=======
 // yung dalawang codes dito yung codes na ginamit ko sa book appointment ng user, syempre iuupgrade mo kasi si god ramos ka 
 
 router.post("/book-appointment", authMiddleware, async (req, res) => {
@@ -194,6 +228,18 @@ router.post("/check-booking-availability", authMiddleware, async (req, res) => {
       success: false,
       error,
     });
+
+    router.patch ('/updateRtcToken/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const updates = req.body;
+    const options = {new: true};
+
+    const result = await User.findByIdAndUpdate (id, updates, options);
+    res.send (result);
+  } catch (error) {
+    console.log (error.message);
+    // res.json({message:'email is already used'})
   }
 });
 
