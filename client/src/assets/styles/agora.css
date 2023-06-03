@@ -1,12 +1,17 @@
 .index.wrapper {
-    background: url('../images/ag-index-background.png') center no-repeat;
-    background-size: cover;
+    /* background: url('../images/ag-index-background.png') center no-repeat;
+    background-size: cover; */
     min-height: 100%;
     height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-flow: column;
+  }
+
+  .agora-buttons{
+    width: 50%;
+    margin: 20px 10px 10px 10px;
   }
   
   .join{
@@ -81,16 +86,17 @@
     cursor: pointer;
   }
   
-  .login-wrapper {
+  /* .login-wrapper {
     color: rgb(216, 216, 216);
+   
     width: 284px;
     font-size: 14px;
-  }
+  } */
   
   .login-header,
   .login-footer {
     text-align: center;
-    margin: 30px 0;
+    margin: 15px 0;
   }
   
   .login-header p {
@@ -98,7 +104,7 @@
   }
   
   .login-header img {
-    width: 65%;
+    width: 25%;
   }
   
   

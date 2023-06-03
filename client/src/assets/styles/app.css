@@ -3,6 +3,16 @@
   color: #57C84D;
 }
 
+.wider-card{
+  width: 500px;
+  height: 200px !important; /* Specify the desired width value */
+  margin: 0 auto; /* Center the card horizontally */
+}
+
+.input-margin{
+  margin: 10px;
+}
+
 .resched-button{
   margin: 10px 0px 0px 0px!important;
   display: flex;

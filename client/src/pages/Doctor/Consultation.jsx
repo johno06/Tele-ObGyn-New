@@ -1,6 +1,6 @@
 import AgoraUIKit, { layout } from "agora-react-uikit";
 import "agora-react-uikit/dist/index.css";
-import axios from 'axios';
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "../../assets/styles/agora.css";
@@ -8,6 +8,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../../redux/alertSlice";
 import toast from "react-hot-toast";
+import { Button, Card, Col, Input, Row } from "antd";
+import Main from "../../layouts/Main";
 
 function Consultation() {
   // const [name, setName] = useState("");
@@ -24,8 +26,7 @@ function Consultation() {
   const navigate = useNavigate();
   const [doctor, setDoctor] = useState(null);
 
-
-   const getDoctorData = async () => {
+  const getDoctorData = async () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
@@ -54,54 +55,45 @@ function Consultation() {
     getDoctorData();
   }, []);
 
+  const [inputValue, setInputValue] = useState("");
 
-  ////////////////////////
+  const handleChange = (e) => {
+    setChannelName(e.target.value);
+  };
 
-    const [inputValue, setInputValue] = useState ('');
+  const handleValue = (e) => {
+    setChannelN(e.target.value);
+  };
 
-    const handleChange = e => {
-      setChannelName (e.target.value);
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Perform any actions with the input value here
+    console.log("Input value:", channelName);
+  };
 
-
-    const handleValue = e => {
-      setChannelN(e.target.value);
-    };
-
-    const handleSubmit = e => {
-      e.preventDefault ();
-      // Perform any actions with the input value here
-      console.log ('Input value:', channelName);
-    };
-
-
-  //////////////////////
-
-    const onCreate = async () => {
-    if (channelName.trim () === '') {
+  const onCreate = async () => {
+    if (channelName.trim() === "") {
       // setValidateError (true);
       return;
     }
 
     try {
       const url = `https://token-server-20wg.onrender.com/rtc/${channelName}/publisher/uid/0`;
-      const response = await axios.get (url);
+      const response = await axios.get(url);
       const data = response.data;
       const token = data.rtcToken;
-      setToken (token);
+      setToken(token);
       update(token);
-      localStorage.setItem ('rtcToken', token);
+      localStorage.setItem("rtcToken", token);
 
-      console.log (token);
+      console.log(token);
 
       // Display success message
-      console.log ('Create channel completed');
+      toast.success("Channel created!");
     } catch (error) {
-      console.error ('Error creating channel:', error);
+      toast.error("Error creating channel", error);
     }
   };
-
-
 
   const update = async (token) => {
     try {
@@ -114,33 +106,27 @@ function Consultation() {
         data,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
 
       console.log(response.data);
     } catch (error) {
-      console.error('Error updating RTC token:', error);
+      console.error("Error updating RTC token:", error);
     }
   };
 
   // console.log("asdasdsadsadas"+token);
   var dbToken = doctor?.rtcToken;
   // console.log("dbToken"+dbToken);
-  if(token === ""){
+  if (token === "") {
     token = dbToken;
     // console.log("eto"+token);
   }
   return (
-    //<Main>
-
-    
-
-
-
-    ////////////////////
-    <div
+    <Main>
+      {/* <div
       style={{
         width: "100vw",
         height: "100vh",
@@ -148,11 +134,8 @@ function Consultation() {
         flex: 1,
         backgroundColor: "#FAFAFA",
       }}
-    >
-
-    
+    > */}
       <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-      
         {videoCall ? (
           <>
             <div
@@ -184,6 +167,49 @@ function Consultation() {
                 <div className="login-header">
                   <img src={require("../../assets/images/logo-3.png")} alt="" />
                 </div>
+                {/* <Card bordered className="cricle-box h-full wider-card">
+                  <Row gutter={[16, 16]}>
+                    <Col span={12}>
+                      <Input
+                        className="input-margin"
+                        placeholder="Enter room name"
+                        value={channelN}
+                        onChange={handleValue}
+                      />
+                    </Col>
+                    <Col span={12}>
+                      <Input
+                        className="input-margin"
+                        placeholder="Create a room name"
+                        value={channelName}
+                        onChange={handleChange}
+                      />
+                    </Col>
+                  </Row>
+                  <Row gutter={[16, 16]}>
+                    <Col span={12}>
+                      <Button
+                        className="agora-buttons"
+                        type="primary"
+                        danger
+                        onClick={() => setVideoCall(true)}
+                      >
+                        Start Call
+                      </Button>
+                    </Col>
+                    <Col span={12}>
+                      <Button
+                        className="agora-buttons"
+                        type="primary"
+                        danger
+                        onClick={onCreate}
+                      >
+                        Create
+                      </Button>
+                    </Col>
+                  </Row>
+                </Card> */}
+
                 <div className="login-body">
                   <div className="columns">
                     <div className="column is-12">
@@ -227,15 +253,11 @@ function Consultation() {
                 </div>
               </section>
             </div>
-            <div className="ag-footer">
-              <a className="ag-href text-danger" href="https://www.agora.io">
-                <span>Powered By Agora</span>
-              </a>
-            </div>
           </div>
         )}
       </div>
-    </div>
+      {/* </div> */}
+    </Main>
   );
 }
 

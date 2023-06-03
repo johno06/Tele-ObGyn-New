@@ -21,6 +21,11 @@ function Sidenav({ color }) {
   function doctorMenu() {
     return (
       <>
+      <div className="brand">
+          <img src={logo} alt="" />
+          <span>TELE-OBGYN</span>
+        </div>
+        <hr />
         <Menu defaultSelectedKeys={["1"]} theme="light" mode="inline">
           <Menu.Item key="1">
             <NavLink to="/">
