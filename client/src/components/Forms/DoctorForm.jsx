@@ -1,8 +1,13 @@
 import { Button, Col, Form, Input, Row, TimePicker } from "antd";
 import React from "react";
-import moment from 'moment';;
+import moment from 'moment';import { useSelector } from "react-redux";
+;
 
 function DoctorForm({ onFinish, initialValues }) {
+  const { user } = useSelector((state) => state.user);
+
+  const activated = user?.isDoctor;
+
   return (
     <Form
       layout="vertical"

@@ -122,19 +122,18 @@ function Consultation() {
   // console.log("dbToken"+dbToken);
   if (token === "") {
     token = dbToken;
-    // console.log("eto"+token);
+    //console.log("eto"+token);
   }
   return (
-    <Main>
-      {/* <div
+    <div
       style={{
         width: "100vw",
         height: "100vh",
         display: "flex",
         flex: 1,
-        backgroundColor: "#FAFAFA",
+        backgroundColor: "#e0e0e0",
       }}
-    > */}
+    >
       <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
         {videoCall ? (
           <>
@@ -161,7 +160,7 @@ function Consultation() {
           </>
         ) : (
           <div className="wrapper index">
-            <div className="ag-header"></div>
+            {/* <div className="ag-header"></div> */}
             <div className="ag-main">
               <section className="login-wrapper">
                 <div className="login-header">
@@ -216,35 +215,35 @@ function Consultation() {
                       <div className="join">
                         <div className="row">
                           <div className="col">
-                            <input
-                              className="text-danger"
-                              type="text"
-                              placeholder="Enter Channel Name"
+                            <Input
+                              className="input-margin"
+                              placeholder="Enter room name"
                               value={channelN}
                               onChange={handleValue}
                             />
-                            <button
-                              className="text-danger"
+                            <Button
+                              className="agora-button2"
+                              // type="primary"
+                              // danger
                               onClick={() => setVideoCall(true)}
                             >
                               Start Call
-                            </button>
+                            </Button>
                           </div>
 
                           <div className="col">
-                            <input
-                              className="text-danger"
-                              type="text"
-                              placeholder="Create Channel"
+                            <Input
+                              className="input-margin"
+                              placeholder="Create a room name"
                               value={channelName}
                               onChange={handleChange}
                             />
-                            <button
-                              className="text-danger"
+                            <Button
+                              className="agora-button2"
                               onClick={onCreate}
                             >
-                              Create Channel
-                            </button>
+                              Create
+                            </Button>
                           </div>
                         </div>
                       </div>
@@ -254,10 +253,10 @@ function Consultation() {
               </section>
             </div>
           </div>
+          
         )}
       </div>
-      {/* </div> */}
-    </Main>
+    </div>
   );
 }
 

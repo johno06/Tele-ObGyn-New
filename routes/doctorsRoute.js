@@ -4,28 +4,23 @@ const Doctor = require("../models/doctorModel");
 const authMiddleware = require("../middleware/authMiddleware");
 const Appointment = require("../models/appointmentModel");
 const User = require("../models/userModels");
-const moment = require('moment');  
+const moment = require("moment");
 
-
-
-
-router.post ('/get-user-info-by-id', async (req, res) => {
+router.post("/get-user-info-by-id", async (req, res) => {
   try {
     // const user = await User.findOne({ userId: req.body.userId });
-    const user = await User.findById ({_id: req.body._id});
-    res.status (200).send ({
+    const user = await User.findById({ _id: req.body._id });
+    res.status(200).send({
       success: true,
-      message: 'Doctor info fetched successfully',
+      message: "Doctor info fetched successfully",
       data: user,
     });
   } catch (error) {
     res
-      .status (500)
-      .send ({message: 'Error getting doctor info', success: false, error});
+      .status(500)
+      .send({ message: "Error getting doctor info", success: false, error });
   }
 });
-
-
 
 router.post("/get-doctor-info-by-user-id", async (req, res) => {
   try {
@@ -36,13 +31,18 @@ router.post("/get-doctor-info-by-user-id", async (req, res) => {
       data: doctor,
     });
   } catch (error) {
-    res.status(500).send({ message: "Error getting doctor info", success: false, error });
+    res
+      .status(500)
+      .send({ message: "Error getting doctor info", success: false, error });
   }
 });
 
 router.post("/update-doctor-profile", authMiddleware, async (req, res) => {
   try {
-    const doctor = await Doctor.findOneAndUpdate({ userId: req.body.userId }, req.body);
+    const doctor = await Doctor.findOneAndUpdate(
+      { userId: req.body.userId },
+      req.body
+    );
 
     res.status(200).send({
       success: true,
@@ -50,7 +50,13 @@ router.post("/update-doctor-profile", authMiddleware, async (req, res) => {
       data: doctor,
     });
   } catch (error) {
-    res.status(500).send({ message: "Error updating doctor profile", success: false, error });
+    res
+      .status(500)
+      .send({
+        message: "Error updating doctor profile",
+        success: false,
+        error,
+      });
   }
 });
 
@@ -63,14 +69,16 @@ router.post("/get-doctor-info-by-id", async (req, res) => {
       data: doctor,
     });
   } catch (error) {
-    res.status(500).send({ message: "Error getting doctor info", success: false, error });
+    res
+      .status(500)
+      .send({ message: "Error getting doctor info", success: false, error });
   }
 });
 
 router.post("/get-appointments-by-doctor-id", async (req, res) => {
   try {
     const doctor = await Doctor.findOne({ _id: req.body.doctorId });
-    const appointments = await Appointment.find({doctorId: doctor._id});
+    const appointments = await Appointment.find({ doctorId: doctor._id });
     res.status(200).send({
       message: "Appointments fetched successfully",
       success: true,
@@ -86,25 +94,24 @@ router.post("/get-appointments-by-doctor-id", async (req, res) => {
   }
 });
 
-router.post('/get-appointment-id', async (req, res) => {
+router.post("/get-appointment-id", async (req, res) => {
   try {
     // const doctor = await Doctor.findOne ({_id: req.body.doctorId});
-    const appointments = await Appointment.findById ({_id: req.body._id});
-    res.status (200).send ({
-      message: 'Appointment fetched successfully',
+    const appointments = await Appointment.findById({ _id: req.body._id });
+    res.status(200).send({
+      message: "Appointment fetched successfully",
       success: true,
       data: appointments,
     });
   } catch (error) {
-    console.log (error);
-    res.status (500).send ({
-      message: 'Error fetching appointment',
+    console.log(error);
+    res.status(500).send({
+      message: "Error fetching appointment",
       success: false,
       error,
     });
   }
 });
-
 
 // router.post("/get-appointment-by-user-id", async (req, res) => {
 //   try {
@@ -149,31 +156,36 @@ router.post("/change-appointment-status", authMiddleware, async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send({ message: "Error changing appointment status", success: false, error });
+    res
+      .status(500)
+      .send({
+        message: "Error changing appointment status",
+        success: false,
+        error,
+      });
   }
 });
 
+// router.patch ('/updateRtcToken/:id', async (req, res, next) => {
+//   try {
+//     const id = req.params.id;
+//     const updates = req.body;
+//     const options = {new: true};
 
-router.patch ('/updateRtcToken/:id', async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    const updates = req.body;
-    const options = {new: true};
+//     const result = await User.findByIdAndUpdate (id, updates, options);
+//     res.send (result);
+//   } catch (error) {
+//     console.log (error.message);
+// res.json({message:'email is already used'})
 
-    const result = await User.findByIdAndUpdate (id, updates, options);
-    res.send (result);
-  } catch (error) {
-    console.log (error.message);
-    // res.json({message:'email is already used'})
-=======
-// yung dalawang codes dito yung codes na ginamit ko sa book appointment ng user, syempre iuupgrade mo kasi si god ramos ka 
+// yung dalawang codes dito yung codes na ginamit ko sa book appointment ng user, syempre iuupgrade mo kasi si god ramos ka
 
 router.post("/book-appointment", authMiddleware, async (req, res) => {
   try {
     req.body.status = "pending";
     req.body.date = moment(req.body.date, "DD-MM-YYYY").toISOString();
     req.body.time = moment(req.body.time, "HH:00").toISOString();
-    
+
     const newAppointment = new Appointment(req.body);
     await newAppointment.save();
     //pushing notification to doctor based on his userid
@@ -202,7 +214,9 @@ router.post("/book-appointment", authMiddleware, async (req, res) => {
 router.post("/check-booking-availability", authMiddleware, async (req, res) => {
   try {
     const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
-    const fromTime = moment(req.body.time, "HH:00").subtract(1, "hours").toISOString();
+    const fromTime = moment(req.body.time, "HH:00")
+      .subtract(1, "hours")
+      .toISOString();
     const toTime = moment(req.body.time, "HH:00").add(1, "hours").toISOString();
     const doctorId = req.body.doctorId;
     const appointments = await Appointment.find({
@@ -228,22 +242,21 @@ router.post("/check-booking-availability", authMiddleware, async (req, res) => {
       success: false,
       error,
     });
-
-    router.patch ('/updateRtcToken/:id', async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    const updates = req.body;
-    const options = {new: true};
-
-    const result = await User.findByIdAndUpdate (id, updates, options);
-    res.send (result);
-  } catch (error) {
-    console.log (error.message);
-    // res.json({message:'email is already used'})
   }
 });
 
+router.patch("/updateRtcToken/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const updates = req.body;
+    const options = { new: true };
 
-
+    const result = await User.findByIdAndUpdate(id, updates, options);
+    res.send(result);
+  } catch (error) {
+    console.log(error.message);
+    // res.json({message:'email is already used'})
+  }
+});
 
 module.exports = router;

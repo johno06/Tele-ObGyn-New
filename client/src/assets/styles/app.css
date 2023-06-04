@@ -1548,7 +1548,7 @@ ul.ant-menu.ant-menu-root.ant-menu-inline.ant-menu-light.left-nav li:active {
   height: 30px;
 }
 .aside-footer {
-  padding-top: 100px;
+  padding-top: 60px !important;
 }
 .ant-card-body {
   padding: 16px;
