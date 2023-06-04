@@ -62,7 +62,7 @@ router.post("/update-doctor-profile", authMiddleware, async (req, res) => {
 
 router.post("/get-doctor-info-by-id", async (req, res) => {
   try {
-    const doctor = await Doctor.findOne({ _id: req.body.doctorId });
+    const doctor = await Doctor.findOne({ _id: req.body._id });
     res.status(200).send({
       success: true,
       message: "Doctor info fetched successfully",
@@ -258,5 +258,23 @@ router.patch("/updateRtcToken/:id", async (req, res, next) => {
     // res.json({message:'email is already used'})
   }
 });
+
+
+router.patch ('/updateBookingAppointment/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const updates = req.body;
+    const options = {new: true};
+
+    const result = await Appointment.findByIdAndUpdate (id, updates, options);
+    res.send (result);
+  } catch (error) {
+    console.log (error.message);
+    // res.json({message:'email is already used'})
+  }
+});
+
+
+
 
 module.exports = router;

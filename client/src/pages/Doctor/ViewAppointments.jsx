@@ -232,7 +232,7 @@ function ViewAppointments() {
                     type="primary"
                     style={{ width: "150px", height: "40px" }}
                     //baguhin function nung id hahaha
-                    onClick={() => navigate(`/book-appointment/${doctor._id}`)}
+                    onClick={() => navigate(`/book-appointment/${params.userId}`)}
                   >
                     Reschedule
                   </Button>
