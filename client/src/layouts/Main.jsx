@@ -12,7 +12,7 @@ const { Header: AntHeader, Content, Sider } = Layout;
 function Main({ children }) {
   const { user } = useSelector((state) => state.user);
   const [sidenavType, setSidenavType] = useState("transparent");
-  const [sidenavColor, setSidenavColor] = useState("#E3242B");
+  const [sidenavColor, setSidenavColor] = useState("#FE2C53");
   let { pathname } = useLocation();
   
   pathname = pathname.replace("/", " ");

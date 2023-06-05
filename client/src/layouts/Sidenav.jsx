@@ -124,7 +124,7 @@ function Sidenav({ color }) {
               </span>
             </NavLink>
             <h6>
-              Dr. {user?.firstName} {user?.surname}
+              Dr. {user?.name} {user?.surname}
             </h6>
             <p>{role}</p>
             <Button

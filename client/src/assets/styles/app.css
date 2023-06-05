@@ -33,7 +33,7 @@
 }
 
 .trigger:hover {
-  color: #1890ff;
+  color: #FE2C53;
 }
 
 
@@ -221,7 +221,7 @@ body {
   .ant-menu-item
   .active
   .icon {
-  background-color: #1890ff;
+  background-color: #FE2C53;
 }
 .layout-dashboard
   .ant-layout-sider.sider-primary
@@ -239,7 +239,7 @@ body {
   .ant-menu-submenu
   .active
   .icon {
-  background-color: #1890ff;
+  background-color: #FE2C53;
 }
 
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item .icon,
@@ -349,7 +349,7 @@ body {
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
-  background-color: #1890ff;
+  background-color: #FE2C53;
 }
 
 .layout-dashboard
@@ -2392,7 +2392,7 @@ section.ant-layout.layout-content .ant-layout-content.content-ant {
   width: 64px;
   height: 64px;
   margin: auto;
-  background-color: #1890ff;
+  background-color: #F94E68;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgb(0 0 0 / 12%);
   display: flex;
@@ -2648,12 +2648,26 @@ section.ant-layout.layout-content .ant-layout-content.content-ant {
   padding-top: 0px;
 }
 .profile-nav-bg {
-  height: 200px !important;; 
+  height: 220px !important;; 
   margin-top: -137.8px !important; 
   border-radius: 12px !important;
   box-shadow: 0 20px 27px rgb(0 0 0 / 5%) !important;
   background-size: cover !important;
   background-position: 50% !important;
+  
+}
+
+.profile-home-bg {
+  height: 200px !important;; 
+  margin-top: -137.8px !important; 
+  border-radius: 12px !important;
+  box-shadow: 0 20px 27px rgb(0 0 0 / 5%) !important;
+  /* background-size: 1100px !important;
+  background-position: top !important;
+  background-repeat: no-repeat; */
+  background-size: cover !important;
+  background-position: 50% !important;
+  padding-top: 25px;
   
 }
 
