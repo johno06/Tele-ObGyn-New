@@ -142,6 +142,29 @@ function ViewAppointments() {
     getAppointmentsData();
   }, []);
 
+  const changeAppointmentStatus = async (record, status) => {
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        "/api/doctor/change-appointment-status",
+        { appointmentId: record._id, status: status },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response.data.success) {
+        toast.success(response.data.message);
+        getAppointmentsData();
+      }
+    } catch (error) {
+      toast.error("Error changing doctor status");
+      dispatch(hideLoading());
+    }
+  };
+
   const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "User";
   const FN = appointment?.userInfo?.name;
   const LN = appointment?.userInfo?.surname;
@@ -161,10 +184,26 @@ function ViewAppointments() {
           className="mb-24"
         >
           <Card bordered={false} className="criclebox h-full">
+          {appointment?.status === "completed" && (
+            <Meta
+              avatar={<Avatar src={check} />}
+              title={<h5 className="card-title-green">Appointment Complete!</h5>}
+            />
+          )}
+
+          {appointment?.status === "approved" && (
             <Meta
               avatar={<Avatar src={check} />}
               title={<h5 className="card-title-green">Appointment Booked!</h5>}
             />
+          )}
+
+          {appointment?.status === "pending" && (
+            <Meta
+              // avatar={<Avatar src={check} />}
+              title={<h5 className="card-title-black">Pending Appointment!</h5>}
+            />
+          )}
 
             <hr />
             <Row gutter={16}>
@@ -214,6 +253,15 @@ function ViewAppointments() {
                   <h6 className="font-semibold m-0">{params.userId}</h6>
                 </div>
               </Col>
+              <Col span={12}>
+                <div className="ant-muse pt-3">
+                  <Text>Status</Text>
+                  <br />
+                  {/* change code na makukuha yung appointment id */}
+                  <h6 className="font-semibold m-0">{appointment?.status}</h6>
+
+                </div>
+              </Col>
 
               <Col span={12}>
                 <div className="ant-muse pt-3">
@@ -226,7 +274,23 @@ function ViewAppointments() {
                   </Space>
                 </div>
               </Col>
-              <Col span={12}>
+
+              {appointment?.status === "approved" && (
+              <div className="flex justify-center items-center">
+              <Row gutter={[50, 0]}>
+              <Col span={8}>
+                <div className="resched-button pt-3">
+                  <Button
+                    type="primary"
+                    style={{ width: "150px", height: "40px", backgroundColor:'#FF6347' }}
+                    //baguhin function nung id hahaha
+                    onClick={() => changeAppointmentStatus(appointment, "absent")}
+                  >
+                    No-Show
+                  </Button>
+                </div>
+              </Col>
+              <Col span={8}>
                 <div className="resched-button pt-3">
                   <Button
                     type="primary"
@@ -238,6 +302,22 @@ function ViewAppointments() {
                   </Button>
                 </div>
               </Col>
+              <Col span={8}>
+                <div className="resched-button pt-3">
+                  <Button
+                    type="primary"
+                    style={{ width: "150px", height: "40px" , backgroundColor: '#32CD32',}}
+                    //baguhin function nung id hahaha
+                    onClick={() => changeAppointmentStatus(appointment, "completed")}
+                  >
+                    Complete
+                  </Button>
+                </div>
+              </Col>
+              </Row>
+              </div>
+              )}
+
             </Row>
           </Card>
         </Col>

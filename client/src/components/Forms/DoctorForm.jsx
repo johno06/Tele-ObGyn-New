@@ -102,7 +102,7 @@ function DoctorForm({ onFinish, initialValues }) {
 
       <div className="d-flex justify-content-end">
       <Button type="danger" htmlType="submit">
-          Activate
+          Update Profile
         </Button>
       </div>
     </Form>

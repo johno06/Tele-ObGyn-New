@@ -244,6 +244,28 @@ router.post("/register-doctor", async (req, res) => {
   }
 });
 
+router.post ('/update-patient-profile', authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate (
+      {_id: req.body._id},
+      req.body
+    );
+
+    res.status (200).send ({
+      success: true,
+      message: 'Updated successfully',
+      data: user,
+    });
+  } catch (error) {
+    res.status (500).send ({
+      message: 'Error updating user profile',
+      success: false,
+      error,
+    });
+  }
+});
+
+
 
 
 module.exports = router;
