@@ -3,7 +3,7 @@ import axios from "axios";
 import Main from "../layouts/Main";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/alertSlice";
-import { Card, Col, Row } from "antd";
+import { Card, Col, Row, Statistic, Typography } from "antd";
 import {
   ActiveDoctor,
   DataCounter,
@@ -13,11 +13,15 @@ import {
   LineChart,
 } from "../components";
 import card from "../assets/images/doctor-card.png";
+import BgHome from "../assets/images/homebg.png";
+import { PlusOutlined, ExclamationOutlined } from "@ant-design/icons";
+import Patients from "../assets/images/patients.png";
 
 function Home() {
   const { user } = useSelector((state) => state.user);
   const [doctors, setDoctor] = useState([]);
   const dispatch = useDispatch();
+  const { Paragraph } = Typography;
 
   const getData = async () => {
     try {
@@ -102,7 +106,86 @@ function Home() {
   } else {
     return (
       <Main>
-        <div className="layout-content">
+        <div
+          className="profile-home-bg "
+          style={{ backgroundImage: "url(" + BgHome + ")" }}
+        >
+          <div>
+            <h4 style={{ color: "#ffffff", marginLeft: "25px" }}>Welcome!</h4>
+            <h3
+              style={{
+                color: "#ffffff",
+                marginLeft: "25px",
+                marginTop: "15px",
+              }}
+            >
+              {" "}
+              Dr. {user?.name} {user?.surname}
+            </h3>
+            <Paragraph
+              style={{
+                color: "#ffffff",
+                marginLeft: "25px",
+                marginTop: "15px",
+                width: "500px",
+              }}
+            >
+              {" "}
+              Thank you for using Tele-ObGyn, We are always trying to get you a
+              complete service. You can view your appointments and consult
+              patients at home!
+            </Paragraph>
+          </div>
+        </div>
+        <Row style={{ marginTop: "25px" }} gutter={[24, 0]}>
+          <Col xs={12} xl={6} className="mb-24">
+      
+          </Col>
+          <Col xs={12} xl={6} className="mb-24">
+            <Card bordered={false} className="widget-2 h-full">
+              <Statistic
+                title={
+                  <>
+                    <div className="icon"></div>
+                    <h6>All Patients</h6>
+                  </>
+                }
+                value={"$2,000"}
+                prefix={<PlusOutlined />}
+              />
+            </Card>
+          </Col>
+          <Col xs={12} xl={6} className="mb-24">
+            <Card bordered={false} className="widget-2 h-full">
+              <Statistic
+                title={
+                  <>
+                    <div className="icon"></div>
+                    <h6>Pending Appointments</h6>
+                  </>
+                }
+                value={"$2,000"}
+                prefix={<PlusOutlined />}
+              />
+            </Card>
+          </Col>
+          <Col xs={12} xl={6} className="mb-24">
+            <Card bordered={false} className="widget-2 h-full">
+              <Statistic
+                title={
+                  <>
+                    <div className="icon"></div>
+                    <h6>Completed Appointments</h6>
+                  </>
+                }
+                value={"$2,000"}
+                prefix={<PlusOutlined />}
+              />
+            </Card>
+          </Col>
+        </Row>
+
+        {/* <div className="layout-content">
           <Row gutter={[24, 0]}>
             {doctors.map((doctor) => (
               <Col xs={24} md={12} sm={24} lg={12} xl={14} className="mb-24">
@@ -110,7 +193,7 @@ function Home() {
               </Col>
             ))}
           </Row>
-        </div>
+        </div> */}
       </Main>
     );
   }
