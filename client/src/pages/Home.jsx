@@ -139,7 +139,18 @@ function Home() {
         </div>
         <Row style={{ marginTop: "25px" }} gutter={[24, 0]}>
           <Col xs={12} xl={6} className="mb-24">
-      
+            <Card bordered={false} className="widget-2 h-full">
+              <Statistic
+                title={
+                  <>
+                    <div className="icon"></div>
+                    <h6>All Doctors</h6>
+                  </>
+                }
+                value={"$2,000"}
+                prefix={<PlusOutlined />}
+              />
+            </Card>
           </Col>
           <Col xs={12} xl={6} className="mb-24">
             <Card bordered={false} className="widget-2 h-full">
