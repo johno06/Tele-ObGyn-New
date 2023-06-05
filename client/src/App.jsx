@@ -38,6 +38,8 @@ import {
 } from "./components";
 
 import MainNav from "./components/Navbars/MainNav";
+import UsersListDoctor from "./pages/Doctor/UsersList";
+import ProfileViewAdmin from "./pages/Admin/PatientProfileAdmin";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -163,6 +165,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/admin/profile/:userId"
+          element={
+            <ProtectedRoute>
+              <ProfileViewAdmin />
+            </ProtectedRoute>
+          }
+        />
         {/* View Appointments, di ko muna nilagyan ng id para lumabas agad ui */}
         <Route
           path="/doctor/appointments/:userId"
@@ -240,7 +250,7 @@ function App() {
           path="/doctor/userslist"
           element={
             <ProtectedRoute>
-              <UsersList />
+              <UsersListDoctor />
             </ProtectedRoute>
           }
         />

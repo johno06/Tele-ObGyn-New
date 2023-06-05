@@ -49,7 +49,7 @@ function UsersList() {
               CreatedAt: moment(row.createdAt).format("DD/MM/YYYY"),
               actions: (
                 <Space className="ant-employed" size="middle">
-                  <NavLink to={`/user/profile/${row._id}`}>
+                  <NavLink to={`/admin/profile/${row._id}`}>
                     <a>View Profile</a>
                   </NavLink>
                   <a>Delete</a>

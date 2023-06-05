@@ -7,6 +7,17 @@ import toast from "react-hot-toast";
 import Main from "../../layouts/Main";
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
+import {
+  Avatar,
+  Button,
+  Card,
+  Col,
+  Descriptions,
+  Row,
+  Space,
+  Typography,
+} from 'antd';
+
 
 import { NavLink } from "react-router-dom";
 
@@ -134,9 +145,10 @@ function DoctorAppointments() {
       title: "Actions",
       dataIndex: "actions",
       render: (text, record) => (
-        <div className="d-flex">
+        <div className="">
+        <Row Row gutter={[100, 0]}>
           {record.status === "approved" && (
-            <div className="d-flex">
+            <div className="">
               {/* babaguhin pa function nito */}
               <NavLink to={`/doctor/appointments/`+record._id}>
                     <a>Edit</a>
@@ -144,14 +156,56 @@ function DoctorAppointments() {
               {/* <h1 className="anchor px-2" onClick={() => changeAppointmentStatus(record, "approved")}>
                 Edit
               </h1> */}
-              {/* <h1 className="anchor px-2" onClick={() => changeAppointmentStatus(record, "approved")}>
-                Edit
+              {/* <h1 className="anchor px-2" onClick={() => changeAppointmentStatus(record, "completed")}>
+                Complete
               </h1> */}
               {/* <h1 className="anchor" onClick={() => changeAppointmentStatus(record, "rejected")}>
-                Reject
+              Reject
               </h1> */}
             </div>
           )}
+
+          {record.status === "completed" && (
+            <div className="">
+              {/* babaguhin pa function nito */}
+              <NavLink to={`/doctor/appointments/`+record._id}>
+                    <a>View</a>
+                  </NavLink>
+              {/* <h1 className="anchor px-2" onClick={() => changeAppointmentStatus(record, "approved")}>
+                Edit
+              </h1> */}
+              {/* <h1 className="anchor px-2" onClick={() => changeAppointmentStatus(record, "completed")}>
+                Complete
+              </h1> */}
+              {/* <h1 className="anchor" onClick={() => changeAppointmentStatus(record, "rejected")}>
+              Reject
+              </h1> */}
+            </div>
+          )}
+          {record.status === "pending" && (
+            <div className="">
+            <Row Row gutter={0}>
+            <Col span={7}>
+              {/* babaguhin pa function nito */}
+              <NavLink to={`/doctor/appointments/`+record._id}>
+                    <a>View</a>
+                  </NavLink>
+                  </Col>
+                  <Col span={14}><h1 className="anchor px-2" onClick={() => changeAppointmentStatus(record, "approved")}>
+                Approve
+              </h1></Col>
+              
+              {/* <h1 className="anchor px-2" onClick={() => changeAppointmentStatus(record, "completed")}>
+                Complete
+              </h1> */}
+              <Col span={3}><h1 className="anchor" onClick={() => changeAppointmentStatus(record, "rejected")}>
+              Reject
+              </h1></Col>
+              
+             </Row>
+            </div>
+          )}
+           </Row>
         </div>
       ),
     },

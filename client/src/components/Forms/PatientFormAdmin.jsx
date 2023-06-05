@@ -1,17 +1,64 @@
 import { Button, Col, Form, Input, Row, Select, DatePicker } from "antd";
 import React, { useState } from "react";
 import moment from 'moment'
+import {useDispatch, useSelector} from 'react-redux';
+import {showLoading, hideLoading} from '../../redux/alertSlice';
+import {toast} from 'react-hot-toast';
+import axios from 'axios';
+import {useNavigate, useParams} from 'react-router-dom';
 
-function PatientForm({ onFinish, initialValues }) {
+function PatientFormAdmin({ onFinish, initialValues }) {
   const [birthdate, setDate] = useState();
-  const dateFormat = "DD/MM/YYYY";
+  const dateFormat = "YYYY/MM/DD";
+  const { user } = useSelector((state) => state.user);
+  const params = useParams();
+  const [doctor, setDoctor] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //DATE UNDER CONSTRUCTION
+    const handleDateChange = birthdate => {
+    setDate(birthdate);
+    };
+
+
+   const onFinish1 = async (values) => {
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        "/api/admin/update-patient-profile",
+        {
+          ...values,
+          birthdate: (birthdate).format("YYYY-MM-DD"),
+          _id: params.userId,
+        //   timings: [
+        //     (values.timings[0]).format("HH:00"),
+        //     (values.timings[1]).format("HH:00"),
+        //   ],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response.data.success) {
+        toast.success(response.data.message);
+        navigate("/admin/userslist");
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(hideLoading());
+      toast.error("Something went wrong:", error);
+    }
+  };
 
   return (
     <Form
       layout="vertical"
-      onFinish={onFinish}
+      onFinish={onFinish1}
       initialValues={{
         ...initialValues,
         ...(initialValues && {
@@ -44,10 +91,15 @@ function PatientForm({ onFinish, initialValues }) {
         <Col span={8} xs={24} sm={24} lg={8}>
           <Form.Item required label="Date of Birth" name="birthdate" rules={[{ required: true }]}>
             <DatePicker
-              format={dateFormat}
-              onChange={(initialValues) => {
-                setDate(moment(initialValues));
-              }}
+            selected = {birthdate}
+                    style={{ width: "100%" }}
+                    format="YYYY-MM-DD"
+                    onChange={handleDateChange}
+            //   format={dateFormat}
+            //   onChange={(initialValues) => {
+            //     setDate((initialValues));
+            //     (birthdate).format("YYYY-MM-DD");
+            //   }}
             />
           </Form.Item>
         </Col>
@@ -83,12 +135,12 @@ function PatientForm({ onFinish, initialValues }) {
       </Row> */}
 
       <div className="d-flex justify-content-end">
-        {/* <Button className="primary-button" htmlType="submit">
-          SUBMIT
-        </Button> */}
+        <Button className="primary-button" htmlType="submit">
+          Update Patient
+        </Button>
       </div>
     </Form>
   );
 }
 
-export default PatientForm;
+export default PatientFormAdmin;

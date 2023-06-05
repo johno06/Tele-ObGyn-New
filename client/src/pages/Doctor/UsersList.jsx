@@ -9,7 +9,7 @@ import face from "../../assets/images/avatar-1.png";
 import { NavLink } from "react-router-dom";
 
 
-function UsersList() {
+function UsersListDoctor() {
   const [users, setUsers] = useState([]);
   var { user } = useSelector((state) => state.user);
   const { Title } = Typography;
@@ -53,7 +53,7 @@ function UsersList() {
                   <NavLink to={`/user/profile/${row._id}`}>
                     <a>View Profile</a>
                   </NavLink>
-                  <a>Delete</a>
+                  {/* <a>Delete</a> */}
                 </Space>
               ),
             })),
@@ -79,7 +79,7 @@ function UsersList() {
       width: "32%",
     },
     {
-      title: "EMAIL",
+   title: "EMAIL",
       dataIndex: "email",
     },
     {
@@ -117,4 +117,4 @@ function UsersList() {
   );
 }
 
-export default UsersList;
+export default UsersListDoctor;
