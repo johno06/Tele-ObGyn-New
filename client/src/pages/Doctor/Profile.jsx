@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  Row,
-  Col,
-  Card,
-  Avatar,
-} from "antd";
+import { Row, Col, Card, Avatar } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../../redux/alertSlice";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import DoctorForm from "../../components/Forms/DoctorForm";
-import moment from 'moment'
+import moment from "moment";
 import Main from "../../layouts/Main";
 import BgProfile from "../../assets/images/pinkBg.jpg";
 import profilavatar from "../../assets/images/face-1.jpg";
@@ -23,17 +18,16 @@ function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [time, setTime] = useState ();
-  const [time2, setTime2] = useState ();
+  const [time, setTime] = useState();
+  const [time2, setTime2] = useState();
 
-  const handleTimeChange = date => {
-    setTime (time);
+  const handleTimeChange = (date) => {
+    setTime(time);
   };
 
-  const handleTimeChange2 = time => {
-    setTime2 (time2);
+  const handleTimeChange2 = (time) => {
+    setTime2(time2);
   };
-
 
   const onFinish = async (values) => {
     try {
@@ -44,8 +38,8 @@ function Profile() {
           ...values,
           userId: user._id,
           timings: [
-            (values.timings[0]).format("HH:00"),
-            (values.timings[1]).format("HH:00"),
+            values.timings[0].format("HH:00"),
+            values.timings[1].format("HH:00"),
           ],
         },
         {
@@ -102,7 +96,10 @@ function Profile() {
 
   return (
     <Main>
-      <div className="profile-nav-bg" style={{ backgroundImage: "url(" + BgProfile + ")" }} />
+      <div
+        className="profile-nav-bg"
+        style={{ backgroundImage: "url(" + BgProfile + ")" }}
+      />
       <Card
         className="card-profile-head"
         bodyStyle={{ display: "none" }}
@@ -110,10 +107,12 @@ function Profile() {
           <Row justify="space-between" align="middle" gutter={[24, 0]}>
             <Col span={24} md={12} className="col-info">
               <Avatar.Group>
-                <Avatar size={55} shape="square" src={profilavatar} />
+                <Avatar size={74} shape="square" src={profilavatar} />
 
                 <div className="avatar-info">
-                  <h4 className="font-semibold m-0">{FN} {LN}</h4>
+                  <h4 className="font-semibold m-0">
+                    {FN} {LN}
+                  </h4>
                   <p>{role}</p>
                 </div>
               </Avatar.Group>

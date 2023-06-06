@@ -51,7 +51,7 @@ function CreateDoctorForm({ form, onFinish }) {
           <Input.Password />
         </Form.Item>
         <Form.Item>
-          <Button type="danger" htmlType="submit">
+          <Button type="primary" danger htmlType="submit">
             Create Doctor
           </Button>
         </Form.Item>
