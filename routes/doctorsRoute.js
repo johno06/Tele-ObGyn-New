@@ -274,6 +274,68 @@ router.patch ('/updateBookingAppointment/:id', async (req, res, next) => {
   }
 });
 
+router.get ('/get-all-pending-appointments', async (req, res) => {
+  try {
+    const appointment = await Appointment.find ({
+      status: "pending",
+    });
+    res.status (200).send ({
+      message: 'Pending Appointments fetched successfully',
+      success: true,
+      data: appointment.length,
+    });
+  } catch (error) {
+    console.log (error);
+    res.status (500).send ({
+      message: 'Error',
+      success: false,
+      error,
+    });
+  }
+});
+
+
+router.get ('/get-all-completed-appointments', async (req, res) => {
+  try {
+    const appointment = await Appointment.find ({
+      status: 'completed',
+    });
+    res.status (200).send ({
+      message: 'Completed Appointments fetched successfully',
+      success: true,
+      data: appointment.length,
+    });
+  } catch (error) {
+    console.log (error);
+    res.status (500).send ({
+      message: 'Error',
+      success: false,
+      error,
+    });
+  }
+});
+router.get ('/get-all-approved-appointments', async (req, res) => {
+  try {
+    const appointment = await Appointment.find ({
+      status: 'approved',
+    });
+    res.status (200).send ({
+      message: 'Approved Appointments fetched successfully',
+      success: true,
+      data: appointment.length,
+    });
+  } catch (error) {
+    console.log (error);
+    res.status (500).send ({
+      message: 'Error',
+      success: false,
+      error,
+    });
+  }
+});
+
+
+
 
 
 
