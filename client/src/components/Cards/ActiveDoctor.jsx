@@ -8,11 +8,10 @@ export default function ActiveDoctor() {
   return (
     <div className="h-full col-content p-20">
       <div className="ant-muse">
-        <Text>Built by developers</Text>
-        <Title level={5}>Muse Dashboard for Ant Design</Title>
+        <Text>Built by Hans San Tech</Text>
+        <Title level={5}>Tele-ObGyn for Fuentes Clinic</Title>
         <Paragraph className="lastweek mb-36">
-          From colors, cards, typography to complex elements, you will find the
-          full documentation.
+          From buttons, tables, cards to complex elements, we made this for you.
         </Paragraph>
       </div>
       <div className="card-footer">

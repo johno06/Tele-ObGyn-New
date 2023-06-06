@@ -1,99 +1,46 @@
 import { Card, Col, Row, Typography } from "antd";
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { hideLoading, showLoading } from '../../redux/alertSlice';
-
-
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { hideLoading, showLoading } from "../../redux/alertSlice";
 
 export default function DataCounter() {
   const { Title } = Typography;
-  const dollor = [
+
+  const appointment = [
+    <svg xmlns="http://www.w3.org/2000/svg" height="22" width="22" fill="#fff" viewBox="0 0 448 512"><path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zM329 305c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-95 95-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L329 305z"/></svg>
+  ]
+
+  const doctor = [
     <svg
-      width="22"
-      height="22"
-      viewBox="0 0 20 20"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      key={0}
+      height="22"
+      width="22"
+      viewBox="0 0 448 512"
+      fill="#fff"
     >
-      <path
-        d="M8.43338 7.41784C8.58818 7.31464 8.77939 7.2224 9 7.15101L9.00001 8.84899C8.77939 8.7776 8.58818 8.68536 8.43338 8.58216C8.06927 8.33942 8 8.1139 8 8C8 7.8861 8.06927 7.66058 8.43338 7.41784Z"
-        fill="#fff"
-      ></path>
-      <path
-        d="M11 12.849L11 11.151C11.2206 11.2224 11.4118 11.3146 11.5666 11.4178C11.9308 11.6606 12 11.8861 12 12C12 12.1139 11.9308 12.3394 11.5666 12.5822C11.4118 12.6854 11.2206 12.7776 11 12.849Z"
-        fill="#fff"
-      ></path>
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 5C11 4.44772 10.5523 4 10 4C9.44772 4 9 4.44772 9 5V5.09199C8.3784 5.20873 7.80348 5.43407 7.32398 5.75374C6.6023 6.23485 6 7.00933 6 8C6 8.99067 6.6023 9.76515 7.32398 10.2463C7.80348 10.5659 8.37841 10.7913 9.00001 10.908L9.00002 12.8492C8.60902 12.7223 8.31917 12.5319 8.15667 12.3446C7.79471 11.9275 7.16313 11.8827 6.74599 12.2447C6.32885 12.6067 6.28411 13.2382 6.64607 13.6554C7.20855 14.3036 8.05956 14.7308 9 14.9076L9 15C8.99999 15.5523 9.44769 16 9.99998 16C10.5523 16 11 15.5523 11 15L11 14.908C11.6216 14.7913 12.1965 14.5659 12.676 14.2463C13.3977 13.7651 14 12.9907 14 12C14 11.0093 13.3977 10.2348 12.676 9.75373C12.1965 9.43407 11.6216 9.20873 11 9.09199L11 7.15075C11.391 7.27771 11.6808 7.4681 11.8434 7.65538C12.2053 8.07252 12.8369 8.11726 13.254 7.7553C13.6712 7.39335 13.7159 6.76176 13.354 6.34462C12.7915 5.69637 11.9405 5.26915 11 5.09236V5Z"
-        fill="#fff"
-      ></path>
+      <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-96 55.2C54 332.9 0 401.3 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7c0-81-54-149.4-128-171.1V362c27.6 7.1 48 32.2 48 62v40c0 8.8-7.2 16-16 16H336c-8.8 0-16-7.2-16-16s7.2-16 16-16V424c0-17.7-14.3-32-32-32s-32 14.3-32 32v24c8.8 0 16 7.2 16 16s-7.2 16-16 16H256c-8.8 0-16-7.2-16-16V424c0-29.8 20.4-54.9 48-62V304.9c-6-.6-12.1-.9-18.3-.9H178.3c-6.2 0-12.3 .3-18.3 .9v65.4c23.1 6.9 40 28.3 40 53.7c0 30.9-25.1 56-56 56s-56-25.1-56-56c0-25.4 16.9-46.8 40-53.7V311.2zM144 448a24 24 0 1 0 0-48 24 24 0 1 0 0 48z" />
     </svg>,
   ];
+
   const profile = [
     <svg
-      width="22"
-      height="22"
-      viewBox="0 0 20 20"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      key={0}
+      height="22"
+      width="22"
+      fill="#fff"
+      viewBox="0 0 640 512"
     >
-      <path
-        d="M9 6C9 7.65685 7.65685 9 6 9C4.34315 9 3 7.65685 3 6C3 4.34315 4.34315 3 6 3C7.65685 3 9 4.34315 9 6Z"
-        fill="#fff"
-      ></path>
-      <path
-        d="M17 6C17 7.65685 15.6569 9 14 9C12.3431 9 11 7.65685 11 6C11 4.34315 12.3431 3 14 3C15.6569 3 17 4.34315 17 6Z"
-        fill="#fff"
-      ></path>
-      <path
-        d="M12.9291 17C12.9758 16.6734 13 16.3395 13 16C13 14.3648 12.4393 12.8606 11.4998 11.6691C12.2352 11.2435 13.0892 11 14 11C16.7614 11 19 13.2386 19 16V17H12.9291Z"
-        fill="#fff"
-      ></path>
-      <path
-        d="M6 11C8.76142 11 11 13.2386 11 16V17H1V16C1 13.2386 3.23858 11 6 11Z"
-        fill="#fff"
-      ></path>
+      <path d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z" />
     </svg>,
   ];
-  const heart = [
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      key={0}
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M3.17157 5.17157C4.73367 3.60948 7.26633 3.60948 8.82843 5.17157L10 6.34315L11.1716 5.17157C12.7337 3.60948 15.2663 3.60948 16.8284 5.17157C18.3905 6.73367 18.3905 9.26633 16.8284 10.8284L10 17.6569L3.17157 10.8284C1.60948 9.26633 1.60948 6.73367 3.17157 5.17157Z"
-        fill="#fff"
-      ></path>
+
+  const admin = [
+    <svg xmlns="http://www.w3.org/2000/svg" height="22" width="22" fill="#fff" viewBox="0 0 448 512">
+      <path d="M96 128V70.2c0-13.3 8.3-25.3 20.8-30l96-36c7.2-2.7 15.2-2.7 22.5 0l96 36c12.5 4.7 20.8 16.6 20.8 30V128h-.3c.2 2.6 .3 5.3 .3 8v40c0 70.7-57.3 128-128 128s-128-57.3-128-128V136c0-2.7 .1-5.4 .3-8H96zm48 48c0 44.2 35.8 80 80 80s80-35.8 80-80V160H144v16zM111.9 327.7c10.5-3.4 21.8 .4 29.4 8.5l71 75.5c6.3 6.7 17 6.7 23.3 0l71-75.5c7.6-8.1 18.9-11.9 29.4-8.5C401 348.6 448 409.4 448 481.3c0 17-13.8 30.7-30.7 30.7H30.7C13.8 512 0 498.2 0 481.3c0-71.9 47-132.7 111.9-153.6zM208 48V64H192c-4.4 0-8 3.6-8 8V88c0 4.4 3.6 8 8 8h16v16c0 4.4 3.6 8 8 8h16c4.4 0 8-3.6 8-8V96h16c4.4 0 8-3.6 8-8V72c0-4.4-3.6-8-8-8H240V48c0-4.4-3.6-8-8-8H216c-4.4 0-8 3.6-8 8z" />
     </svg>,
   ];
-  const cart = [
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      key={0}
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M10 2C7.79086 2 6 3.79086 6 6V7H5C4.49046 7 4.06239 7.38314 4.00612 7.88957L3.00612 16.8896C2.97471 17.1723 3.06518 17.455 3.25488 17.6669C3.44458 17.8789 3.71556 18 4 18H16C16.2844 18 16.5554 17.8789 16.7451 17.6669C16.9348 17.455 17.0253 17.1723 16.9939 16.8896L15.9939 7.88957C15.9376 7.38314 15.5096 7 15 7H14V6C14 3.79086 12.2091 2 10 2ZM12 7V6C12 4.89543 11.1046 4 10 4C8.89543 4 8 4.89543 8 6V7H12ZM6 10C6 9.44772 6.44772 9 7 9C7.55228 9 8 9.44772 8 10C8 10.5523 7.55228 11 7 11C6.44772 11 6 10.5523 6 10ZM13 9C12.4477 9 12 9.44772 12 10C12 10.5523 12.4477 11 13 11C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9Z"
-        fill="#fff"
-      ></path>
-    </svg>,
-  ];
+
   var [totalPatient, setTotalPatient] = useState();
   var [totalDoctor, setTotalDoctor] = useState();
   var [totalAdmin, setTotalAdmin] = useState();
@@ -123,51 +70,50 @@ export default function DataCounter() {
   };
 
   const getDoctorData = async () => {
-  try {
-    dispatch (showLoading ());
-    await axios
-      .get ('/api/user/get-all-verified-doctors', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem ('token')}`,
-        },
-      })
-      .then (res => {
-        dispatch (hideLoading ());
-        totalDoctor = res.data.data;
-        setTotalDoctor (totalDoctor);
-      });
-    // dispatch(hideLoading());
-    // if (response.data.success) {
-    //   setUsers(response.data.data);
-    // }
-  } catch (error) {
-    dispatch (hideLoading ());
-  }
-};
-
-const getAdminData = async () => {
-  try {
-    dispatch (showLoading ());
-    await axios
-      .get ('/api/user/get-all-verified-admin', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem ('token')}`,
-        },
-      })
-      .then (res => {
-        dispatch (hideLoading ());
-        totalAdmin = res.data.data;
-        setTotalAdmin (totalAdmin);
-      });
-    // dispatch(hideLoading());
-    // if (response.data.success) {
-    //   setUsers(response.data.data);
-    // }
-  } catch (error) {
-    dispatch (hideLoading ());
-   }
+    try {
+      dispatch(showLoading());
+      await axios
+        .get("/api/user/get-all-verified-doctors", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          dispatch(hideLoading());
+          totalDoctor = res.data.data;
+          setTotalDoctor(totalDoctor);
+        });
+      // dispatch(hideLoading());
+      // if (response.data.success) {
+      //   setUsers(response.data.data);
+      // }
+    } catch (error) {
+      dispatch(hideLoading());
+    }
   };
 
+  const getAdminData = async () => {
+    try {
+      dispatch(showLoading());
+      await axios
+        .get("/api/user/get-all-verified-admin", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          dispatch(hideLoading());
+          totalAdmin = res.data.data;
+          setTotalAdmin(totalAdmin);
+        });
+      // dispatch(hideLoading());
+      // if (response.data.success) {
+      //   setUsers(response.data.data);
+      // }
+    } catch (error) {
+      dispatch(hideLoading());
+    }
+  };
 
   useEffect(() => {
     getUserData();
@@ -187,56 +133,54 @@ const getAdminData = async () => {
       today: "Doctors",
       title: totalDoctor,
       // persent: "+20%",
-      icon: profile,
+      icon: doctor,
       bnb: "bnb2",
     },
     {
       today: "Admin",
       title: totalAdmin,
       // persent: "-20%",
-      icon: profile,
+      icon: admin,
       bnb: "redtext",
     },
     {
       today: "Appointments",
       title: "$13,200",
       // persent: "10%",
-      icon: cart,
+      icon: appointment,
       bnb: "bnb2",
     },
   ];
 
   return (
     <>
-      
-        {count.map((c, index) => (
-          <Col
-            key={index}
-            xs={24}
-            sm={24}
-            md={12}
-            lg={6}
-            xl={6}
-            className="mb-24"
-          >
-            <Card bordered={false} className="criclebox ">
-              <div className="number">
-                <Row align="middle" gutter={[24, 0]}>
-                  <Col xs={18}>
-                    <span>{c.today}</span>
-                    <Title level={3}>
-                      {c.title} <small className={c.bnb}>{c.persent}</small>
-                    </Title>
-                  </Col>
-                  <Col xs={6}>
-                    <div className="icon-box">{c.icon}</div>
-                  </Col>
-                </Row>
-              </div>
-            </Card>
-          </Col>
-        ))}
-      
+      {count.map((c, index) => (
+        <Col
+          key={index}
+          xs={24}
+          sm={24}
+          md={12}
+          lg={6}
+          xl={6}
+          className="mb-24"
+        >
+          <Card bordered={false} className="criclebox ">
+            <div className="number">
+              <Row align="middle" gutter={[24, 0]}>
+                <Col xs={18}>
+                  <span>{c.today}</span>
+                  <Title level={3}>
+                    {c.title} <small className={c.bnb}>{c.persent}</small>
+                  </Title>
+                </Col>
+                <Col xs={6}>
+                  <div className="icon-box">{c.icon}</div>
+                </Col>
+              </Row>
+            </div>
+          </Card>
+        </Col>
+      ))}
     </>
   );
 }

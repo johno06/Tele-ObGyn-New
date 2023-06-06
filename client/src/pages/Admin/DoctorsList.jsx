@@ -53,7 +53,7 @@ function DoctorsList() {
                   <NavLink to={`/user/profile/${row._id}`}>
                     <a>View Profile</a>
                   </NavLink>
-                  <a>Delete</a>
+                  {/* <a>Delete</a> */}
                 </Space>
               ),
             })),

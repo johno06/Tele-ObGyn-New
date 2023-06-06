@@ -52,7 +52,7 @@ function UsersList() {
                   <NavLink to={`/admin/profile/${row._id}`}>
                     <a>View Profile</a>
                   </NavLink>
-                  <a>Delete</a>
+                  {/* <a>Delete</a> */}
                 </Space>
               ),
             })),
