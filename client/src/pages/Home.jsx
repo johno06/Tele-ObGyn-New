@@ -41,8 +41,117 @@ function Home() {
     }
   };
 
+  var [totalPatient, setTotalPatient] = useState();
+  var [totalPendingAppointment, setTotalPending] = useState();
+  var [totalCompleted, setTotalCompleted] = useState();
+  var [totalApproved, setTotalApproved] = useState();
+  const getUserData = async () => {
+    try {
+      dispatch(showLoading());
+      await axios
+        .get("/api/user/get-all-verified-patients", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          dispatch(hideLoading());
+          // setUsers(res.data.data);
+          totalPatient = res.data.data;
+          setTotalPatient(totalPatient);
+        });
+      // dispatch(hideLoading());
+      // if (response.data.success) {
+      //   setUsers(response.data.data);
+      // }
+    } catch (error) {
+      dispatch(hideLoading());
+    }
+  };
+
+
+  const getPendingAppointment = async () => {
+  try {
+    dispatch (showLoading ());
+    await axios
+      .get ('/api/doctor/get-all-pending-appointments', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem ('token')}`,
+        },
+      })
+      .then (res => {
+        dispatch (hideLoading ());
+        // setUsers(res.data.data);
+        totalPendingAppointment = res.data.data;
+        setTotalPending (totalPendingAppointment);
+      });
+    // dispatch(hideLoading());
+    // if (response.data.success) {
+    //   setUsers(response.data.data);
+    // }
+  } catch (error) {
+    dispatch (hideLoading ());
+  }
+};
+
+
+const getCompletedAppointment = async () => {
+  try {
+    dispatch (showLoading ());
+    await axios
+      .get ('/api/doctor/get-all-completed-appointments', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem ('token')}`,
+        },
+      })
+      .then (res => {
+        dispatch (hideLoading ());
+        // setUsers(res.data.data);
+        totalCompleted = res.data.data;
+        setTotalCompleted (totalCompleted);
+      });
+    // dispatch(hideLoading());
+    // if (response.data.success) {
+    //   setUsers(response.data.data);
+    // }
+  } catch (error) {
+    dispatch (hideLoading ());
+  }
+};
+
+const getApprovedAppointment = async () => {
+  try {
+    dispatch (showLoading ());
+    await axios
+      .get ('/api/doctor/get-all-approved-appointments', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem ('token')}`,
+        },
+      })
+      .then (res => {
+        dispatch (hideLoading ());
+        // setUsers(res.data.data);
+        totalApproved = res.data.data;
+        setTotalApproved (totalApproved);
+      });
+    // dispatch(hideLoading());
+    // if (response.data.success) {
+    //   setUsers(response.data.data);
+    // }
+  } catch (error) {
+    dispatch (hideLoading ());
+  }
+};
+
+
+
+
   useEffect(() => {
     getData();
+    getUserData();
+    getPendingAppointment();
+    getCompletedAppointment();
+    getApprovedAppointment();
   }, []);
 
   if (user?.isAdmin) {
@@ -144,11 +253,11 @@ function Home() {
                 title={
                   <>
                     <div className="icon"></div>
-                    <h6>All Doctors</h6>
+                    <h6>All Patients</h6>
                   </>
                 }
-                value={"$2,000"}
-                prefix={<PlusOutlined />}
+                value={totalPatient}
+                // prefix={<PlusOutlined />}
               />
             </Card>
           </Col>
@@ -158,11 +267,11 @@ function Home() {
                 title={
                   <>
                     <div className="icon"></div>
-                    <h6>All Patients</h6>
+                    <h6>Approved Appointments</h6>
                   </>
                 }
-                value={"$2,000"}
-                prefix={<PlusOutlined />}
+                value={totalApproved}
+                // prefix={<PlusOutlined />}
               />
             </Card>
           </Col>
@@ -175,8 +284,8 @@ function Home() {
                     <h6>Pending Appointments</h6>
                   </>
                 }
-                value={"$2,000"}
-                prefix={<PlusOutlined />}
+                value={totalPendingAppointment}
+                // prefix={<PlusOutlined />}
               />
             </Card>
           </Col>
@@ -189,8 +298,8 @@ function Home() {
                     <h6>Completed Appointments</h6>
                   </>
                 }
-                value={"$2,000"}
-                prefix={<PlusOutlined />}
+                value={totalCompleted}
+                // prefix={<PlusOutlined />}
               />
             </Card>
           </Col>
