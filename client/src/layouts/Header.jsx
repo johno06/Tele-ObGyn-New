@@ -10,8 +10,9 @@ import {
   List,
   Avatar,
   Typography,
+  DatePicker,
 } from "antd";
-
+import moment from "moment";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const bell = [
@@ -53,6 +54,7 @@ const menu = (
 
 function Header({ name, subName }) {
   const { Title, Text } = Typography;
+  const currentDate = moment();
 
   const navigate = useNavigate();
 
@@ -99,6 +101,12 @@ function Header({ name, subName }) {
               </a>
             </Dropdown>
           </Badge>
+          <DatePicker
+            className="custom-disabled-datepicker"
+            style={{ marginRight: "10px" }}
+            disabled
+            defaultValue={currentDate}
+          />
         </Col>
       </Row>
     </>

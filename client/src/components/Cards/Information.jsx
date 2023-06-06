@@ -7,14 +7,17 @@ export default function Information() {
   return (
     <div className="gradent h-full col-content">
       <div className="card-content">
-        <Title level={5}>Work with the best</Title>
+        <Title level={5}>What is an ObGyn?</Title>
         <p>
-          Wealth creation is an evolutionarily recent positive-sum game. It is
-          all about who take the opportunity first.
+          An obstetrician-gynecologist, or OB-GYN, is a healthcare professional
+          that specializes in female reproductive health.
         </p>
       </div>
       <div className="card-footer">
-        <a className="icon-move-right" href="#pablo">
+        <a
+          className="icon-move-right"
+          href="https://www.medicalnewstoday.com/articles/324292"
+        >
           Read More
           <RightOutlined />
         </a>

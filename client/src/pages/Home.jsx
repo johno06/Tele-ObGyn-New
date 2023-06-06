@@ -14,8 +14,10 @@ import {
 } from "../components";
 import card from "../assets/images/doctor-card.png";
 import BgHome from "../assets/images/homebg.png";
-import { PlusOutlined, ExclamationOutlined } from "@ant-design/icons";
-import Patients from "../assets/images/patients.png";
+import { FaUsers } from "react-icons/fa";
+import completeAppointment from "../assets/images/appointment.png";
+import pendingAppointment from "../assets/images/pendingApp.png";
+import approvedAppointment from "../assets/images/approve.png";
 
 function Home() {
   const { user } = useSelector((state) => state.user);
@@ -69,82 +71,77 @@ function Home() {
     }
   };
 
-
   const getPendingAppointment = async () => {
-  try {
-    dispatch (showLoading ());
-    await axios
-      .get ('/api/doctor/get-all-pending-appointments', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem ('token')}`,
-        },
-      })
-      .then (res => {
-        dispatch (hideLoading ());
-        // setUsers(res.data.data);
-        totalPendingAppointment = res.data.data;
-        setTotalPending (totalPendingAppointment);
-      });
-    // dispatch(hideLoading());
-    // if (response.data.success) {
-    //   setUsers(response.data.data);
-    // }
-  } catch (error) {
-    dispatch (hideLoading ());
-  }
-};
+    try {
+      dispatch(showLoading());
+      await axios
+        .get("/api/doctor/get-all-pending-appointments", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          dispatch(hideLoading());
+          // setUsers(res.data.data);
+          totalPendingAppointment = res.data.data;
+          setTotalPending(totalPendingAppointment);
+        });
+      // dispatch(hideLoading());
+      // if (response.data.success) {
+      //   setUsers(response.data.data);
+      // }
+    } catch (error) {
+      dispatch(hideLoading());
+    }
+  };
 
+  const getCompletedAppointment = async () => {
+    try {
+      dispatch(showLoading());
+      await axios
+        .get("/api/doctor/get-all-completed-appointments", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          dispatch(hideLoading());
+          // setUsers(res.data.data);
+          totalCompleted = res.data.data;
+          setTotalCompleted(totalCompleted);
+        });
+      // dispatch(hideLoading());
+      // if (response.data.success) {
+      //   setUsers(response.data.data);
+      // }
+    } catch (error) {
+      dispatch(hideLoading());
+    }
+  };
 
-const getCompletedAppointment = async () => {
-  try {
-    dispatch (showLoading ());
-    await axios
-      .get ('/api/doctor/get-all-completed-appointments', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem ('token')}`,
-        },
-      })
-      .then (res => {
-        dispatch (hideLoading ());
-        // setUsers(res.data.data);
-        totalCompleted = res.data.data;
-        setTotalCompleted (totalCompleted);
-      });
-    // dispatch(hideLoading());
-    // if (response.data.success) {
-    //   setUsers(response.data.data);
-    // }
-  } catch (error) {
-    dispatch (hideLoading ());
-  }
-};
-
-const getApprovedAppointment = async () => {
-  try {
-    dispatch (showLoading ());
-    await axios
-      .get ('/api/doctor/get-all-approved-appointments', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem ('token')}`,
-        },
-      })
-      .then (res => {
-        dispatch (hideLoading ());
-        // setUsers(res.data.data);
-        totalApproved = res.data.data;
-        setTotalApproved (totalApproved);
-      });
-    // dispatch(hideLoading());
-    // if (response.data.success) {
-    //   setUsers(response.data.data);
-    // }
-  } catch (error) {
-    dispatch (hideLoading ());
-  }
-};
-
-
-
+  const getApprovedAppointment = async () => {
+    try {
+      dispatch(showLoading());
+      await axios
+        .get("/api/doctor/get-all-approved-appointments", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          dispatch(hideLoading());
+          // setUsers(res.data.data);
+          totalApproved = res.data.data;
+          setTotalApproved(totalApproved);
+        });
+      // dispatch(hideLoading());
+      // if (response.data.success) {
+      //   setUsers(response.data.data);
+      // }
+    } catch (error) {
+      dispatch(hideLoading());
+    }
+  };
 
   useEffect(() => {
     getData();
@@ -252,7 +249,9 @@ const getApprovedAppointment = async () => {
               <Statistic
                 title={
                   <>
-                    <div className="icon"></div>
+                    <div className="icon">
+                      <FaUsers color="#fff" size={32} />
+                    </div>
                     <h6>All Patients</h6>
                   </>
                 }
@@ -266,7 +265,7 @@ const getApprovedAppointment = async () => {
               <Statistic
                 title={
                   <>
-                    <div className="icon"></div>
+                    <div className="icon"><img src={approvedAppointment} alt="Flaticon Icon" /></div>
                     <h6>Approved Appointments</h6>
                   </>
                 }
@@ -280,7 +279,9 @@ const getApprovedAppointment = async () => {
               <Statistic
                 title={
                   <>
-                    <div className="icon"></div>
+                    <div className="icon">
+                      <img src={pendingAppointment} alt="Flaticon Icon" />
+                    </div>
                     <h6>Pending Appointments</h6>
                   </>
                 }
@@ -294,7 +295,9 @@ const getApprovedAppointment = async () => {
               <Statistic
                 title={
                   <>
-                    <div className="icon"></div>
+                    <div className="icon">
+                      <img src={completeAppointment} alt="Flaticon Icon" />
+                    </div>
                     <h6>Completed Appointments</h6>
                   </>
                 }

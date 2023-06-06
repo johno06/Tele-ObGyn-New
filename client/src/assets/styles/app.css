@@ -19,6 +19,13 @@
   justify-content: flex-end;
 }
 
+.custom-disabled-datepicker {
+  background-color: #f5f5f5 !important; /* Customize the background color */
+  color: #000000 !important; /* Customize the text color */
+  border: 1px solid #d9d9d9 !important; /* Add a border to mimic enabled appearance */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
+}
+
 
 .site-layout .site-layout-background {
   background: #fff;
@@ -1655,6 +1662,12 @@ ul.ant-menu.ant-menu-root.ant-menu-inline.ant-menu-light.left-nav
 }
 
 .ant-employed a {
+  color: #8c8c8c;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.ant-employed button {
   color: #8c8c8c;
   text-decoration: none;
   font-weight: 600;
