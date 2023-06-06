@@ -105,34 +105,6 @@ function PatientFormAdmin({ onFinish, initialValues }) {
         </Col>
       </Row>
       <hr />
-      {/* <h1 className="card-title mt-3">Professional Information</h1>
-      <Row gutter={20}>
-        <Col span={8} xs={24} sm={24} lg={8}>
-          <Form.Item
-            required
-            label="Specialization"
-            name="specialization"
-            rules={[{ required: true }]}
-          >
-            <Input placeholder="Specialization" />
-          </Form.Item>
-        </Col>
-        <Col span={8} xs={24} sm={24} lg={8}>
-          <Form.Item required label="Experience" name="experience" rules={[{ required: true }]}>
-            <Input placeholder="Experience" type="number" />
-          </Form.Item>
-        </Col>
-        <Col span={8} xs={24} sm={24} lg={8}>
-          <Form.Item required label="Fee Per Cunsultation" name="fee" rules={[{ required: true }]}>
-            <Input placeholder="Fee Per Consultation" type="number" />
-          </Form.Item>
-        </Col>
-        <Col span={8} xs={24} sm={24} lg={8}>
-          <Form.Item required label="Timings" name="timings" rules={[{ required: true }]}>
-            <TimePicker.RangePicker format="HH:00" />
-          </Form.Item>
-        </Col>
-      </Row> */}
 
       <div className="d-flex justify-content-end">
         <Button className="primary-button" htmlType="submit">

@@ -51,7 +51,7 @@ function CreateAdminForm({ form, onFinish }) {
           <Input.Password />
         </Form.Item>
         <Form.Item>
-          <Button type="danger" htmlType="submit">
+          <Button type="primary" danger htmlType="submit">
             Create Admin
           </Button>
         </Form.Item>

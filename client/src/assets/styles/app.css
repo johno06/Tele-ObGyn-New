@@ -2704,6 +2704,7 @@ section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile
 .card-profile-head .ant-card-head {
   border-bottom: 0px;
   padding: 0px 16px;
+  height: 110px;
 }
 
 .card-profile-head {

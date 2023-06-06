@@ -78,7 +78,7 @@ function Sidenav({ color }) {
               >
                 <FaUserFriends />
               </span>
-              <span className="label">Users</span>
+              <span className="label">Patients</span>
             </NavLink>
           </Menu.Item>
 
@@ -191,7 +191,7 @@ function Sidenav({ color }) {
               >
                 <FaUserFriends />
               </span>
-              <span className="label">Users</span>
+              <span className="label">Patients</span>
             </NavLink>
           </Menu.Item>
           <Menu.Item key="a-doctorlist">
