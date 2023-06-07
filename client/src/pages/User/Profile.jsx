@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import {
+  TimePicker,
   Row,
   Col,
   Card,
@@ -12,6 +13,7 @@ import {
   Form,
   Input,
   Modal,
+  DatePicker
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../../redux/alertSlice";
@@ -21,16 +23,21 @@ import Main from "../../layouts/Main";
 import BgProfile from "../../assets/images/pinkBg.jpg";
 import profilavatar from "../../assets/images/face-1.jpg";
 import { PlusOutlined } from "@ant-design/icons";
+import moment from 'moment';
+
 
 function Profile() {
   const { user } = useSelector((state) => state.user);
   const params = useParams();
   const [patient, setPatient] = useState(null);
+  const [recordApp, setRecordApp] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let data = [];
 
   const [visible, setVisible] = useState(false);
+  const [visibleAdd, setVisibleAdd] = useState (false);
+
   const [form] = Form.useForm();
 
   const handleUpdate = (record) => {
@@ -59,42 +66,172 @@ function Profile() {
 
   //para lang makita action
   const dataSource = [
-    {
-      id: 1,
-      name: "John Doe",
-      age: 25,
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      age: 30,
-    },
+    // {
+    //   id: 1,
+    //   name: "John Doe",
+    //   age: 25,
+    // },
+    // {
+    //   id: 2,
+    //   name: "Jane Smith",
+    //   age: 30,
+    // },
     // Add more data here...
   ];
+
+const [appointmentDate, setAppointmentDate] = useState();
+const dateFormat = "YYYY-MM-DD";
+const [lastMenstrualDate, setLastMenstrualDate] = useState (null);
+const [ageOfGestation, setAgeOfGestation] = useState ('');
+const [estimatedDueDate, setEstimatedDueDate] = useState ('');
+const [appointmentTime, setAppointmentTime] = useState ('');
+const [chiefOfComp, setChiefOfComp] = useState ('');
+const [diagnosis, setDiagnosis] = useState ('');
+
+
+const handleDateChange = date => {
+  setLastMenstrualDate (date);
+
+  if (date) {
+    const currentDate = new Date ();
+    const selectedDateObj = new Date (date);
+
+    const timeDiff = currentDate.getTime () - selectedDateObj.getTime ();
+    const daysPassed = Math.ceil (timeDiff / (1000 * 3600 * 24));
+
+    const weeksPassed = Math.floor (daysPassed / 7);
+    const daysRemaining = daysPassed % 7;
+
+    const dueDate = new Date (selectedDateObj.getTime ());
+    dueDate.setDate (dueDate.getDate () + 280); // Assuming pregnancy duration of 280 days
+
+    setAgeOfGestation (`${weeksPassed} weeks and ${daysRemaining} days`);
+    setEstimatedDueDate (dueDate.toDateString ());
+  } else {
+    setAgeOfGestation ('');
+    setEstimatedDueDate ('');
+  }
+};
+
+
+
+const onUpdateRecord = async values => {
+  const formattedDate = values['appointmentDate'] ? values['appointmentDate'].format('YYYY-MM-DD') : '';
+  // const formattedTime = values['appointmentTime'][0] ? values['appointmentTime'][0].format('HH:00') : '';
+  // const formattedTime1 = values['appointmentTime'][1] ? values['appointmentTime'][1].format('HH:00') : '';
+  // const appTime = formattedTime +" - "+ formattedTime1;
+  try {
+    dispatch (showLoading ());
+    const response = await axios.patch (
+      '/api/doctor/update-user-record',
+      {
+        _id: params.userId,
+        elementId: 4,
+        phr: 
+        [
+          values['cop'],
+          values['diagnosis'],
+          formattedDate,
+          // appTime,
+          ageOfGestation,
+          estimatedDueDate
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem ('token')}`,
+        },
+      }
+    );
+    dispatch (hideLoading ());
+    if (response.data.success) {
+      toast.success (response.data.message);
+      navigate ('/doctor/userlist');
+    } else {
+      toast.error (response.data.message);
+    }
+  } catch (error) {
+    dispatch (hideLoading ());
+    toast.error ('Something went wrong:', error);
+  }
+};
+
+
+const onAddRecord = async values => {
+  const formattedDate = values['2'] ? values['2'].format('YYYY-MM-DD') : '';
+  const formattedTime = values['3'][0] ? values['3'][0].format('HH:00') : '';
+  const formattedTime1 = values['3'][1] ? values['3'][1].format('HH:00') : '';
+  const appTime = formattedTime +" - "+ formattedTime1;
+  console.log(formattedTime);
+  try {
+    dispatch (showLoading ());
+    const response = await axios.post (
+      '/api/doctor/add-user-record',
+      {
+        _id: params.userId,
+        phr: [
+          values['0'],
+          values['1'],
+          formattedDate,
+          appTime,
+          ageOfGestation,
+          estimatedDueDate]
+        ,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem ('token')}`,
+        },
+      }
+    );
+    dispatch (hideLoading ());
+    if (response.data.success) {
+      toast.success (response.data.message);
+      navigate ('/doctor/profile/:userId');
+    } else {
+      toast.error (response.data.message);
+    }
+  } catch (error) {
+    dispatch (hideLoading ());
+    toast.error ('Something went wrong:', error);
+  }
+};
+
+  
 
   //column name ng appointment records
   const columns = [
     {
-      title: "AUTHOR",
-      dataIndex: "name",
+      title: "Date",
+      dataIndex: 2,
       key: "name",
-      width: "32%",
+      // width: "20%",
     },
     {
-      title: "FUNCTION",
-      dataIndex: "function",
+      title: "Time",
+      dataIndex: 3,
       key: "function",
     },
 
     {
-      title: "STATUS",
-      key: "status",
-      dataIndex: "status",
+      title: "Chief of Complaint",
+      key: "employed",
+      dataIndex: 0,
     },
     {
-      title: "EMPLOYED",
+      title: "Diagnosis",
       key: "employed",
-      dataIndex: "employed",
+      dataIndex: 1,
+    },
+    {
+      title: "Age of Gestation (For Pregnant)",
+      key: "employed",
+      dataIndex: 4,
+    },
+    {
+      title: "Estimated Due Date (For Pregnant)",
+      key: "employed",
+      dataIndex: 5,
     },
     {
       title: "Action",
@@ -111,7 +248,8 @@ function Profile() {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleAddRecord = () => {
-    setVisible(true);
+    // form.setFieldsValue();
+    setVisibleAdd(true);
   };
 
   const onFinish = async (values) => {
@@ -161,6 +299,7 @@ function Profile() {
       if (response.data.success) {
         setPatient(response.data.data);
         console.log(response.data.data);
+        console.log(patient?.phr)
       }
     } catch (error) {
       console.log(error);
@@ -204,6 +343,7 @@ function Profile() {
             </Col>
           </Row>
         }
+    
       />
       {/* if patient is not null, then render the form */}
       {patient && <PatientForm onFinish={onFinish} initialValues={patient} />}
@@ -234,14 +374,14 @@ function Profile() {
               <div className="table-responsive">
                 <Table
                   columns={columns}
-                  dataSource={dataSource}
+                  dataSource={patient?.phr}
                   pagination={false}
                   className="ant-border-space"
                 />
                 {/* Ito naman yung modal codes sa add */}
                 <Modal
                   title="Add Record"
-                  open={visible}
+                  open={visibleAdd}
                   onOk={handleModalOk}
                   onCancel={handleModalCancel}
                   footer={[
@@ -250,40 +390,168 @@ function Profile() {
                     </Button>,
                     <Button key="submit" type="primary" onClick={handleModalOk}>
                       Submit
-                    </Button>,
+                    </Button>
                   ]}
                 >
-                  <Form>
-                    <Form.Item label="Field 1">
+                  <Form form={form}
+                   onFinish={onAddRecord}
+                   >
+                    <Form.Item
+                    required
+                    label="Date of Appointment"
+                    name="2"
+                    rules={[{ required: true }]}
+                  >
+                    <DatePicker
+                      format={dateFormat}
+                      onChange={(initialValues) => {
+                        setAppointmentDate(moment(initialValues));
+                      }}
+                    />
+                    </Form.Item>
+
+        
+                    <Form.Item
+                    required
+                    label="Time"
+                    name="3"
+                    rules={[{ required: true }]}
+                  >
+                    <TimePicker.RangePicker format="HH:00" />
+                  </Form.Item>
+
+                    <Form.Item
+                      name="0"
+                      label="Chief of Complaint"
+                      rules={[{ required: true }]}
+                    >
                       <Input />
                     </Form.Item>
-                    <Form.Item label="Field 2">
+
+                    <Form.Item
+                      name="1"
+                      label="Diagnosis"
+                      rules={[{ required: true }]}
+                    >
                       <Input />
                     </Form.Item>
-                    {/* Add more form fields as needed */}
+                    <h5>
+                    For Pregnant: 
+                    </h5>
+                    
+                  <Form.Item label="Last Menstrual Date">
+                    <DatePicker
+                      id="lastMenstrualDate"
+                      selected={lastMenstrualDate}
+                      onChange={handleDateChange}
+                      dateFormat="YYYY-MM-DD"
+                    />
+                  </Form.Item>
+
+                    {/* <input
+                      type="date"
+                      id="lastMenstrualDate"
+                      value={lastMenstrualDate}
+                      onChange={handleDateChange}
+                    /> */}
+                    
+                    {ageOfGestation &&(
+                      <div>
+                       <Form.Item label="Age of Gestation">
+                      <Input value={ageOfGestation} disabled />
+                    </Form.Item>
+
+                    <Form.Item label="Estimated Due Date">
+                      <Input value={estimatedDueDate} disabled />
+                    </Form.Item>
+                  </div>
+
+                    )}
+                    
                   </Form>
                 </Modal>
                 <Modal
                   title="Update Record"
                   open={visible}
-                  onOk={handleModalOk}
+                  onOk={onUpdateRecord}
                   onCancel={handleModalCancel}
+                  // initialValue = {patient?.phr[0]}
                 >
-                  <Form form={form} onFinish={handleFormSubmit}>
+                  <Form form={form}
+                   onFinish={onUpdateRecord}
+                   >
                     <Form.Item
-                      name="name"
-                      label="Name"
+                    required
+                    label="Date of Appointment"
+                    name="appointmentDate"
+                    rules={[{ required: true }]}
+                  >
+                    <DatePicker
+                      format={dateFormat}
+                      onChange={(initialValues) => {
+                        setAppointmentDate(moment(initialValues));
+                      }}
+                    />
+                    </Form.Item>
+
+        
+                    <Form.Item
+                    required
+                    label="Time"
+                    name="appointmentTime"
+                    rules={[{ required: true }]}
+                  >
+                    <TimePicker.RangePicker format="HH:00" />
+                  </Form.Item>
+
+                    <Form.Item
+                      name="cop"
+                      label="Chief of Complaint"
                       rules={[{ required: true }]}
                     >
                       <Input />
                     </Form.Item>
+
                     <Form.Item
-                      name="age"
-                      label="Age"
+                      name="diagnosis"
+                      label="Diagnosis"
                       rules={[{ required: true }]}
                     >
                       <Input />
                     </Form.Item>
+                    <h5>
+                    For Pregnant: 
+                    </h5>
+                    
+                  <Form.Item label="Last Menstrual Date">
+                    <DatePicker
+                      id="lastMenstrualDate"
+                      selected={lastMenstrualDate}
+                      onChange={handleDateChange}
+                      dateFormat="YYYY-MM-DD"
+                    />
+                  </Form.Item>
+
+                    {/* <input
+                      type="date"
+                      id="lastMenstrualDate"
+                      value={lastMenstrualDate}
+                      onChange={handleDateChange}
+                    /> */}
+                    
+                    {ageOfGestation &&(
+                      <div>
+                       <Form.Item label="Age of Gestation">
+                      <Input value={ageOfGestation} disabled />
+                    </Form.Item>
+
+                    <Form.Item label="Estimated Due Date">
+                      <Input value={estimatedDueDate} disabled />
+                    </Form.Item>
+                  </div>
+
+                    )}
+                    
                   </Form>
                 </Modal>
               </div>
