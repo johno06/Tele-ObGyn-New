@@ -60,6 +60,63 @@ router.post("/update-doctor-profile", authMiddleware, async (req, res) => {
   }
 });
 
+
+router.post ('/add-user-record', authMiddleware, async (req, res) => {
+  try {
+    const push = {$push : {
+      phr:
+        req.body.phr
+    }
+  }
+    const user = await User.findOneAndUpdate (
+      {_id: req.body._id},
+      push,
+    );
+
+    res.status (200).send ({
+      success: true,
+      message: 'Add record successfully',
+      data: user,
+    });
+  } catch (error) {
+    res.status (500).send ({
+      message: 'Error updating user record',
+      success: false,
+      error,
+    });
+  }
+});
+
+router.patch ('/update-user-record',async (req, res) => {
+  try {
+    const update = {
+      $set: {
+        'phr.$[element]': req.body.phr,
+      },
+    };
+
+    const options = {
+      arrayFilters: [{'element._id': req.body.elementId}],
+      new: true,
+    };
+
+    const user = await User.findOneAndUpdate ({_id: req.body._id}, update, options);
+
+    res.status (200).send ({
+      success: true,
+      message: 'Updated record successfully',
+      data: user,
+    });
+  } catch (error) {
+    res.status (500).send ({
+      message: 'Error updating user record',
+      success: false,
+      error,
+    });
+  }
+});
+
+
 router.post("/get-doctor-info-by-id", async (req, res) => {
   try {
     const doctor = await Doctor.findOne({ _id: req.body._id });
