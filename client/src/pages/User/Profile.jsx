@@ -39,12 +39,15 @@ function Profile() {
   const [visibleAdd, setVisibleAdd] = useState (false);
 
   const [form] = Form.useForm();
+  const [index, setIndex] = useState (null);
 
   const handleUpdate = (record) => {
     // Set the form values with the record data
     form.setFieldsValue(record);
     // Show the modal
     setVisible(true);
+     const recindex = patient?.phr.findIndex((item) => item === record);
+     setIndex(recindex);
   };
 
   const handleModalOk = () => {
@@ -115,27 +118,33 @@ const handleDateChange = date => {
 
 
 
-const onUpdateRecord = async values => {
+const onUpdateRecord = async (values) => {
   const formattedDate = values['appointmentDate'] ? values['appointmentDate'].format('YYYY-MM-DD') : '';
-  // const formattedTime = values['appointmentTime'][0] ? values['appointmentTime'][0].format('HH:00') : '';
-  // const formattedTime1 = values['appointmentTime'][1] ? values['appointmentTime'][1].format('HH:00') : '';
-  // const appTime = formattedTime +" - "+ formattedTime1;
+  const formattedTime = values['appointmentTime'] ? values['appointmentTime'][0].format('HH:00') : '';
+  const formattedTime1 = values['appointmentTime'] ? values['appointmentTime'][1].format('HH:00') : '';
+  const appTime = formattedTime +" - "+ formattedTime1;
+  const elementId = 'element_id';
+  const indexData = [
+  values['cop'] || '',
+  values['diagnosis'] || '',
+  formattedDate || '',
+  appTime || '',
+  ageOfGestation,
+  estimatedDueDate,
+];
+
+
   try {
     dispatch (showLoading ());
     const response = await axios.patch (
       '/api/doctor/update-user-record',
       {
         _id: params.userId,
-        elementId: 4,
-        phr: 
-        [
-          values['cop'],
-          values['diagnosis'],
-          formattedDate,
-          // appTime,
-          ageOfGestation,
-          estimatedDueDate
-        ],
+      phr: {
+        index,
+        indexData
+      },
+      elementId
       },
       {
         headers: {
@@ -146,7 +155,7 @@ const onUpdateRecord = async values => {
     dispatch (hideLoading ());
     if (response.data.success) {
       toast.success (response.data.message);
-      navigate ('/doctor/userlist');
+      navigate ('/user/profile/'+params.userId);
     } else {
       toast.error (response.data.message);
     }
@@ -187,7 +196,7 @@ const onAddRecord = async values => {
     dispatch (hideLoading ());
     if (response.data.success) {
       toast.success (response.data.message);
-      navigate ('/doctor/profile/:userId');
+      navigate ('/user/profile/'+params.userId);
     } else {
       toast.error (response.data.message);
     }
@@ -473,7 +482,7 @@ const onAddRecord = async values => {
                 <Modal
                   title="Update Record"
                   open={visible}
-                  onOk={onUpdateRecord}
+                  onOk={handleModalOk}
                   onCancel={handleModalCancel}
                   // initialValue = {patient?.phr[0]}
                 >
