@@ -145,7 +145,7 @@ export default function DataCounter() {
     },
     {
       today: "Appointments",
-      title: "$13,200",
+      title: "7",
       // persent: "10%",
       icon: appointment,
       bnb: "bnb2",
