@@ -87,11 +87,11 @@ router.post ('/add-user-record', authMiddleware, async (req, res) => {
   }
 });
 
-router.patch ('/update-user-record',async (req, res) => {
+router.patch ('/update-user-record', async (req, res) => {
   try {
     const update = {
       $set: {
-        'phr.$[element]': req.body.phr,
+        [`phr.${req.body.phr.index}`]: req.body.phr.indexData,
       },
     };
 
@@ -100,7 +100,11 @@ router.patch ('/update-user-record',async (req, res) => {
       new: true,
     };
 
-    const user = await User.findOneAndUpdate ({_id: req.body._id}, update, options);
+    const user = await User.findOneAndUpdate (
+      {_id: req.body._id},
+      update,
+      options
+    );
 
     res.status (200).send ({
       success: true,
