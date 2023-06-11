@@ -70,7 +70,9 @@ body {
   line-height: 1.6 !important;
   font-weight: 400 !important;
   font-family: open sans, Helvetica, Arial, sans-serif  !important;
+ 
 }
+
 
 
 .ant-layout.ant-layout-has-sider {
@@ -1806,6 +1808,7 @@ ul.ant-menu.ant-menu-root.ant-menu-inline.ant-menu-light.left-nav
 body {
   overflow: visible !important;
   width: 100% !important;
+  height: 100%;
 }
 
 .card-info-2 .ant-card-body {
