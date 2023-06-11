@@ -107,7 +107,7 @@ function PatientFormAdmin({ onFinish, initialValues }) {
       <hr />
 
       <div className="d-flex justify-content-end">
-        <Button className="primary-button" htmlType="submit">
+        <Button className="primary" danger htmlType="submit">
           Update Patient
         </Button>
       </div>

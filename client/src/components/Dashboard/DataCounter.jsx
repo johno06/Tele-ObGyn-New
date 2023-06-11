@@ -176,6 +176,7 @@ var [totalApproved, setTotalApproved] = useState ();
     {
       today: "Appointments",
       title: totalApproved,
+      title: "7",
       // persent: "10%",
       icon: appointment,
       bnb: "bnb2",

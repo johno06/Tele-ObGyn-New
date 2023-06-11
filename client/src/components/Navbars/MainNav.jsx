@@ -48,9 +48,9 @@ const MainNav = () => {
             <NavLink to="/login" className="btn btn-outline-danger ms-auto px-4 rounded-pill">
               Login
             </NavLink>
-            <NavLink to="/register " className="btn btn-outline-danger ms-2 px-4 rounded-pill">
+            {/* <NavLink to="/register " className="btn btn-outline-danger ms-2 px-4 rounded-pill">
               Register
-            </NavLink>
+            </NavLink> */}
           </div>
         </div>
       </nav>
