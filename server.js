@@ -2,6 +2,8 @@ require("dotenv").config();
 const dbConfig = require("./config/dbConfig");
 const cors = require("cors")
 const express = require("express");
+const history = require ('connect-history-api-fallback');
+const path = require ('path');
 
 
 
@@ -17,13 +19,15 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.use (express.static (path.join (__dirname, 'client', 'public')));
 
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
 const doctorRoute = require("./routes/doctorsRoute");
 const utilityRoute = require("./routes/utilityRoute");
 
-app.use (express.static ('client/public'));
+
+
 
 app.use("/api/user", userRoute);
 app.use("/api/admin", adminRoute);
