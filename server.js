@@ -20,6 +20,10 @@ app.get("/", (req, res) => {
 });
 
 app.use (express.static (path.join (__dirname, 'client', 'public')));
+app.get ('*', (req, res) => {
+  res.sendFile (path.join (__dirname, 'client', 'public', 'index.html'));
+});
+
 
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
