@@ -3,4 +3,4 @@
   publish = "build/"
 
 [build.environment]
-  CI = "true"
+  CI = "false"
