@@ -28,7 +28,7 @@ function Login() {
   const onSubmit = async (values) => {
     try {
       dispatch(showLoading());
-      const response = await axios.post("/api/utility/login", values);
+      const response = await axios.post("https://fuentes-clinic.onrender.com/api/utility/login", values);
       dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
