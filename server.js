@@ -17,11 +17,13 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
 const doctorRoute = require("./routes/doctorsRoute");
 const utilityRoute = require("./routes/utilityRoute");
 
+app.use(express.static(path.join(__dirname, "client", "public")));
 app.use("/api/user", userRoute);
 app.use("/api/admin", adminRoute);
 app.use("/api/doctor", doctorRoute);
