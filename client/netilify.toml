@@ -1,2 +1,6 @@
 [build]
-  command = "if [ \"$CI\" = \"true\" ]; then yarn build --no-warnings; else yarn build; fi"
+  command = "yarn build --no-warnings"
+  publish = "build/"
+
+[build.environment]
+  CI = "true"
