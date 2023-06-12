@@ -12,7 +12,7 @@ function Reset() {
   useEffect(() => {
     if (token) {
       axios
-        .get(`/api/user/verify?token=${token}`)
+        .get(`https://fuentes-clinic.onrender.com/api/user/verify?token=${token}`)
         .then((res) => {
           console.log(res);
           setVerified(true);
