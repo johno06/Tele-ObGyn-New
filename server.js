@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors({
   credentials:true,
   origin:["http://localhost:3000",
-"https://fuentes-clinic.onrender.com"]
+"https://fuentes-clinic-website.onrender.com"]
 }));
 
 app.get("/", (req, res) => {
