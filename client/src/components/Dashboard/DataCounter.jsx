@@ -44,7 +44,36 @@ export default function DataCounter() {
   var [totalPatient, setTotalPatient] = useState();
   var [totalDoctor, setTotalDoctor] = useState();
   var [totalAdmin, setTotalAdmin] = useState();
+  var [totalPendingAppointment, setTotalPending] = useState ();
+var [totalCompleted, setTotalCompleted] = useState ();
+var [totalApproved, setTotalApproved] = useState ();
+
   const dispatch = useDispatch();
+
+  const getApprovedAppointment = async () => {
+  try {
+    dispatch (showLoading ());
+    await axios
+      .get ('/api/doctor/get-all-approved-appointments', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem ('token')}`,
+        },
+      })
+      .then (res => {
+        dispatch (hideLoading ());
+        // setUsers(res.data.data);
+        totalApproved = res.data.data;
+        setTotalApproved (totalApproved);
+      });
+    // dispatch(hideLoading());
+    // if (response.data.success) {
+    //   setUsers(response.data.data);
+    // }
+  } catch (error) {
+    dispatch (hideLoading ());
+  }
+};
+
   const getUserData = async () => {
     try {
       dispatch(showLoading());
@@ -119,6 +148,7 @@ export default function DataCounter() {
     getUserData();
     getDoctorData();
     getAdminData();
+    getApprovedAppointment();
   }, []);
 
   const count = [
@@ -145,6 +175,7 @@ export default function DataCounter() {
     },
     {
       today: "Appointments",
+      title: totalApproved,
       title: "7",
       // persent: "10%",
       icon: appointment,
