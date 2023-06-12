@@ -309,10 +309,8 @@ function ViewAppointments() {
                     style={{
                       width: "150px",
                       height: "40px",
-                      borderColor: '#FF6347',
-                      color: '#FF6347',
-                      backgroundColor: 'white'
                     }}
+                    danger
                     onClick={() => changeAppointmentStatus(appointment, "absent")}
                   >
                     No-Show
@@ -322,9 +320,12 @@ function ViewAppointments() {
               <Col span={8}>
                 <div className="resched-button pt-3">
                   <Button
-                    type="primary"
-                    style={{ width: "150px", height: "40px" }}
-                    //baguhin function nung id hahaha
+                     type="primary"
+                     style={{
+                       width: "150px",
+                       height: "40px",
+                     }}
+                     danger
                     onClick={() => navigate(`/book-appointment/${params.userId}`)}
                   >
                     Reschedule
@@ -335,7 +336,8 @@ function ViewAppointments() {
                 <div className="resched-button pt-3">
                   <Button
                     type="primary"
-                    style={{ width: "150px", height: "40px" , backgroundColor: '#32CD32',}}
+                    style={{ width: "150px", height: "40px"}}
+                    danger
                     //baguhin function nung id hahaha
                     onClick={() => changeAppointmentStatus(appointment, "completed")}
                   >

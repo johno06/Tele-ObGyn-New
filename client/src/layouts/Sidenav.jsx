@@ -1,4 +1,4 @@
-import { Button, Menu, Dropdown} from "antd";
+import { Button, Menu, Dropdown } from "antd";
 import React from "react";
 import { AiFillHome } from "react-icons/ai";
 import {
@@ -17,34 +17,34 @@ function Sidenav({ color }) {
   const page = pathname.replace("/", "");
   const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "User";
   const navigate = useNavigate();
-//   const menu = (
-//    <Menu theme="light" mode="inline">
-//     <Menu.Item key="1"> 
-//               <NavLink to="/doctor/pending">
-//               <span className="label">Pending</span>
-//             </NavLink></Menu.Item>
-//     <Menu.Item key="2">
-//     <NavLink to="/doctor/appointments">
-//       <span className="label">Accepted</span>  
-//     </NavLink></Menu.Item>
-//     <Menu.Item key="3">
-//     <NavLink to="/doctor/history"></NavLink>
-//        <span className="label">Appointment History</span>  
-//     </Menu.Item>
-//   </Menu>
-// );
+  //   const menu = (
+  //    <Menu theme="light" mode="inline">
+  //     <Menu.Item key="1">
+  //               <NavLink to="/doctor/pending">
+  //               <span className="label">Pending</span>
+  //             </NavLink></Menu.Item>
+  //     <Menu.Item key="2">
+  //     <NavLink to="/doctor/appointments">
+  //       <span className="label">Accepted</span>
+  //     </NavLink></Menu.Item>
+  //     <Menu.Item key="3">
+  //     <NavLink to="/doctor/history"></NavLink>
+  //        <span className="label">Appointment History</span>
+  //     </Menu.Item>
+  //   </Menu>
+  // );
 
   function doctorMenu() {
     return (
       <>
-      <div className="brand">
+        <div className="brand">
           <img src={logo} alt="" />
           <span>TELE-OBGYN</span>
         </div>
         <hr />
         <Menu defaultSelectedKeys={["1"]} theme="light" mode="inline">
           <Menu.Item key="1">
-            <NavLink to="/">
+            <NavLink className="nav-link" to="/">
               <span
                 className="icon"
                 style={{
@@ -56,23 +56,23 @@ function Sidenav({ color }) {
               <span className="label">Home</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="2">
-          {/* <Dropdown overlay={menu} trigger={['click']}> */}
-        <NavLink to="/doctor/appointments">
-          <span
-            className="icon"
-            style={{
-              background: page === "doctor/appointments" ? color : "",
-            }}
-          >
-            <FaUserFriends />
-          </span>
-          <span className="label">Appointments</span>
-        </NavLink>
-      {/* </Dropdown> */}
+          <Menu.Item key="d-appointment">
+            {/* <Dropdown overlay={menu} trigger={['click']}> */}
+            <NavLink className="nav-link" to="/doctor/appointments">
+              <span
+                className="icon"
+                style={{
+                  background: page === "doctor/appointments" ? color : "",
+                }}
+              >
+                <FaUserFriends />
+              </span>
+              <span className="label">Appointments</span>
+            </NavLink>
+            {/* </Dropdown> */}
           </Menu.Item>
-          <Menu.Item key="3">
-            <NavLink to={`/doctor/profile/${user?._id}`}>
+          <Menu.Item key="d-profile">
+            <NavLink className="nav-link" to={`/doctor/profile/${user?._id}`}>
               <span
                 className="icon"
                 style={{
@@ -86,8 +86,8 @@ function Sidenav({ color }) {
             </NavLink>
           </Menu.Item>
 
-          <Menu.Item key="4">
-            <NavLink to="/doctor/userslist">
+          <Menu.Item key="d-userlist">
+            <NavLink className="nav-link" to="/doctor/userslist">
               <span
                 className="icon"
                 style={{
@@ -99,8 +99,8 @@ function Sidenav({ color }) {
               <span className="label">Patients</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="5">
-            <NavLink to="/doctor/addaccount">
+          <Menu.Item key="d-create">
+            <NavLink className="nav-link" to="/doctor/addaccount">
               <span
                 className="icon"
                 style={{
@@ -112,8 +112,8 @@ function Sidenav({ color }) {
               <span className="label">Create Accounts</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="6">
-            <NavLink to={`/user/messenger/${user?._id}`}>
+          <Menu.Item key="d-messenger">
+            <NavLink className="nav-link" to={`/user/messenger/${user?._id}`}>
               <span
                 className="icon"
                 style={{
@@ -126,8 +126,8 @@ function Sidenav({ color }) {
               <span className="label">Messages</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="7">
-            <NavLink to={`/doctor/consultation`}>
+          <Menu.Item key="d-call">
+            <NavLink className="nav-link" to={`/doctor/consultation`}>
               <span
                 className="icon"
                 style={{
@@ -173,8 +173,6 @@ function Sidenav({ color }) {
     );
   }
 
-
-
   function admin() {
     return (
       <>
@@ -185,7 +183,7 @@ function Sidenav({ color }) {
         <hr />
         <Menu defaultSelectedKeys={["a-dashboard"]} theme="light" mode="inline">
           <Menu.Item key="a-dashboard">
-            <NavLink to="/">
+            <NavLink className="nav-link" to="/">
               <span
                 className="icon"
                 style={{
@@ -197,8 +195,8 @@ function Sidenav({ color }) {
               <span className="label">Dashboard</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="3">
-            <NavLink to={`/admin/profile/${user?._id}`}>
+          <Menu.Item key="a-profile">
+            <NavLink className="nav-link" to={`/admin/profile/${user?._id}`}>
               <span
                 className="icon"
                 style={{
@@ -211,22 +209,23 @@ function Sidenav({ color }) {
               <span className="label">Profile</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="2">
-          {/* <Dropdown overlay={menu} trigger={['click']}> */}
-        <NavLink to="/admin/appointments">
-          <span
-            className="icon"
-            style={{
-              background: page === "admin/appointments" ? color : "",
-            }}
-          >
-            <FaUserFriends />
-          </span>
-          <span className="label">Appointments</span>
-        </NavLink>
-      {/* </Dropdown> */}
-      <Menu.Item key="6">
-            <NavLink to={`/admin/messenger3/${user?._id}`}>
+          <Menu.Item key="a-appointment">
+            {/* <Dropdown overlay={menu} trigger={['click']}> */}
+            <NavLink className="nav-link" to="/admin/appointments">
+              <span
+                className="icon"
+                style={{
+                  background: page === "admin/appointments" ? color : "",
+                }}
+              >
+                <FaUserFriends />
+              </span>
+              <span className="label">Appointments</span>
+            </NavLink>
+          </Menu.Item>
+          {/* </Dropdown> */}
+          <Menu.Item key="a-messenger">
+            <NavLink className="nav-link" to={`/admin/messenger3/${user?._id}`}>
               <span
                 className="icon"
                 style={{
@@ -239,9 +238,8 @@ function Sidenav({ color }) {
               <span className="label">Messages</span>
             </NavLink>
           </Menu.Item>
-          </Menu.Item>
           <Menu.Item key="a-userlist">
-            <NavLink to="/admin/userslist">
+            <NavLink className="nav-link" to="/admin/userslist">
               <span
                 className="icon"
                 style={{
@@ -254,7 +252,7 @@ function Sidenav({ color }) {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="a-doctorlist">
-            <NavLink to="/admin/doctorslist">
+            <NavLink className="nav-link" to="/admin/doctorslist">
               <span
                 className="icon"
                 style={{
@@ -280,7 +278,7 @@ function Sidenav({ color }) {
             </NavLink>
           </Menu.Item> */}
         </Menu>
-        
+
         <div className="aside-footer">
           <div
             className="footer-box"
@@ -308,7 +306,7 @@ function Sidenav({ color }) {
           </div>
         </div>
       </>
-    )
+    );
   }
 
   // function adminMenu2() {
@@ -329,7 +327,7 @@ function Sidenav({ color }) {
   //   );
   // }
 
-  function activate(){
+  function activate() {
     return (
       <>
         <div className="brand">
@@ -339,7 +337,7 @@ function Sidenav({ color }) {
         <hr />
         <Menu defaultSelectedKeys={["a-activate"]} theme="light" mode="inline">
           <Menu.Item key="a-dashboard">
-            <NavLink to="/apply-doctor">
+            <NavLink className="nav-link" to="/apply-doctor">
               <span
                 className="icon"
                 style={{
@@ -352,7 +350,7 @@ function Sidenav({ color }) {
             </NavLink>
           </Menu.Item>
         </Menu>
-        
+
         <div className="aside-footer">
           <div
             className="footer-box"
@@ -380,14 +378,13 @@ function Sidenav({ color }) {
           </div>
         </div>
       </>
-    )
+    );
   }
 
   function render() {
     if (user?.isAdmin) {
       return admin();
-    }
-     else if (user?.isDoctor) {
+    } else if (user?.isDoctor) {
       return doctorMenu();
     } else {
       return activate();

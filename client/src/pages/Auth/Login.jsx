@@ -109,12 +109,12 @@ function Login() {
                 <Form.Item>
                   <Button type="primary" className="login-form-button" htmlType="submit" danger>SIGN IN</Button>
                 </Form.Item>
-                <p className="font-semibold text-muted">
+                {/* <p className="font-semibold text-muted">
                   Don't have an account?{" "}
                   <Link to="/register" className="text-dark font-bold">
                     Sign Up
                   </Link>
-                </p>
+                </p> */}
               </Form>
             </Col>
             <Col

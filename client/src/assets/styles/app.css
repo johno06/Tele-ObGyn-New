@@ -3,6 +3,10 @@
   color: #57C84D;
 }
 
+.nav-link {
+  text-decoration: none;
+}
+
 .wider-card{
   width: 500px;
   height: 200px !important; /* Specify the desired width value */
@@ -1557,7 +1561,7 @@ ul.ant-menu.ant-menu-root.ant-menu-inline.ant-menu-light.left-nav li:active {
   height: 30px;
 }
 .aside-footer {
-  padding-top: 60px !important;
+  padding-top: 10px !important;
 }
 .ant-card-body {
   padding: 16px;
