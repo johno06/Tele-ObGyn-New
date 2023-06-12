@@ -4,7 +4,7 @@ function CreateAdminForm({ form, onFinish }) {
   return (
     <Card bordered={false} className="criclebox tablespace mb-24" style={{padding: 20}}>
       <Form form={form} onFinish={onFinish}>
-        <h1 className="card-title mt-3 mb-4">Create an Admin Account</h1>
+        <h1 className="card-title mt-3 mb-4">Create a Secretary Account</h1>
         <Form.Item
           label="Username"
           name="name"

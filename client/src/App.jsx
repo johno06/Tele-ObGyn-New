@@ -40,6 +40,12 @@ import {
 import MainNav from "./components/Navbars/MainNav";
 import UsersListDoctor from "./pages/Doctor/UsersList";
 import ProfileViewAdmin from "./pages/Admin/PatientProfileAdmin";
+import DoctorPendingAppointments from "./pages/Doctor/PendingAppointment";
+import DoctorHistoryAppointments from "./pages/Doctor/AppointmentHistory";
+import AddAccount from "./pages/Doctor/AddAccount";
+import AdminAppointments from "./pages/Admin/appointments";
+import AdminProfile from "./pages/Admin/AdminProfile";
+import Messenger3 from "./pages/Admin/chat";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -169,7 +175,7 @@ function App() {
           path="/admin/profile/:userId"
           element={
             <ProtectedRoute>
-              <ProfileViewAdmin />
+              <AdminProfile />
             </ProtectedRoute>
           }
         />
@@ -203,6 +209,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Messenger2 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/messenger3/:userId"
+          element={
+            <ProtectedRoute>
+              <Messenger3 />
             </ProtectedRoute>
           }
         />
@@ -292,6 +306,39 @@ function App() {
           element={
             <ProtectedRoute>
               <DoctorAppointments />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/doctor/pending"
+          element={
+            <ProtectedRoute>
+              <DoctorPendingAppointments />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/doctor/history"
+          element={
+            <ProtectedRoute>
+              <DoctorHistoryAppointments />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/doctor/addaccount"
+          element={
+            <ProtectedRoute>
+              <AddAccount />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/appointments"
+          element={
+            <ProtectedRoute>
+              <AdminAppointments />
             </ProtectedRoute>
           }
         />

@@ -2,9 +2,12 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/userModels");
 const Doctor = require("../models/doctorModel");
+const Appointment = require("../models/appointmentModel");
 const authMiddleware = require("../middleware/authMiddleware");
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
+const moment = require ('moment');
+
 const {
   sendVerificationEmail,
   sendForgotPasswordEmail,
@@ -264,6 +267,53 @@ router.post ('/update-patient-profile', authMiddleware, async (req, res) => {
     });
   }
 });
+
+
+router.post ('/get-accepted-appointments', async (req, res) => {
+  try {
+    // const doctor = await Doctor.findOne ({_id: req.body.doctorId});
+    const appointments = await Appointment.find ({
+      // doctorId: "6332d5608231d41a72504a13",
+      status: 'approved',
+    }).sort ({date: -1});
+    res.status (200).send ({
+      message: 'Pending Appointments fetched successfully',
+      success: true,
+      data: appointments,
+    });
+  } catch (error) {
+    console.log (error);
+    res.status (500).send ({
+      message: 'Error fetching appointments',
+      success: false,
+      error,
+    });
+  }
+});
+router.post ('/get-history-appointments', async (req, res) => {
+  try {
+    // const doctor = await Doctor.findOne ({_id: req.body.doctorId});
+    const appointments = await Appointment.find ({
+      // doctorId: "6332d5608231d41a72504a13",
+      status: {$in: ['completed', 'absent', 'rejected']},
+    }).sort ({date: -1}); // Sorting in ascending order of the date field
+
+    res.status (200).send ({
+      message: 'Completed Appointments fetched successfully',
+      success: true,
+      data: appointments,
+    });
+  } catch (error) {
+    console.error (error);
+    res.status (500).send ({
+      message: 'Error fetching appointments',
+      success: false,
+      error: 'An error occurred while fetching appointments',
+    });
+  }
+});
+
+
 
 
 

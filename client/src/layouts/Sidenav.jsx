@@ -1,4 +1,4 @@
-import { Button, Menu } from "antd";
+import { Button, Menu, Dropdown} from "antd";
 import React from "react";
 import { AiFillHome } from "react-icons/ai";
 import {
@@ -17,6 +17,22 @@ function Sidenav({ color }) {
   const page = pathname.replace("/", "");
   const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "User";
   const navigate = useNavigate();
+//   const menu = (
+//    <Menu theme="light" mode="inline">
+//     <Menu.Item key="1"> 
+//               <NavLink to="/doctor/pending">
+//               <span className="label">Pending</span>
+//             </NavLink></Menu.Item>
+//     <Menu.Item key="2">
+//     <NavLink to="/doctor/appointments">
+//       <span className="label">Accepted</span>  
+//     </NavLink></Menu.Item>
+//     <Menu.Item key="3">
+//     <NavLink to="/doctor/history"></NavLink>
+//        <span className="label">Appointment History</span>  
+//     </Menu.Item>
+//   </Menu>
+// );
 
   function doctorMenu() {
     return (
@@ -41,17 +57,19 @@ function Sidenav({ color }) {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="2">
-            <NavLink to="/doctor/appointments">
-              <span
-                className="icon"
-                style={{
-                  background: page === "doctor/appointments" ? color : "",
-                }}
-              >
-                <FaUserFriends />
-              </span>
-              <span className="label">Appointments</span>
-            </NavLink>
+          {/* <Dropdown overlay={menu} trigger={['click']}> */}
+        <NavLink to="/doctor/appointments">
+          <span
+            className="icon"
+            style={{
+              background: page === "doctor/appointments" ? color : "",
+            }}
+          >
+            <FaUserFriends />
+          </span>
+          <span className="label">Appointments</span>
+        </NavLink>
+      {/* </Dropdown> */}
           </Menu.Item>
           <Menu.Item key="3">
             <NavLink to={`/doctor/profile/${user?._id}`}>
@@ -81,8 +99,20 @@ function Sidenav({ color }) {
               <span className="label">Patients</span>
             </NavLink>
           </Menu.Item>
-
           <Menu.Item key="5">
+            <NavLink to="/doctor/addaccount">
+              <span
+                className="icon"
+                style={{
+                  background: page === "/doctor/addaccount" ? color : "",
+                }}
+              >
+                <FaUserPlus />
+              </span>
+              <span className="label">Create Accounts</span>
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="6">
             <NavLink to={`/user/messenger/${user?._id}`}>
               <span
                 className="icon"
@@ -96,7 +126,7 @@ function Sidenav({ color }) {
               <span className="label">Messages</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="6">
+          <Menu.Item key="7">
             <NavLink to={`/doctor/consultation`}>
               <span
                 className="icon"
@@ -168,18 +198,47 @@ function Sidenav({ color }) {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="3">
-            <NavLink to={`/user/profile/${user?._id}`}>
+            <NavLink to={`/admin/profile/${user?._id}`}>
               <span
                 className="icon"
                 style={{
                   background:
-                    page === `user/profile/${user?._id}` ? color : "",
+                    page === `admin/profile/${user?._id}` ? color : "",
                 }}
               >
                 <FaUserCircle />
               </span>
               <span className="label">Profile</span>
             </NavLink>
+          </Menu.Item>
+          <Menu.Item key="2">
+          {/* <Dropdown overlay={menu} trigger={['click']}> */}
+        <NavLink to="/admin/appointments">
+          <span
+            className="icon"
+            style={{
+              background: page === "admin/appointments" ? color : "",
+            }}
+          >
+            <FaUserFriends />
+          </span>
+          <span className="label">Appointments</span>
+        </NavLink>
+      {/* </Dropdown> */}
+      <Menu.Item key="6">
+            <NavLink to={`/admin/messenger3/${user?._id}`}>
+              <span
+                className="icon"
+                style={{
+                  background:
+                    page === `/admin/messenger3/${user?._id}` ? color : "",
+                }}
+              >
+                <FaUserMd />
+              </span>
+              <span className="label">Messages</span>
+            </NavLink>
+          </Menu.Item>
           </Menu.Item>
           <Menu.Item key="a-userlist">
             <NavLink to="/admin/userslist">
@@ -207,7 +266,7 @@ function Sidenav({ color }) {
               <span className="label">Doctors</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="a-create">
+          {/* <Menu.Item key="a-create">
             <NavLink to="/admin/addadmin">
               <span
                 className="icon"
@@ -219,7 +278,7 @@ function Sidenav({ color }) {
               </span>
               <span className="label">Create Accounts</span>
             </NavLink>
-          </Menu.Item>
+          </Menu.Item> */}
         </Menu>
         
         <div className="aside-footer">

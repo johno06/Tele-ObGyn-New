@@ -16,36 +16,24 @@ import {
   Row,
   Space,
   Typography,
+  Tabs
 } from "antd";
 
 import { NavLink } from "react-router-dom";
+const {TabPane} = Tabs;
 
 function DoctorAppointments() {
   const [appointments, setAppointments] = useState([]);
+  const [pendingAppointments, setPendingAppointments] = useState([]);
+  const [appointmentHistory, setAppointmentHistory] = useState([]);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const [doctor, setDoctor] = useState(null);
   const idVal = "6332d5898231d41a72504a14";
-
-  //   const getDoctorData = async () => {
-  //   try {
-  //     dispatch (showLoading ());
-  //     const response = await axios.post (
-  //       '/api/doctor/get-doctor-info-by-user-id',
-  //       {
-  //         userId: user._id,
-  //       },
-
-  //     );
-  //     // dispatch (hideLoading ());
-
-  //     if (response.data.success) {
-  //       setDoctor(response.data.data);
-  //     }
-  //   } catch (error) {
-  //     console.log (error);
-  //   }
-  // };
+const [activeTab, setActiveTab] = useState('pending');
+const handleTabChange = key => {
+  setActiveTab (key);
+};
 
   const getAppointmentsData = async () => {
     try {
@@ -64,7 +52,7 @@ function DoctorAppointments() {
           dispatch(showLoading());
 
           const response1 = await axios.post(
-            "/api/doctor/get-appointments-by-doctor-id",
+            "/api/doctor/get-approved-appointments-by-doctor-id",
             {
               doctorId: response.data.data._id,
             }
@@ -81,10 +69,81 @@ function DoctorAppointments() {
       console.log(error);
     }
   };
+  const getPendingAppointmentsData = async () => {
+  try {
+    dispatch (showLoading ());
+    const response = await axios.post (
+      '/api/doctor/get-doctor-info-by-user-id',
+      {
+        userId: user._id,
+      }
+    );
+    // dispatch (hideLoading ());
+
+    if (response.data.success) {
+      setDoctor (response.data.data);
+      try {
+        dispatch (showLoading ());
+
+        const response1 = await axios.post (
+          '/api/doctor/get-pending-appointments-by-doctor-id',
+          {
+            doctorId: response.data.data._id,
+          }
+        );
+        dispatch (hideLoading ());
+        if (response1.data.success) {
+          setPendingAppointments (response1.data.data);
+        }
+      } catch (error) {
+        dispatch (hideLoading ());
+      }
+    }
+  } catch (error) {
+    console.log (error);
+  }
+};
+
+const getAppointmentHistory = async () => {
+  try {
+    dispatch (showLoading ());
+    const response = await axios.post (
+      '/api/doctor/get-doctor-info-by-user-id',
+      {
+        userId: user._id,
+      }
+    );
+    // dispatch (hideLoading ());
+
+    if (response.data.success) {
+      setDoctor (response.data.data);
+      try {
+        dispatch (showLoading ());
+
+        const response1 = await axios.post (
+          '/api/doctor/get-history-appointments-by-doctor-id',
+          {
+            doctorId: response.data.data._id,
+          }
+        );
+        dispatch (hideLoading ());
+        if (response1.data.success) {
+          setAppointmentHistory (response1.data.data);
+        }
+      } catch (error) {
+        dispatch (hideLoading ());
+      }
+    }
+  } catch (error) {
+    console.log (error);
+  }
+};
 
   useEffect(() => {
     // getDoctorData();
     getAppointmentsData();
+    getPendingAppointmentsData();
+    getAppointmentHistory();
   }, []);
 
   const changeAppointmentStatus = async (record, status) => {
@@ -112,6 +171,15 @@ function DoctorAppointments() {
 
   const columns = [
     {
+      title: 'Date & Time',
+      dataIndex: 'createdAt',
+      render: (text, record) => (
+        <span>
+          {moment (record.date).format ('DD/MM/YYYY')} {' : ' + record.time}
+        </span>
+      ),
+    },
+    {
       title: "Patient",
       dataIndex: "name",
       //req.body.userInfo.name
@@ -123,74 +191,38 @@ function DoctorAppointments() {
       render: (text, record) => <span>{record.userInfo.phone}</span>,
     },
     {
-      title: "Date & Time",
-      dataIndex: "createdAt",
-      render: (text, record) => (
-        <span>
-          {moment(record.date).format("DD/MM/YYYY")} {" : " + record.time}
-        </span>
-      ),
-    },
-    {
       title: "Status",
       dataIndex: "status",
+      render: (text, record) => (
+        <div>
+          {record.status === "approved" &&(
+           <span>
+            Accepted
+           </span> 
+          )}
+          {record.status === "pending" &&(
+           <span>
+            Pending
+           </span> 
+          )}
+          {record.status === "completed" &&(
+           <span>
+            Completed
+           </span> 
+          )}
+          {record.status === "rejected" &&(
+           <span>
+            Cancelled
+           </span> 
+          )}
+          {record.status === "absent" &&(
+           <span>
+            Absent
+           </span> 
+          )}
+        </div>
+      ),
     },
-    // {
-    //   title: "Actions",
-    //   dataIndex: "actions",
-    //   render: (text, record) => (
-    //     <div className="">
-    //       <Row gutter={[100, 0]}>
-    //         {record.status === "approved" && (
-    //           <div className="">
-    //             <NavLink to={`/doctor/appointments/${record._id}`}>
-    //               <a>Edit</a>
-    //             </NavLink>
-    //           </div>
-    //         )}
-
-    //         {record.status === "completed" && (
-    //           <div className="">
-    //             <NavLink to={`/doctor/appointments/${record._id}`}>
-    //               <a>View</a>
-    //             </NavLink>
-    //           </div>
-    //         )}
-    //         {record.status === "pending" && (
-    //           <div className="">
-    //             <Row gutter={0}>
-    //               <Col span={7}>
-    //                 <NavLink to={`/doctor/appointments/${record._id}`}>
-    //                   <a>View</a>
-    //                 </NavLink>
-    //               </Col>
-    //               <Col span={14}>
-    //                 <button
-    //                   className="  link-button"
-    //                   onClick={() =>
-    //                     changeAppointmentStatus(record, "approved")
-    //                   }
-    //                 >
-    //                   Approve
-    //                 </button>
-    //               </Col>
-    //               <Col span={3}>
-    //                 <button
-    //                   className="link-button"
-    //                   onClick={() =>
-    //                     changeAppointmentStatus(record, "rejected")
-    //                   }
-    //                 >
-    //                   Reject
-    //                 </button>
-    //               </Col>
-    //             </Row>
-    //           </div>
-    //         )}
-    //       </Row>
-    //     </div>
-    //   ),
-    // },
     {
       title: "Actions",
       dataIndex: "actions",
@@ -221,13 +253,13 @@ function DoctorAppointments() {
                 className="link-button px-2"
                 onClick={() => changeAppointmentStatus(record, "approved")}
               >
-                Approve
+                Accept
               </button>
               <button
                 className="link-button"
                 onClick={() => changeAppointmentStatus(record, "rejected")}
               >
-                Reject
+                Cancel
               </button>
             </div>
           )}
@@ -239,9 +271,26 @@ function DoctorAppointments() {
 
   return (
     <Main>
-      <h1 className="page-title">Appointments</h1>
+      <Tabs activeKey={activeTab} onChange={handleTabChange}>
+      <TabPane tab="Pending" key="pending">
+        {/* Content for the "Pending" tab */}
+        <h1 className="page-title">Pending Appointments</h1>
+      <hr />
+      <Table columns={columns} dataSource={pendingAppointments} />
+      </TabPane>
+      <TabPane tab="Accepted" key="accepted">
+        {/* Content for the "Accepted" tab */}
+        <h1 className="page-title">Accepted Appointments</h1>
       <hr />
       <Table columns={columns} dataSource={appointments} />
+      </TabPane>
+      <TabPane tab="Appointment History" key="history">
+        {/* Content for the "Appointment History" tab */}
+        <h1 className="page-title">Appointment History</h1>
+      <hr />
+      <Table columns={columns} dataSource={appointmentHistory} />
+      </TabPane>
+    </Tabs>
     </Main>
   );
 }
