@@ -1,7 +1,6 @@
 [build]
-  command = "yarn build"
+  command = "yarn build --no-browserslist-db-warning"
   publish = "build/"
-  ignore_warnings = true
 
 [build.environment]
   CI = "true"
