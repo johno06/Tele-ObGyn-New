@@ -20,17 +20,15 @@ function PatientFormAdmin({ onFinish, initialValues }) {
     const handleDateChange = birthdate => {
     setDate(birthdate);
     };
-
-
    const onFinish1 = async (values) => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
         "/api/admin/update-patient-profile",
         {
-          ...values,
-          birthdate: (birthdate).format("YYYY-MM-DD"),
           _id: params.userId,
+          ...values,
+          birthdate: birthdate,
         //   timings: [
         //     (values.timings[0]).format("HH:00"),
         //     (values.timings[1]).format("HH:00"),
@@ -45,13 +43,14 @@ function PatientFormAdmin({ onFinish, initialValues }) {
       dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
-        navigate("/admin/userslist");
+        navigate("/admin/profile/:userId");
       } else {
         toast.error(response.data.message);
       }
     } catch (error) {
       dispatch(hideLoading());
       toast.error("Something went wrong:", error);
+      console.log(error);
     }
   };
 
@@ -105,10 +104,9 @@ function PatientFormAdmin({ onFinish, initialValues }) {
         </Col>
       </Row>
       <hr />
-
       <div className="d-flex justify-content-end">
         <Button className="primary" danger htmlType="submit">
-          Update Patient
+          Update Profile
         </Button>
       </div>
     </Form>

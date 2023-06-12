@@ -154,6 +154,68 @@ router.post("/get-appointments-by-doctor-id", async (req, res) => {
     });
   }
 });
+router.post ('/get-pending-appointments-by-doctor-id', async (req, res) => {
+  try {
+    const doctor = await Doctor.findOne ({_id: req.body.doctorId});
+    const appointments = await Appointment.find ({doctorId: doctor._id, status: "pending"}).sort({ date: -1 });
+    res.status (200).send ({
+      message: 'Pending Appointments fetched successfully',
+      success: true,
+      data: appointments,
+    });
+  } catch (error) {
+    console.log (error);
+    res.status (500).send ({
+      message: 'Error fetching appointments',
+      success: false,
+      error,
+    });
+  }
+});
+router.post ('/get-history-appointments-by-doctor-id', async (req, res) => {
+ try {
+  const doctor = await Doctor.findOne({ _id: req.body.doctorId });
+  const appointments = await Appointment.find({
+    doctorId: doctor._id,
+    status: { $in: ['completed', 'absent', 'rejected'] },
+  }).sort({ date: -1 }); // Sorting in ascending order of the date field
+
+  res.status(200).send({
+    message: 'Completed Appointments fetched successfully',
+    success: true,
+    data: appointments,
+  });
+} catch (error) {
+  console.error(error);
+  res.status(500).send({
+    message: 'Error fetching appointments',
+    success: false,
+    error: 'An error occurred while fetching appointments',
+  });
+}
+});
+router.post ('/get-approved-appointments-by-doctor-id', async (req, res) => {
+  try {
+    const doctor = await Doctor.findOne ({_id: req.body.doctorId});
+    const appointments = await Appointment.find ({
+      doctorId: doctor._id,
+      status: 'approved',
+    }).sort({ date: -1 });
+    res.status (200).send ({
+      message: 'Accepted Appointments fetched successfully',
+      success: true,
+      data: appointments,
+    });
+  } catch (error) {
+    console.log (error);
+    res.status (500).send ({
+      message: 'Error fetching appointments',
+      success: false,
+      error,
+    });
+  }
+});
+
 
 router.post("/get-appointment-id", async (req, res) => {
   try {

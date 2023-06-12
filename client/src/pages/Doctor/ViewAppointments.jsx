@@ -171,6 +171,7 @@ function ViewAppointments() {
   const consultationType = appointment?.consultationType;
   const date = appointment?.date;
   const time = appointment?.time;
+  const appStatus = appointment?.status;
   return (
     <Main>
       <Row gutter={[24, 0]}>
@@ -257,8 +258,31 @@ function ViewAppointments() {
                 <div className="ant-muse pt-3">
                   <Text>Status</Text>
                   <br />
-                  {/* change code na makukuha yung appointment id */}
-                  <h6 className="font-semibold m-0">{appointment?.status}</h6>
+                    {appStatus === "approved" &&(
+                      <span>
+                        <h6 className="font-semibold m-0">Accepted</h6>
+                      </span> 
+                      )}
+                      {appStatus === "pending" &&(
+                      <span>
+                        <h6 className="font-semibold m-0">Pending</h6>
+                      </span> 
+                      )}
+                      {appStatus === "completed" &&(
+                      <span>
+                        <h6 className="font-semibold m-0">Completed</h6>
+                      </span> 
+                      )}
+                      {appStatus === "absent" &&(
+                      <span>
+                        <h6 className="font-semibold m-0">Absent</h6>
+                      </span> 
+                      )}
+                      {appStatus === "rejected" &&(
+                      <span>
+                        <h6 className="font-semibold m-0">Cancelled</h6>
+                      </span> 
+                      )}
 
                 </div>
               </Col>
@@ -282,8 +306,13 @@ function ViewAppointments() {
                 <div className="resched-button pt-3">
                   <Button
                     type="primary"
-                    style={{ width: "150px", height: "40px", backgroundColor:'#FF6347' }}
-                    //baguhin function nung id hahaha
+                    style={{
+                      width: "150px",
+                      height: "40px",
+                      borderColor: '#FF6347',
+                      color: '#FF6347',
+                      backgroundColor: 'white'
+                    }}
                     onClick={() => changeAppointmentStatus(appointment, "absent")}
                   >
                     No-Show
