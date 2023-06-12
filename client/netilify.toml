@@ -1,6 +1,7 @@
 [build]
-  command = "yarn build --no-warnings"
+  command = "yarn build"
   publish = "build/"
+  ignore_warnings = true
 
 [build.environment]
   CI = "true"
