@@ -12,7 +12,7 @@ function ProtectedRoute(props) {
   const getUser = async () => {
     try {
       dispatch(showLoading());
-      const response = await axios.get(
+      const response = await axios.post(
         "https://fuentes-clinic.onrender.com/api/user/get-user-info-by-id",
         { token: localStorage.getItem("token") },
         {
