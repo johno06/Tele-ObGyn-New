@@ -50,6 +50,7 @@ app.use ('/api/utility', utilityRoute);
 //   res.sendFile (path.join (__dirname, './client/build', 'index.html'));
 // });
 
+
 const buildPath = path.join (__dirname, 'client', 'build');
 
 app.use (express.static (buildPath));
