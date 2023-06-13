@@ -43,7 +43,7 @@ app.use ('/api/admin', adminRoute);
 app.use ('/api/doctor', doctorRoute);
 app.use ('/api/utility', utilityRoute);
 
-// Serve the static files from the public directory
+// Serve the static files from the build directory
 app.use (express.static (path.join (__dirname, 'client', 'build')));
 
 // Fallback route for client-side routing
