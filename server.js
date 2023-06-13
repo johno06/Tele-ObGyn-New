@@ -47,7 +47,7 @@ app.use ('/api/utility', utilityRoute);
 app.use (express.static (path.join (__dirname, 'client', 'build')));
 
 // Fallback route for client-side routing
-app.get ('/*', (req, res) => {
+app.get ('*', (req, res) => {
   res.sendFile (path.join (__dirname, 'client', 'build', 'index.html'));
 });
 
