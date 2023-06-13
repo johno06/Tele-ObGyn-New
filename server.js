@@ -29,9 +29,9 @@ app.use ((req, res, next) => {
   next ();
 });
 
-app.get ('/', (req, res) => {
-  res.send ('Hello World!');
-});
+// app.get ('/', (req, res) => {
+//   res.send ('Hello World!');
+// });
 
 const userRoute = require ('./routes/userRoute');
 const adminRoute = require ('./routes/adminRoute');
@@ -47,7 +47,7 @@ app.use ('/api/utility', utilityRoute);
 app.use (express.static (path.join (__dirname, 'client', 'build')));
 
 // Fallback route for client-side routing
-app.get ('*', (req, res) => {
+app.get ('/*', (req, res) => {
   res.sendFile (path.join (__dirname, 'client', 'build', 'index.html'));
 });
 
