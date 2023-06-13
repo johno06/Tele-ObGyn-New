@@ -19,7 +19,7 @@ function AddAdmin() {
   const onAdminFinish = async (values) => {
     try {
       dispatch(showLoading());
-      const response = await axios.post("/api/admin/register-admin", values);
+      const response = await axios.post("https://fuentes-clinic.onrender.com/api/admin/register-admin", values);
       dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
@@ -36,7 +36,7 @@ function AddAdmin() {
   const onDoctorFinish = async (values) => {
     try {
       dispatch(showLoading());
-      const response = await axios.post("/api/admin/register-doctor", values);
+      const response = await axios.post("https://fuentes-clinic.onrender.com/api/admin/register-doctor", values);
       dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);

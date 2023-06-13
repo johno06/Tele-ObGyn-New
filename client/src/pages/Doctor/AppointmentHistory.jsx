@@ -48,6 +48,7 @@
 //   //   }
 //   // };
 
+<<<<<<< HEAD
 //   const getAppointmentsData = async () => {
 //     try {
 //       dispatch (showLoading ());
@@ -58,12 +59,25 @@
 //         }
 //       );
 //       // dispatch (hideLoading ());
+=======
+  const getAppointmentsData = async () => {
+    try {
+      dispatch (showLoading ());
+      const response = await axios.post (
+        'https://fuentes-clinic.onrender.com/api/doctor/get-doctor-info-by-user-id',
+        {
+          userId: user._id,
+        }
+      );
+      // dispatch (hideLoading ());
+>>>>>>> johno/Reco(charts,-create-acc,-at-ID-sa-heading-nalang)
 
 //       if (response.data.success) {
 //         setDoctor (response.data.data);
 //         try {
 //           dispatch (showLoading ());
 
+<<<<<<< HEAD
 //           const response1 = await axios.post (
 //             '/api/doctor/get-history-appointments-by-doctor-id',
 //             {
@@ -82,12 +96,33 @@
 //       console.log (error);
 //     }
 //   };
+=======
+          const response1 = await axios.post (
+            'https://fuentes-clinic.onrender.com/api/doctor/get-history-appointments-by-doctor-id',
+            {
+              doctorId: response.data.data._id,
+            }
+          );
+          dispatch (hideLoading ());
+          if (response1.data.success) {
+            setAppointments (response1.data.data);
+          }
+        } catch (error) {
+          dispatch (hideLoading ());
+        }
+      }
+    } catch (error) {
+      console.log (error);
+    }
+  };
+>>>>>>> johno/Reco(charts,-create-acc,-at-ID-sa-heading-nalang)
 
 //   useEffect (() => {
 //     // getDoctorData();
 //     getAppointmentsData ();
 //   }, []);
 
+<<<<<<< HEAD
 //   const changeAppointmentStatus = async (record, status) => {
 //     try {
 //       dispatch (showLoading ());
@@ -110,6 +145,30 @@
 //       dispatch (hideLoading ());
 //     }
 //   };
+=======
+  const changeAppointmentStatus = async (record, status) => {
+    try {
+      dispatch (showLoading ());
+      const response = await axios.post (
+        'https://fuentes-clinic.onrender.com/api/doctor/change-appointment-status',
+        {appointmentId: record._id, status: status},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem ('token')}`,
+          },
+        }
+      );
+      dispatch (hideLoading ());
+      if (response.data.success) {
+        toast.success (response.data.message);
+        getAppointmentsData ();
+      }
+    } catch (error) {
+      toast.error ('Error changing doctor status');
+      dispatch (hideLoading ());
+    }
+  };
+>>>>>>> johno/Reco(charts,-create-acc,-at-ID-sa-heading-nalang)
 
 //   const columns = [
 //     {

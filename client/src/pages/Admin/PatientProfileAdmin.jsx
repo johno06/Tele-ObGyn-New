@@ -22,7 +22,7 @@ function ProfileViewAdmin() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/update-patient-profile",
+        "https://fuentes-clinic.onrender.com/api/user/update-patient-profile",
         {
           //under construction
           ...values,
@@ -50,7 +50,7 @@ function ProfileViewAdmin() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/get-patient-info-by-user-id",
+        "https://fuentes-clinic.onrender.com/api/user/get-patient-info-by-user-id",
         {
           userId: params.userId,
         },

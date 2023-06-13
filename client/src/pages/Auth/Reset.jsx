@@ -22,7 +22,7 @@ function Reset() {
   const onSubmit = (e) => {
     const { email } = jwt_decode(token);
     axios
-      .post("/api/user/resetpassword", {
+      .post("https://fuentes-clinic.onrender.com/api/user/resetpassword", {
         email,
         newPassword: password,
         confirmNewPassword: confirmPassword,
@@ -40,7 +40,7 @@ function Reset() {
   useEffect(() => {
     if (token) {
       axios
-        .get(`/api/user/verifyToken?token=${token}`)
+        .get(`https://fuentes-clinic.onrender.com/api/user/verifyToken?token=${token}`)
         .then((res) => {
           console.log(res);
           setIsTokenValid(true);

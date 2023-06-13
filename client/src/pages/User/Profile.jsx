@@ -137,7 +137,7 @@ const onUpdateRecord = async (values) => {
   try {
     dispatch (showLoading ());
     const response = await axios.patch (
-      '/api/doctor/update-user-record',
+      'https://fuentes-clinic.onrender.com/api/doctor/update-user-record',
       {
         _id: params.userId,
       phr: {
@@ -175,7 +175,7 @@ const onAddRecord = async values => {
   try {
     dispatch (showLoading ());
     const response = await axios.post (
-      '/api/doctor/add-user-record',
+      'https://fuentes-clinic.onrender.com/api/doctor/add-user-record',
       {
         _id: params.userId,
         phr: [
@@ -265,7 +265,7 @@ const onAddRecord = async values => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/update-patient-profile",
+        "https://fuentes-clinic.onrender.com/api/user/update-patient-profile",
         {
           //under construction
           ...values,
@@ -293,7 +293,7 @@ const onAddRecord = async values => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/get-patient-info-by-user-id",
+        "https://fuentes-clinic.onrender.com/api/user/get-patient-info-by-user-id",
         {
           userId: params.userId,
         },

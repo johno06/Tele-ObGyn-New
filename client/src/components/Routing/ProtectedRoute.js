@@ -12,8 +12,13 @@ function ProtectedRoute(props) {
   const getUser = async () => {
     try {
       dispatch(showLoading());
+<<<<<<< HEAD
       const response = await axios.get(
         "/api/user/get-user-info-by-id",
+=======
+      const response = await axios.post(
+        "https://fuentes-clinic.onrender.com/api/user/get-user-info-by-id",
+>>>>>>> johno/Reco(charts,-create-acc,-at-ID-sa-heading-nalang)
         { token: localStorage.getItem("token") },
         {
           headers: {

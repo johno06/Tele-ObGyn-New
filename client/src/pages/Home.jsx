@@ -28,7 +28,7 @@ function Home() {
   const getData = async () => {
     try {
       dispatch(showLoading());
-      const response = await axios.get("/api/user/get-all-approved-doctors", {
+      const response = await axios.get("https://fuentes-clinic.onrender.com/api/user/get-all-approved-doctors", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -51,7 +51,7 @@ function Home() {
     try {
       dispatch(showLoading());
       await axios
-        .get("/api/user/get-all-verified-patients", {
+        .get("https://fuentes-clinic.onrender.com/api/user/get-all-verified-patients", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -74,8 +74,7 @@ function Home() {
   const getPendingAppointment = async () => {
     try {
       dispatch(showLoading());
-      await axios
-        .get("/api/doctor/get-all-pending-appointments", {
+      await axios.get("https://fuentes-clinic.onrender.com/api/doctor/get-all-pending-appointments", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -98,8 +97,7 @@ function Home() {
   const getCompletedAppointment = async () => {
     try {
       dispatch(showLoading());
-      await axios
-        .get("/api/doctor/get-all-completed-appointments", {
+      await axios.get("https://fuentes-clinic.onrender.com/api/doctor/get-all-completed-appointments", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -123,7 +121,7 @@ function Home() {
     try {
       dispatch(showLoading());
       await axios
-        .get("/api/doctor/get-all-approved-appointments", {
+        .get("https://fuentes-clinic.onrender.com/api/doctor/get-all-approved-appointments", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
