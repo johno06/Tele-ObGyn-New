@@ -1,12 +1,7 @@
-import React from 'react';
-import {Toaster} from 'react-hot-toast';
-import {useSelector} from 'react-redux';
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from 'react-router-dom';
+import React from "react";
+import { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
 import {
   ApplyDoctor,
@@ -31,7 +26,7 @@ import {
   UsersList,
   Verify,
   ViewAppointments,
-} from './pages';
+} from "./pages";
 
 import {
   About,
@@ -40,131 +35,310 @@ import {
   ProtectedRoute,
   PublicRoute,
   Services,
-} from './components';
+} from "./components";
 
-import MainNav from './components/Navbars/MainNav';
-import UsersListDoctor from './pages/Doctor/UsersList';
-import ProfileViewAdmin from './pages/Admin/PatientProfileAdmin';
-import DoctorPendingAppointments from './pages/Doctor/PendingAppointment';
-import DoctorHistoryAppointments from './pages/Doctor/AppointmentHistory';
-import AddAccount from './pages/Doctor/AddAccount';
-import AdminAppointments from './pages/Admin/appointments';
-import AdminProfile from './pages/Admin/AdminProfile';
-import Messenger3 from './pages/Admin/chat';
+import MainNav from "./components/Navbars/MainNav";
+import UsersListDoctor from "./pages/Doctor/UsersList";
+import ProfileViewAdmin from "./pages/Admin/PatientProfileAdmin";
+import DoctorPendingAppointments from "./pages/Doctor/PendingAppointment";
+import DoctorHistoryAppointments from "./pages/Doctor/AppointmentHistory";
+import AddAccount from "./pages/Doctor/AddAccount";
+import AdminAppointments from "./pages/Admin/appointments";
+import AdminProfile from "./pages/Admin/AdminProfile";
+import Messenger3 from "./pages/Admin/chat";
 
-function App () {
-  const {loading} = useSelector (state => state.alerts);
+function App() {
+  const { loading } = useSelector((state) => state.alerts);
   return (
-    <Router basename="/">
-      {loading &&
-        <div className="loader fullScreen">
-          <div className="wrapper">
-            <div className="inner" />
-            <div className="text">LOADING</div>
-          </div>
-        </div>}
-      <Toaster position="top-center" reverseOrder={false} />
+   <Router>
+  {loading && (
+    <div className="loader fullScreen">
+      <div className="wrapper">
+        <div className="inner" />
+        <div className="text">LOADING</div>
+      </div>
+    </div>
+  )}
+  <Toaster position="top-center" reverseOrder={false} />
 
-      <MainNav />
+  <Routes>
+    <Route
+      path="/"
+      element={
+        <PublicRoute>
+          <MainNav />
+          <Main2 />
+          <Footer />
+        </PublicRoute>
+      }
+    />
+    <Route
+      path="/about"
+      element={
+        <PublicRoute>
+          <MainNav />
+          <About />
+          <Footer />
+        </PublicRoute>
+      }
+    />
+    <Route
+      path="/services"
+      element={
+        <PublicRoute>
+          <MainNav />
+          <Services />
+          <Footer />
+        </PublicRoute>
+      }
+    />
+    <Route
+      path="/contact"
+      element={
+        <PublicRoute>
+          <MainNav />
+          <Contact />
+          <Footer />
+        </PublicRoute>
+      }
+    />
+    <Route
+      path="/login"
+      element={
+        <PublicRoute>
+          <MainNav />
+          <Login />
+          <Footer />
+        </PublicRoute>
+      }
+    />
+    <Route
+      path="/forgot"
+      element={
+        <PublicRoute>
+          <MainNav />
+          <Forgot />
+          <Footer />
+        </PublicRoute>
+      }
+    />
+    <Route
+      path="/reset"
+      element={
+        <PublicRoute>
+          <MainNav />
+          <Reset />
+          <Footer />
+        </PublicRoute>
+      }
+    />
+    <Route
+      path="/verify"
+      element={
+        <PublicRoute>
+          <MainNav />
+          <Verify />
+          <Footer />
+        </PublicRoute>
+      }
+    />
+    <Route
+      path="/register"
+      element={
+        <PublicRoute>
+          <MainNav />
+          <Register />
+          <Footer />
+        </PublicRoute>
+      }
+    />
+    <Route
+      path="/home"
+      element={
+        <ProtectedRoute>
+          <Home />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/user/profile/:userId"
+      element={
+        <ProtectedRoute>
+          <PatientProfile />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/admin/profile/:userId"
+      element={
+        <ProtectedRoute>
+          <AdminProfile />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/appointments/:userId"
+      element={
+        <ProtectedRoute>
+          <ViewAppointments />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/admin/addadmin"
+      element={
+        <ProtectedRoute>
+          <AddAdmin />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/user/messenger/:userId"
+      element={
+        <ProtectedRoute>
+          <Messenger />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/messenger/:userId"
+      element={
+        <ProtectedRoute>
+          <Messenger2 />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/admin/messenger3/:userId"
+      element={
+        <ProtectedRoute>
+          <Messenger3 />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/user/consultation"
+      element={
+        <ProtectedRoute>
+          <Consultation />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/consultation"
+      element={
+        <ProtectedRoute>
+          <Consultation2 />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/apply-doctor"
+      element={
+        <ProtectedRoute>
+          <ApplyDoctor />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/notifications"
+      element={
+        <ProtectedRoute>
+          <Notifications />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/admin/userslist"
+      element={
+        <ProtectedRoute>
+          <UsersList />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/userslist"
+      element={
+        <ProtectedRoute>
+          <UsersListDoctor />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/admin/doctorslist"
+      element={
+        <ProtectedRoute>
+          <DoctorsList />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/profile/:userId"
+      element={
+        <ProtectedRoute>
+          <DoctorProfile />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/book-appointment/:doctorId"
+      element={
+        <ProtectedRoute>
+          <BookAppointment />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/appointments"
+      element={
+        <ProtectedRoute>
+          <Appointments />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/appointments"
+      element={
+        <ProtectedRoute>
+          <DoctorAppointments />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/pending"
+      element={
+        <ProtectedRoute>
+          <DoctorPendingAppointments />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/history"
+      element={
+        <ProtectedRoute>
+          <DoctorHistoryAppointments />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/addaccount"
+      element={
+        <ProtectedRoute>
+          <AddAccount />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/admin/appointments"
+      element={
+        <ProtectedRoute>
+          <AdminAppointments />
+        </ProtectedRoute>
+      }
+    />
+  </Routes>
+</Router>
 
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <PublicRoute>
-              <Main2 />
-            </PublicRoute>
-          }
-        />
-        <Route path="/about" element={<PublicRoute><About /></PublicRoute>} />
-        <Route
-          path="/services"
-          element={<PublicRoute><Services /></PublicRoute>}
-        />
-        <Route
-          path="/contact"
-          element={<PublicRoute><Contact /></PublicRoute>}
-        />
-        <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-        <Route path="/forgot" element={<PublicRoute><Forgot /></PublicRoute>} />
-        <Route path="/reset" element={<PublicRoute><Reset /></PublicRoute>} />
-        <Route path="/verify" element={<PublicRoute><Verify /></PublicRoute>} />
-        <Route
-          path="/register"
-          element={<PublicRoute><Register /></PublicRoute>}
-        />
-
-        <ProtectedRoute path="/home" element={<Home />} />
-        <ProtectedRoute
-          path="/user/profile/:userId"
-          element={<PatientProfile />}
-        />
-        <ProtectedRoute
-          path="/admin/profile/:userId"
-          element={<AdminProfile />}
-        />
-        <ProtectedRoute
-          path="/doctor/appointments/:userId"
-          element={<ViewAppointments />}
-        />
-        <ProtectedRoute path="/admin/addadmin" element={<AddAdmin />} />
-        <ProtectedRoute
-          path="/user/messenger/:userId"
-          element={<Messenger />}
-        />
-        <ProtectedRoute
-          path="/doctor/messenger/:userId"
-          element={<Messenger2 />}
-        />
-        <ProtectedRoute
-          path="/admin/messenger3/:userId"
-          element={<Messenger3 />}
-        />
-        <ProtectedRoute path="/user/consultation" element={<Consultation />} />
-        <ProtectedRoute
-          path="/doctor/consultation"
-          element={<Consultation2 />}
-        />
-        <ProtectedRoute path="/apply-doctor" element={<ApplyDoctor />} />
-        <ProtectedRoute path="/notifications" element={<Notifications />} />
-        <ProtectedRoute path="/admin/userslist" element={<UsersList />} />
-        <ProtectedRoute
-          path="/doctor/userslist"
-          element={<UsersListDoctor />}
-        />
-        <ProtectedRoute path="/admin/doctorslist" element={<DoctorsList />} />
-        <ProtectedRoute
-          path="/doctor/profile/:userId"
-          element={<DoctorProfile />}
-        />
-        <ProtectedRoute
-          path="/book-appointment/:doctorId"
-          element={<BookAppointment />}
-        />
-        <ProtectedRoute path="/appointments" element={<Appointments />} />
-        <ProtectedRoute
-          path="/doctor/appointments"
-          element={<DoctorAppointments />}
-        />
-        <ProtectedRoute
-          path="/doctor/pending"
-          element={<DoctorPendingAppointments />}
-        />
-        <ProtectedRoute
-          path="/doctor/history"
-          element={<DoctorHistoryAppointments />}
-        />
-        <ProtectedRoute path="/doctor/addaccount" element={<AddAccount />} />
-        <ProtectedRoute
-          path="/admin/appointments"
-          element={<AdminAppointments />}
-        />
-
-        <Route path="/*" element={<Navigate to="/" />} />
-      </Routes>
-
-      <Footer />
-    </Router>
   );
 }
 
