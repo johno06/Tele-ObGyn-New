@@ -24,14 +24,6 @@ app.get ('/', (req, res) => {
 // Serve the static files from the client build directory
 app.use (express.static (path.join (__dirname, 'client', 'public')));
 
-<<<<<<< HEAD
-const app = express();
-app.use(express.json());
-app.use(cors({
-  credentials:true,
-  origin:["http://localhost:3000", "https://fuentes-clinic-website.onrender.com"]
-}));
-=======
 // Enable URL rewriting for client-side routing
 app.use (
   history (
@@ -40,7 +32,6 @@ app.use (
     }
   )
 );
->>>>>>> johno/Reco(charts,-create-acc,-at-ID-sa-heading-nalang)
 
 // Serve the index.html file for all routes
 app.get ('*', (req, res) => {
