@@ -107,7 +107,7 @@ function App() {
           }
         />
         <Route
-          path="https://fuentes-clinic-website.onrender.com/login"
+          path="/login"
           element={
             <PublicRoute>
               <MainNav />
