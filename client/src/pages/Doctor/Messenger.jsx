@@ -111,7 +111,7 @@ const Messenger = () => {
 
   return (
     <Main>
-      <Chat client={chatClient} theme={`messaging ${theme}`}>
+      <Chat client={chatClient} customStyles={`messaging ${theme}`}>
         <div id="mobile-channel-list" onClick={toggleMobile}>
           <ChannelList
             filters={filters}

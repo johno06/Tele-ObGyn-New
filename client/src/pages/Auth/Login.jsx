@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import {
@@ -37,7 +37,7 @@ function Login() {
         localStorage.setItem("token", token);
         localStorage.setItem("streamToken", streamToken);
 
-        navigate("/");
+        navigate("/home");
       } else {
         toast.error(response.data.message);
       }

@@ -308,8 +308,8 @@ const onAddRecord = async values => {
 
       if (response.data.success) {
         setPatient(response.data.data);
-        console.log(response.data.data);
-        console.log(patient?.phr)
+        // console.log(response.data.data);
+        // console.log(patient?.phr)
       }
     } catch (error) {
       console.log(error);

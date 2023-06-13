@@ -44,7 +44,7 @@ function Sidenav({ color }) {
         <hr />
         <Menu defaultSelectedKeys={["1"]} theme="light" mode="inline">
           <Menu.Item key="1">
-            <NavLink className="nav-link" to="/">
+            <NavLink className="nav-link" to="/home">
               <span
                 className="icon"
                 style={{
@@ -183,7 +183,7 @@ function Sidenav({ color }) {
         <hr />
         <Menu defaultSelectedKeys={["a-dashboard"]} theme="light" mode="inline">
           <Menu.Item key="a-dashboard">
-            <NavLink className="nav-link" to="/">
+            <NavLink className="nav-link" to="/home">
               <span
                 className="icon"
                 style={{

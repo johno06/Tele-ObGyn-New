@@ -232,7 +232,7 @@ const getAppointmentHistory = async () => {
           {record.status === "approved" && (
             <div className="action-item">
               <NavLink to={`/doctor/appointments/${record._id}`}>
-                <a >Edit</a>
+                <p >Edit</p>
               </NavLink>
             </div>
           )}
