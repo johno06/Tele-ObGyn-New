@@ -17,7 +17,7 @@ function ApplyDoctor() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/admin/change-doctor-status",
+        "https://fuentes-clinic.onrender.com/api/admin/change-doctor-status",
         // { doctorId: user._id, userId: user.userId, status: status },
         {
           headers: {
@@ -40,7 +40,7 @@ function ApplyDoctor() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/activate-doctor-account",
+        "https://fuentes-clinic.onrender.com/api/user/activate-doctor-account",
         {
           ...values,
           userId: user._id,

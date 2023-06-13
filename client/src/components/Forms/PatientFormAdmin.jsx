@@ -24,7 +24,7 @@ function PatientFormAdmin({ onFinish, initialValues }) {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/admin/update-patient-profile",
+        "https://fuentes-clinic.onrender.com/api/admin/update-patient-profile",
         {
           _id: params.userId,
           ...values,

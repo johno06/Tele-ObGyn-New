@@ -24,7 +24,7 @@ function Forgot() {
     }
     dispatch(showLoading());
     axios
-      .post("/api/user/forgotpassword", { email })
+      .post("https://fuentes-clinic.onrender.com/api/user/forgotpassword", { email })
       .then((res) => {
         dispatch(hideLoading());
         toast.success(res.data.message);

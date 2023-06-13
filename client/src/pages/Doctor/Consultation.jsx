@@ -30,7 +30,7 @@ function Consultation() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/get-user-info-by-id",
+        "https://fuentes-clinic.onrender.com/api/doctor/get-user-info-by-id",
         {
           _id: user._id,
         },
@@ -102,7 +102,7 @@ function Consultation() {
       };
       const id = "6332d5608231d41a72504a13";
       const response = await axios.patch(
-        `/api/doctor/updateRtcToken/${user._id}`,
+        `https://fuentes-clinic.onrender.com/api/doctor/updateRtcToken/${user._id}`,
         data,
         {
           headers: {

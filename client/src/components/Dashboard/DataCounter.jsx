@@ -54,7 +54,7 @@ var [totalApproved, setTotalApproved] = useState ();
   try {
     dispatch (showLoading ());
     await axios
-      .get ('/api/doctor/get-all-approved-appointments', {
+      .get ('https://fuentes-clinic.onrender.com/api/doctor/get-all-approved-appointments', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem ('token')}`,
         },
@@ -78,7 +78,7 @@ var [totalApproved, setTotalApproved] = useState ();
     try {
       dispatch(showLoading());
       await axios
-        .get("/api/user/get-all-verified-patients", {
+        .get("https://fuentes-clinic.onrender.com/api/user/get-all-verified-patients", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -102,7 +102,7 @@ var [totalApproved, setTotalApproved] = useState ();
     try {
       dispatch(showLoading());
       await axios
-        .get("/api/user/get-all-verified-doctors", {
+        .get("https://fuentes-clinic.onrender.com/api/user/get-all-verified-doctors", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -125,7 +125,7 @@ var [totalApproved, setTotalApproved] = useState ();
     try {
       dispatch(showLoading());
       await axios
-        .get("/api/user/get-all-verified-admin", {
+        .get("https://fuentes-clinic.onrender.com/api/user/get-all-verified-admin", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
