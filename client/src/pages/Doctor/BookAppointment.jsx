@@ -1,18 +1,17 @@
 import { Button, Col, DatePicker, Row, TimePicker } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Main from "../../layouts/Main";
 import { hideLoading, showLoading } from "../../redux/alertSlice";
-import moment from 'moment'
 import toast from "react-hot-toast";
 
 function BookAppointment() {
   const [isAvailable, setIsAvailable] = useState(false);
   const [date, setDate] = useState();
   const [time, setTime] = useState();
-  const user = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user);
   //const [user1, setUser] = useState(null);
   const [doctor, setDoctor] = useState(null);
   const [patient, setPatient] = useState(null);

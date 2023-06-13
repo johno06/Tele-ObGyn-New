@@ -261,7 +261,7 @@ router.get("/verify", async (req, res) => {
 });
 
 //authMiddleware will first verify the token and then call the next function
-router.post("/get-user-info-by-id", authMiddleware, async (req, res) => {
+router.get("/get-user-info-by-id", authMiddleware, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.body.userId });
     //to not show the password in the client

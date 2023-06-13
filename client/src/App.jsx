@@ -39,7 +39,7 @@ import {
 
 import MainNav from "./components/Navbars/MainNav";
 import UsersListDoctor from "./pages/Doctor/UsersList";
-import ProfileViewAdmin from "./pages/Admin/PatientProfileAdmin";
+// import ProfileViewAdmin from "./pages/Admin/PatientProfileAdmin";
 import DoctorPendingAppointments from "./pages/Doctor/PendingAppointment";
 import DoctorHistoryAppointments from "./pages/Doctor/AppointmentHistory";
 import AddAccount from "./pages/Doctor/AddAccount";
