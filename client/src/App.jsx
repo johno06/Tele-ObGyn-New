@@ -1,7 +1,7 @@
 import React from "react";
 import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
 import {
   ApplyDoctor,
@@ -65,8 +65,9 @@ function App() {
       <Toaster position="top-center" reverseOrder={false} />
 
       <Routes>
+        {/* <Route path="/" element={<Navigate to="/home" replace />} /> */}
         <Route
-          path="/home"
+          path="/"
           element={
             <PublicRoute>
               <MainNav />
@@ -156,7 +157,7 @@ function App() {
           }
         />
         <Route
-          path="/"
+          path="/home"
           element={
             <ProtectedRoute>
               <Home />

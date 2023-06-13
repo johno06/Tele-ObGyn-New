@@ -26,12 +26,12 @@ function ProtectedRoute(props) {
         dispatch(setUser(response.data.data));
       } else {
         localStorage.clear();
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       dispatch(hideLoading());
       localStorage.clear();
-      navigate("/home");
+      navigate("/");
     }
   };
   useEffect(() => {
@@ -45,7 +45,7 @@ function ProtectedRoute(props) {
     return props.children;
   } else {
     //if not logged in, redirect to home page
-    return <Navigate to="/home" />;
+    return <Navigate to="/" />;
   }
 }
 
