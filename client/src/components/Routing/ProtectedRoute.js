@@ -9,11 +9,15 @@ function ProtectedRoute(props) {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log(user._id);
   const getUser = async () => {
     try {
       dispatch(showLoading());
-      const response = await axios.post(
+      const response = await axios.get(
         "https://fuentes-clinic.onrender.com/api/user/get-user-info-by-id",
+        {
+          _id: user._id,
+        },
         { token: localStorage.getItem("token") },
         {
           headers: {
