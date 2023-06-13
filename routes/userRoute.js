@@ -261,7 +261,7 @@ router.get("/verify", async (req, res) => {
 });
 
 //authMiddleware will first verify the token and then call the next function
-router.get("/get-user-info-by-id", async (req, res) => {
+router.get("/get-user-info-by-id", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById({ _id: req.params.userId });
     //to not show the password in the client
@@ -281,6 +281,26 @@ router.get("/get-user-info-by-id", async (req, res) => {
     res.status(500).send({ message: "Error getting user", success: false, error });
   }
 });
+
+router.get ('/get-patient-by-user-id',authMiddleware, async (req, res) => {
+    try {
+      const user = await User.find ({_id: req.body._id});
+      res.status (200).send ({
+        message: 'User fetched successfully',
+        success: true,
+        data: user,
+      });
+    } catch (error) {
+      console.log (error);
+      res.status (500).send ({
+        message: 'Error fetching User',
+        success: false,
+        error,
+      });
+    }
+  }
+);
+
 
 router.post("/activate-doctor-account", authMiddleware, async (req, res) => {
   try {

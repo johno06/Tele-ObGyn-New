@@ -14,7 +14,7 @@ function ProtectedRoute(props) {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "https://fuentes-clinic.onrender.com/api/user/get-user-info-by-id",
+        "https://fuentes-clinic.onrender.com/api/user/get-patient-by-user-id",
         {
           _id: user._id,
         },
