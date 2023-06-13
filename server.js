@@ -43,13 +43,14 @@ app.use ('/api/admin', adminRoute);
 app.use ('/api/doctor', doctorRoute);
 app.use ('/api/utility', utilityRoute);
 
-// Serve the static files from the public directory
-app.use (express.static (path.join (__dirname, 'client', 'public')));
+// Serve the static files from the React app's build output
+app.use (express.static (path.join (__dirname, 'client', 'build')));
 
 // Fallback route for client-side routing
 app.get ('*', (req, res) => {
   res.sendFile (path.join (__dirname, 'client', 'public', 'index.html'));
 });
+
 
 
 
