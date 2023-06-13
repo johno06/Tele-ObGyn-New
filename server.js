@@ -2,6 +2,7 @@ require ('dotenv').config ();
 const dbConfig = require ('./config/dbConfig');
 const cors = require ('cors');
 const express = require ('express');
+const path = require ('path');
 
 const app = express ();
 app.use (express.json ());
@@ -41,6 +42,14 @@ app.use ('/api/user', userRoute);
 app.use ('/api/admin', adminRoute);
 app.use ('/api/doctor', doctorRoute);
 app.use ('/api/utility', utilityRoute);
+
+// Serve static files from the React app
+app.use (express.static (path.join (__dirname, './client/public')));
+
+// Fallback route for client-side routing
+app.get ('*', (req, res) => {
+  res.sendFile (path.join (__dirname, './client/public', 'index.html'));
+});
 
 const port = process.env.PORT || 5000;
 
