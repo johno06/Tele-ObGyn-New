@@ -28,14 +28,10 @@ app.use ((req, res, next) => {
 
   next ();
 });
-// Serve the static files from the build directory
-app.use (express.static (path.join (__dirname, 'client', 'build')));
 
-// Fallback route for client-side routing
-app.get ('*', (req, res) => {
-  res.sendFile (path.join (__dirname, 'client', 'build', 'index.html'));
+app.get ('/', (req, res) => {
+  res.send ('Hello World!');
 });
-
 
 const userRoute = require ('./routes/userRoute');
 const adminRoute = require ('./routes/adminRoute');
@@ -46,6 +42,14 @@ app.use ('/api/user', userRoute);
 app.use ('/api/admin', adminRoute);
 app.use ('/api/doctor', doctorRoute);
 app.use ('/api/utility', utilityRoute);
+
+// Serve the static files from the build directory
+app.use (express.static (path.join (__dirname, 'client', 'build')));
+
+// Fallback route for client-side routing
+app.get ('*', (req, res) => {
+  res.sendFile (path.join (__dirname, 'client', 'build', 'index.html'));
+});
 
 const port = process.env.PORT || 5000;
 
