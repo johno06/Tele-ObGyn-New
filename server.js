@@ -43,12 +43,22 @@ app.use ('/api/admin', adminRoute);
 app.use ('/api/doctor', doctorRoute);
 app.use ('/api/utility', utilityRoute);
 
-app.use (express.static (path.join (__dirname, './client/build')));
+// app.use (express.static (path.join (__dirname, './client/build')));
+
+// // Route for all URLs
+// app.get ('*', (req, res) => {
+//   res.sendFile (path.join (__dirname, './client/build', 'index.html'));
+// });
+
+const buildPath = path.join (__dirname, 'client', 'build');
+
+app.use (express.static (buildPath));
 
 // Route for all URLs
 app.get ('*', (req, res) => {
-  res.sendFile (path.join (__dirname, './client/build', 'index.html'));
+  res.sendFile (path.join (buildPath, 'index.html'));
 });
+
 
 
 const port = process.env.PORT || 5000;
