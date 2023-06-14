@@ -52,7 +52,7 @@ function CreateAdminForm({ form, onFinish }) {
         </Form.Item>
         <Form.Item>
           <Button type="primary" danger htmlType="submit">
-            Create Admin
+            Create Secretary
           </Button>
         </Form.Item>
       </Form>
