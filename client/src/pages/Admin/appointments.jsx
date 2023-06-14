@@ -202,6 +202,21 @@ function AdminAppointments () {
                 <button className="link-button">View</button>
               </NavLink>
             </div>}
+
+            {record.status === 'rejected' &&
+            <div className="action-item">
+              <NavLink to={`/doctor/appointments/${record._id}`}>
+                <button className="link-button">View</button>
+              </NavLink>
+            </div>}
+
+            {record.status === 'absent' &&
+            <div className="action-item">
+              <NavLink to={`/doctor/appointments/${record._id}`}>
+                <button className="link-button">View</button>
+              </NavLink>
+            </div>}
+
           {record.status === 'pending' &&
             <div className="action-item">
               <NavLink to={`/doctor/appointments/${record._id}`}>
