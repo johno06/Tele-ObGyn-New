@@ -70,7 +70,7 @@ router.post("/register", async (req, res) => {
       expiresIn: "7d",
     });
 
-    const link = "http://" + req.hostname + "/verify?token=" + token;
+    const link = "https://fuentes-clinic-website.onrender.com/verify?token=" + token;
 
     const sendMail = await sendVerificationEmail(newuser.email, link);
 
@@ -116,7 +116,7 @@ router.post("/forgotpassword", async (req, res) => {
       expiresIn: "7d",
     });
 
-    const link = "http://" + req.hostname + "/reset?token=" + token;
+    const link = "https://fuentes-clinic-website.onrender.com/reset?token=" + token;
 
     const sendMail = await sendForgotPasswordEmail(user.email, link);
     if (sendMail) {

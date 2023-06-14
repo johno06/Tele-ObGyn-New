@@ -21,7 +21,8 @@ app.use (
 app.use ((req, res, next) => {
   res.setHeader (
     'Access-Control-Allow-Origin',
-    'https://fuentes-clinic-website.onrender.com'
+    'https://fuentes-clinic-website.onrender.com',
+    'http://localhost:3000'
   );
   // Add other CORS headers if needed
   // ...
