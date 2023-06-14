@@ -236,25 +236,6 @@ router.post("/get-appointment-id", async (req, res) => {
   }
 });
 
-// router.post("/get-appointment-by-user-id", async (req, res) => {
-//   try {
-//     const doctor = await Doctor.findOne({ _id: req.body.doctorId });
-//     const appointments = await Appointment.find({doctorId: doctor._id});
-//     res.status(200).send({
-//       message: "Appointments fetched successfully",
-//       success: true,
-//       data: appointments,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send({
-//       message: "Error fetching appointments",
-//       success: false,
-//       error,
-//     });
-//   }
-// });
-
 router.post("/change-appointment-status", authMiddleware, async (req, res) => {
   try {
     const { appointmentId, status } = req.body;
@@ -289,19 +270,6 @@ router.post("/change-appointment-status", authMiddleware, async (req, res) => {
   }
 });
 
-// router.patch ('/updateRtcToken/:id', async (req, res, next) => {
-//   try {
-//     const id = req.params.id;
-//     const updates = req.body;
-//     const options = {new: true};
-
-//     const result = await User.findByIdAndUpdate (id, updates, options);
-//     res.send (result);
-//   } catch (error) {
-//     console.log (error.message);
-// res.json({message:'email is already used'})
-
-// yung dalawang codes dito yung codes na ginamit ko sa book appointment ng user, syempre iuupgrade mo kasi si god ramos ka
 
 router.post("/book-appointment", authMiddleware, async (req, res) => {
   try {
@@ -336,11 +304,12 @@ router.post("/book-appointment", authMiddleware, async (req, res) => {
 
 router.post("/check-booking-availability", authMiddleware, async (req, res) => {
   try {
-    const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
-    const fromTime = moment(req.body.time, "HH:00")
+    // const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
+    const date = moment(req.body.date, "YYYY-MM-DD").toISOString();
+    const fromTime = moment(req.body.time, "HH:mm")
       .subtract(1, "hours")
       .toISOString();
-    const toTime = moment(req.body.time, "HH:00").add(1, "hours").toISOString();
+    const toTime = moment(req.body.time, "HH:mm").add(1, "hours").toISOString();
     const doctorId = req.body.doctorId;
     const appointments = await Appointment.find({
       doctorId,
@@ -391,6 +360,10 @@ router.patch ('/updateBookingAppointment/:id', async (req, res, next) => {
 
     const result = await Appointment.findByIdAndUpdate (id, updates, options);
     res.send (result);
+    res.status(200).send({
+      message: "Appointment booked successfully",
+      success: true,
+    });
   } catch (error) {
     console.log (error.message);
     // res.json({message:'email is already used'})

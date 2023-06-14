@@ -1,18 +1,20 @@
+
+
 const lineChart = {
   series: [
     {
       name: "Completed",
-      data: [350],
+      data: [2, 3, 4, 5, 7, 3, 2, 1, 8],
       offsetY: 0,
     },
     {
       name: "Pending",
-      data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+      data: [2, 3, 1, 5, 2, 3, 2, 1, 8],
       offsetY: 0,
     },
     {
       name: "Accepted",
-      data: [230, 90, 40, 140, 290, 290, 340, 230, 400],
+      data: [2, 5, 1, 5, 4, 3, 2, 6, 8],
       offsetY: 0,
     },
   ],

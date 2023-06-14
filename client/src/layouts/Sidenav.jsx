@@ -11,30 +11,18 @@ import { useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo-3.png";
 
+
 function Sidenav({ color }) {
   const { user } = useSelector((state) => state.user);
   const { pathname } = useLocation();
   const page = pathname.replace("/", "");
   const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "User";
   const navigate = useNavigate();
-  //   const menu = (
-  //    <Menu theme="light" mode="inline">
-  //     <Menu.Item key="1">
-  //               <NavLink to="/doctor/pending">
-  //               <span className="label">Pending</span>
-  //             </NavLink></Menu.Item>
-  //     <Menu.Item key="2">
-  //     <NavLink to="/doctor/appointments">
-  //       <span className="label">Accepted</span>
-  //     </NavLink></Menu.Item>
-  //     <Menu.Item key="3">
-  //     <NavLink to="/doctor/history"></NavLink>
-  //        <span className="label">Appointment History</span>
-  //     </Menu.Item>
-  //   </Menu>
-  // );
+
+ 
 
   function doctorMenu() {
+    
     return (
       <>
         <div className="brand">

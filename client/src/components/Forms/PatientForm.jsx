@@ -7,8 +7,6 @@ function PatientForm({ onFinish, initialValues }) {
   const [birthdate, setDate] = useState();
   const dateFormat = "DD/MM/YYYY";
 
-   
-
   //DATE UNDER CONSTRUCTION
 
   return (
@@ -18,7 +16,7 @@ function PatientForm({ onFinish, initialValues }) {
           <Card className="criclebox tablespace mb-24">
             <Form
               layout="vertical"
-              style={{ padding: "20px"}}
+              style={{ padding: "20px" }}
               onFinish={onFinish}
               initialValues={{
                 ...initialValues,
@@ -90,7 +88,6 @@ function PatientForm({ onFinish, initialValues }) {
         </Col>
       </Row>
     </div>
-    
   );
 }
 
