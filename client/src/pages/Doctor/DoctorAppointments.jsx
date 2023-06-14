@@ -39,7 +39,7 @@ function DoctorAppointments() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/get-doctor-info-by-user-id",
+        "https://fuentes-clinic.onrender.com/api/doctor/get-doctor-info-by-user-id",
         {
           userId: user._id,
         }
@@ -52,7 +52,7 @@ function DoctorAppointments() {
           dispatch(showLoading());
 
           const response1 = await axios.post(
-            "/api/doctor/get-approved-appointments-by-doctor-id",
+            "https://fuentes-clinic.onrender.com/api/doctor/get-approved-appointments-by-doctor-id",
             {
               doctorId: response.data.data._id,
             }
@@ -73,7 +73,7 @@ function DoctorAppointments() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/get-doctor-info-by-user-id",
+        "https://fuentes-clinic.onrender.com/api/doctor/get-doctor-info-by-user-id",
         {
           userId: user._id,
         }
@@ -86,7 +86,7 @@ function DoctorAppointments() {
           dispatch(showLoading());
 
           const response1 = await axios.post(
-            "/api/doctor/get-pending-appointments-by-doctor-id",
+            "https://fuentes-clinic.onrender.com/api/doctor/get-pending-appointments-by-doctor-id",
             {
               doctorId: response.data.data._id,
             }
@@ -108,7 +108,7 @@ function DoctorAppointments() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/get-doctor-info-by-user-id",
+        "https://fuentes-clinic.onrender.com/api/doctor/get-doctor-info-by-user-id",
         {
           userId: user._id,
         }
@@ -121,7 +121,7 @@ function DoctorAppointments() {
           dispatch(showLoading());
 
           const response1 = await axios.post(
-            "/api/doctor/get-history-appointments-by-doctor-id",
+            "https://fuentes-clinic.onrender.com/api/doctor/get-history-appointments-by-doctor-id",
             {
               doctorId: response.data.data._id,
             }
@@ -150,7 +150,7 @@ function DoctorAppointments() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/change-appointment-status",
+        "https://fuentes-clinic.onrender.com/api/doctor/change-appointment-status",
         { appointmentId: record._id, status: status },
         {
           headers: {

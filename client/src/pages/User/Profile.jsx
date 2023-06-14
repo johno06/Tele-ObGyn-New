@@ -39,13 +39,14 @@ function Profile() {
   const [visibleAdd, setVisibleAdd] = useState (false);
 
   const [form] = Form.useForm();
+  const [formAdd] = Form.useForm();
   const [index, setIndex] = useState (null);
 
   const handleUpdate = (record) => {
     // Set the form values with the record data
+    setVisible(true);
     form.setFieldsValue(record);
     // Show the modal
-    setVisible(true);
      const recindex = patient?.phr.findIndex((item) => item === record);
      setIndex(recindex);
   };
@@ -55,10 +56,24 @@ function Profile() {
     form.submit();
   };
 
+  const handleModalSubmit = () => {
+  // Handle the form submission here
+  formAdd.submit();
+};
+
   const handleModalCancel = () => {
     // Hide the modal
     setVisible(false);
+    setVisibleAdd (false);
   };
+
+  const handleModalAddCancel = () => {
+  // Hide the modal
+  setVisibleAdd (false);
+  setVisibleAdd (false);
+
+};
+
 
   const handleFormSubmit = (values) => {
     // Handle the form submission here
@@ -137,7 +152,7 @@ const onUpdateRecord = async (values) => {
   try {
     dispatch (showLoading ());
     const response = await axios.patch (
-      '/api/doctor/update-user-record',
+      'https://fuentes-clinic.onrender.com/api/doctor/update-user-record',
       {
         _id: params.userId,
       phr: {
@@ -175,7 +190,7 @@ const onAddRecord = async values => {
   try {
     dispatch (showLoading ());
     const response = await axios.post (
-      '/api/doctor/add-user-record',
+      'https://fuentes-clinic.onrender.com/api/doctor/add-user-record',
       {
         _id: params.userId,
         phr: [
@@ -265,7 +280,7 @@ const onAddRecord = async values => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/update-patient-profile",
+        "https://fuentes-clinic.onrender.com/api/user/update-patient-profile",
         {
           //under construction
           ...values,
@@ -293,7 +308,7 @@ const onAddRecord = async values => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/get-patient-info-by-user-id",
+        "https://fuentes-clinic.onrender.com/api/user/get-patient-info-by-user-id",
         {
           userId: params.userId,
         },
@@ -393,17 +408,17 @@ const onAddRecord = async values => {
                   title="Add Record"
                   open={visibleAdd}
                   onOk={handleModalOk}
-                  onCancel={handleModalCancel}
+                  onCancel={handleModalAddCancel}
                   footer={[
-                    <Button key="back" onClick={handleModalCancel}>
+                    <Button key="back" onClick={handleModalAddCancel}>
                       Cancel
                     </Button>,
-                    <Button key="submit" type="primary" onClick={handleModalOk}>
+                    <Button key="submit" type="primary" onClick={handleModalSubmit}>
                       Submit
                     </Button>
                   ]}
                 >
-                  <Form form={form}
+                  <Form form={formAdd}
                    onFinish={onAddRecord}
                    >
                     <Form.Item

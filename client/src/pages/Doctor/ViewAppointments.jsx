@@ -61,7 +61,7 @@ function ViewAppointments() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/update-doctor-profile",
+        "https://fuentes-clinic.onrender.com/api/doctor/update-doctor-profile",
         {
           ...values,
           userId: user._id,
@@ -93,7 +93,7 @@ function ViewAppointments() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/get-doctor-info-by-user-id",
+        "https://fuentes-clinic.onrender.com/api/doctor/get-doctor-info-by-user-id",
         {
           _id: params.userId,
         },
@@ -118,7 +118,7 @@ function ViewAppointments() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/get-appointment-id",
+        "https://fuentes-clinic.onrender.com/api/doctor/get-appointment-id",
         {
           _id: params.userId,
         },
@@ -149,7 +149,7 @@ function ViewAppointments() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/change-appointment-status",
+        "https://fuentes-clinic.onrender.com/api/doctor/change-appointment-status",
         { appointmentId: record._id, status: status },
         {
           headers: {

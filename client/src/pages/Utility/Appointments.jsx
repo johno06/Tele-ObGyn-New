@@ -12,7 +12,7 @@ function Appointments() {
   const getAppointmentsData = async () => {
     try {
       dispatch(showLoading());
-      const response = await axios.get("/api/user/get-appointments-by-user-id", {
+      const response = await axios.get("https://fuentes-clinic.onrender.com/api/user/get-appointments-by-user-id", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

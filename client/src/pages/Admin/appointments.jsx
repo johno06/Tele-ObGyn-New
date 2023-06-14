@@ -40,7 +40,7 @@ function AdminAppointments () {
       
       dispatch (hideLoading ());
           const response1 = await axios.post (
-            '/api/admin/get-accepted-appointments'
+            'https://fuentes-clinic.onrender.com/api/admin/get-accepted-appointments'
           );
           dispatch (hideLoading ());
           if (response1.data.success) {
@@ -93,7 +93,7 @@ function AdminAppointments () {
           dispatch (showLoading ());
 
           const response1 = await axios.post (
-            '/api/admin/get-history-appointments',
+            'https://fuentes-clinic.onrender.com/api/admin/get-history-appointments',
           );
           dispatch (hideLoading ());
           if (response1.data.success) {
@@ -115,7 +115,7 @@ function AdminAppointments () {
     try {
       dispatch (showLoading ());
       const response = await axios.post (
-        '/api/doctor/change-appointment-status',
+        'https://fuentes-clinic.onrender.com/api/doctor/change-appointment-status',
         {appointmentId: record._id, status: status},
         {
           headers: {

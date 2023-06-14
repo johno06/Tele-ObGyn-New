@@ -20,7 +20,7 @@ function DoctorsList() {
     try {
       dispatch(showLoading());
       await axios
-        .get("/api/user/get-all-doctor", {
+        .get("https://fuentes-clinic.onrender.com/api/user/get-all-doctor", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

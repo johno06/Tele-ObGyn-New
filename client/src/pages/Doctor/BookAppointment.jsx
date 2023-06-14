@@ -35,7 +35,7 @@ function BookAppointment() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/get-doctor-info-by-id",
+        "https://fuentes-clinic.onrender.com/api/doctor/get-doctor-info-by-id",
         {
           _id: docId,
         },
@@ -60,7 +60,7 @@ function BookAppointment() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/get-appointment-id",
+        "https://fuentes-clinic.onrender.com/api/doctor/get-appointment-id",
         {
           _id: params.doctorId,
         },
@@ -117,7 +117,7 @@ function BookAppointment() {
           time.format("HH:mm") + " - " + time.add(1, "hour").format("HH:mm"),
       };
       const response = await axios.patch(
-        `/api/doctor/updateBookingAppointment/${params.doctorId}`,
+        `https://fuentes-clinic.onrender.com/api/doctor/updateBookingAppointment/${params.doctorId}`,
         data,
         {
           headers: {
@@ -142,7 +142,7 @@ function BookAppointment() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/check-booking-availability",
+        "https://fuentes-clinic.onrender.com/api/doctor/check-booking-availability",
         {
           doctorId: params.doctorId,
           date: date.format("YYYY-MM-DD"),
