@@ -43,6 +43,8 @@ module.exports = {
 
   sendForgotPasswordEmail: async (senderAddress, link) => {
     let error = false;
+  
+    const unsubscribeLink = 'https://yourapp.com/unsubscribe'; // Replace with your actual unsubscribe link
     try {
       await transporter.sendMail({
         from: process.env.EMAIL_FROM,
@@ -53,7 +55,7 @@ module.exports = {
         <p style="margin-bottom: 20px;">Dear User,</p>
         <p style="margin-bottom: 20px;">Forgot your password or want to change it? To reset your password, please click the following verification link:</p>
         <div style="background-color: #f2f2f2; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
-          <a style="font-size: 16px; color: #333333;" href="${link}">Confirmation Link</a>
+          <a style="font-size: 16px; color: #333333;" href="${link}">Reset Link</a>
         </div>
         <p style="margin-bottom: 20px;">If you did not sign up for an account, please ignore this email.</p>
         <p style="font-size: 14px; color: #888888; margin-bottom: 5px;">This email was sent by TeleObGyn. Please do not reply to this email.</p>
