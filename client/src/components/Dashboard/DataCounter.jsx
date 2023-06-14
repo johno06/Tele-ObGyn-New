@@ -153,7 +153,7 @@ var [totalApproved, setTotalApproved] = useState ();
 
   const count = [
     {
-      today: "Users",
+      today: "Patients",
       title: totalPatient,
       // persent: "+30%",
       icon: profile,
@@ -167,7 +167,7 @@ var [totalApproved, setTotalApproved] = useState ();
       bnb: "bnb2",
     },
     {
-      today: "Admin",
+      today: "Secretaries",
       title: totalAdmin,
       // persent: "-20%",
       icon: admin,

@@ -9,15 +9,33 @@ import "../assets/styles/app.css";
 
 const { Header: AntHeader, Content, Sider } = Layout;
 
+function removeNumbersAndLettersFromLastWord(pathname) {
+  if (!pathname) return '';
+  const updatedPathname = pathname.replace(/\//g, ' '); // Replace slashes with spaces
+  const pathParts = updatedPathname.split(' ');
+  const lastWord = pathParts[pathParts.length - 1];
+  const updatedLastWord = lastWord.replace(/[a-zA-Z0-9]+$/, ''); // Remove alphanumeric characters
+  pathParts[pathParts.length - 1] = updatedLastWord;
+  return pathParts.join(' ');
+}
+
 function Main({ children }) {
   const { user } = useSelector((state) => state.user);
   const [sidenavType, setSidenavType] = useState("transparent");
   const [sidenavColor, setSidenavColor] = useState("#FC3053");
-  let { pathname } = useLocation();
-  
-  pathname = pathname.replace("/", " ");
-  
 
+  const location = useLocation();
+
+  const pathname = location ? location.pathname : '';
+
+  const updatedPathname = removeNumbersAndLettersFromLastWord(pathname);
+
+
+
+  // pathname = pathname.replace("/", " ");
+
+  
+ 
   return (
     <Layout className="layout-dashboard">
       <Sider
@@ -38,7 +56,7 @@ function Main({ children }) {
       </Sider>
       <Layout>
         <AntHeader className="ant-header-fixed">
-          <Header name={pathname} subName={pathname} />
+          <Header name={updatedPathname} subName={""} />
         </AntHeader>
         <Content>{children}</Content>
         <Footer />

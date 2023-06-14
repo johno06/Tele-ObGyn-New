@@ -51,7 +51,7 @@ function DoctorsList() {
               actions: (
                 <Space className="ant-employed" size="middle">
                   <NavLink to={`/user/profile/${row._id}`}>
-                    <a>View Profile</a>
+                    <p>View Profile</p>
                   </NavLink>
                   {/* <a>Delete</a> */}
                 </Space>

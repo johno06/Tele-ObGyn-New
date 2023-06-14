@@ -53,22 +53,6 @@ const Messenger3 = () => {
   };
 
 
-
-  // useEffect(() => {
-  //   const initChat = async () => {
-  //     const client = StreamChat.getInstance(apiKey, {
-  //       enableInsights: true,
-  //       enableWSFallback: true,
-  //     });
-  //     await client.connectUser(userToConnect, userToken);
-  //     setChatClient(client);
-  //   };
-
-  //   initChat();
-
-  //   return () => chatClient?.disconnectUser();
-  // }, []); // eslint-disable-line
-
   useEffect(() => {
     const mobileChannelList = document.querySelector("#mobile-channel-list");
     if (isMobileNavVisible && mobileChannelList) {
@@ -111,7 +95,7 @@ const Messenger3 = () => {
 
   return (
     <Main>
-      <Chat client={chatClient} theme={`messaging ${theme}`}>
+      <Chat client={chatClient} customStyles={`messaging ${theme}`}>
         <div id="mobile-channel-list" onClick={toggleMobile}>
           <ChannelList
             filters={filters}

@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 
 function PublicRoute(props) {
   if (localStorage.getItem("token")) {
-    return <Navigate to="/" />;
+    return <Navigate to="/home" />;
   } else {
     return props.children;
   }

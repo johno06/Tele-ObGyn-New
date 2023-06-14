@@ -3,6 +3,18 @@
   color: #57C84D;
 }
 
+.card-title-red{
+  color: #FC3053;
+}
+
+.card-title-pending{
+  color: #FAD04A;
+}
+
+.card-title-absent{
+  color: #3A3B3F
+}
+
 .nav-link {
   text-decoration: none;
 }

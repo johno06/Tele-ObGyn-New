@@ -6,7 +6,13 @@ import "./MessagingChannelPreview.css";
 
 const getAvatarGroup = (members) => {
   if (members.length === 1) {
-    return <Avatar image={getCleanImage(members[0])} name={members[0].user?.id} size={40} />;
+    return (
+      <Avatar
+        image={getCleanImage(members[0])}
+        name={members[0].user?.id}
+        size={40}
+      />
+    );
   }
 
   if (members.length === 2) {
@@ -130,7 +136,9 @@ const getChannelName = (members) => {
     return members[0]?.user.name || defaultName;
   }
 
-  return `${members[0]?.user.name || defaultName}, ${members[1]?.user.name || defaultName}`;
+  return `${members[0]?.user.name || defaultName}, ${
+    members[1]?.user.name || defaultName
+  }`;
 };
 
 const MessagingChannelPreview = (props) => {
@@ -160,9 +168,13 @@ const MessagingChannelPreview = (props) => {
           <p className="channel-preview__content-name">
             {channel.data.name || getChannelName(members)}
           </p>
-          <p className="channel-preview__content-time">{getTimeStamp(channel)}</p>
+          <p className="channel-preview__content-time">
+            {getTimeStamp(channel)}
+          </p>
         </div>
-        <p className="channel-preview__content-message">{latestMessage || "Send a message"}</p>
+        <h5 className="channel-preview__content-message">
+          {latestMessage || "Send a message"}
+        </h5>
       </div>
     </div>
   );

@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { toast } from "react-hot-toast";
 import {
-  TimePicker,
-  Row,
-  Col,
-  Card,
   Avatar,
-  Table,
-  Radio,
   Button,
+  Card,
+  Col,
   Form,
-  Input,
-  Modal,
-  DatePicker
+  Row
 } from "antd";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { showLoading, hideLoading } from "../../redux/alertSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import { PatientForm } from "../../components";
-import Main from "../../layouts/Main";
-import BgProfile from "../../assets/images/pinkBg.jpg";
 import profilavatar from "../../assets/images/face-1.jpg";
-import { PlusOutlined } from "@ant-design/icons";
-import moment from 'moment';
+import BgProfile from "../../assets/images/pinkBg.jpg";
 import PatientFormAdmin from "../../components/Forms/PatientFormAdmin";
+import Main from "../../layouts/Main";
+import { hideLoading, showLoading } from "../../redux/alertSlice";
 
 
 function AdminProfile() {
@@ -35,6 +26,7 @@ function AdminProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let data = [];
+
 
   const [visible, setVisible] = useState(false);
   const [visibleAdd, setVisibleAdd] = useState (false);
@@ -68,21 +60,7 @@ function AdminProfile() {
     setVisible(false);
   };
 
-  //para lang makita action
-  const dataSource = [
-    // {
-    //   id: 1,
-    //   name: "John Doe",
-    //   age: 25,
-    // },
-    // {
-    //   id: 2,
-    //   name: "Jane Smith",
-    //   age: 30,
-    // },
-    // Add more data here...
-  ];
-
+  
 const [appointmentDate, setAppointmentDate] = useState();
 const dateFormat = "YYYY-MM-DD";
 const [lastMenstrualDate, setLastMenstrualDate] = useState (null);
@@ -308,8 +286,8 @@ const onAddRecord = async values => {
 
       if (response.data.success) {
         setPatient(response.data.data);
-        console.log(response.data.data);
-        console.log(patient?.phr)
+        // console.log(response.data.data);
+        // console.log(patient?.phr)
       }
     } catch (error) {
       console.log(error);
@@ -322,7 +300,7 @@ const onAddRecord = async values => {
   }, []);
 
   const role = patient?.isAdmin
-    ? "Nurse"
+    ? "Secretary"
     : patient?.isDoctor
     ? "Doctor"
     : "Patient";

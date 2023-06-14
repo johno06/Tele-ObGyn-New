@@ -50,7 +50,7 @@ function UsersList() {
               actions: (
                 <Space className="ant-employed" size="middle">
                   <NavLink to={`/admin/profile/${row._id}`}>
-                    <a>View Profile</a>
+                    <p>View Profile</p>
                   </NavLink>
                   {/* <a>Delete</a> */}
                 </Space>

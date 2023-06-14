@@ -18,7 +18,10 @@ import { BiClinic } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import check from "../../assets/images/check-mark.png";
+import rejected from "../../assets/images/rejected.png";
+import pending from "../../assets/images/pending.png";
 import guide from "../../assets/images/guidelines.png";
+import absent from "../../assets/images/absent.png";
 import Main from "../../layouts/Main";
 import { hideLoading, showLoading } from "../../redux/alertSlice";
 
@@ -172,6 +175,16 @@ function ViewAppointments() {
   const date = appointment?.date;
   const time = appointment?.time;
   const appStatus = appointment?.status;
+ 
+
+
+
+  // if (user?.isDoctor === true) {
+  //   setIsAdmin(false);
+  // } else {
+  //   setIsAdmin(true);
+  // }
+
   return (
     <Main>
       <Row gutter={[24, 0]}>
@@ -185,26 +198,45 @@ function ViewAppointments() {
           className="mb-24"
         >
           <Card bordered={false} className="criclebox h-full">
-          {appointment?.status === "completed" && (
-            <Meta
-              avatar={<Avatar src={check} />}
-              title={<h5 className="card-title-green">Appointment Complete!</h5>}
-            />
-          )}
+            {appointment?.status === "completed" && (
+              <Meta
+                avatar={<Avatar src={check} />}
+                title={
+                  <h5 className="card-title-green">Appointment Complete!</h5>
+                }
+              />
+            )}
 
-          {appointment?.status === "approved" && (
-            <Meta
-              avatar={<Avatar src={check} />}
-              title={<h5 className="card-title-green">Appointment Booked!</h5>}
-            />
-          )}
+            {appointment?.status === "approved" && (
+              <Meta
+                avatar={<Avatar src={check} />}
+                title={
+                  <h5 className="card-title-green">Appointment Booked!</h5>
+                }
+              />
+            )}
 
-          {appointment?.status === "pending" && (
-            <Meta
-              // avatar={<Avatar src={check} />}
-              title={<h5 className="card-title-black">Pending Appointment!</h5>}
-            />
-          )}
+            {appointment?.status === "pending" && (
+              <Meta
+                avatar={<Avatar src={pending} />}
+                title={
+                  <h5 className="card-title-pending">Pending Appointment</h5>
+                }
+              />
+            )}
+            {appointment?.status === "absent" && (
+              <Meta
+                avatar={<Avatar src={absent} />}
+                title={<h5 className="card-title-absent">Appointment Missed</h5>}
+              />
+            )}
+
+            {appointment?.status === "rejected" && (
+              <Meta
+                avatar={<Avatar src={rejected} />}
+                title={<h5 className="card-title-red">Appointment Rejected</h5>}
+              />
+            )}
 
             <hr />
             <Row gutter={16}>
@@ -258,32 +290,31 @@ function ViewAppointments() {
                 <div className="ant-muse pt-3">
                   <Text>Status</Text>
                   <br />
-                    {appStatus === "approved" &&(
-                      <span>
-                        <h6 className="font-semibold m-0">Accepted</h6>
-                      </span> 
-                      )}
-                      {appStatus === "pending" &&(
-                      <span>
-                        <h6 className="font-semibold m-0">Pending</h6>
-                      </span> 
-                      )}
-                      {appStatus === "completed" &&(
-                      <span>
-                        <h6 className="font-semibold m-0">Completed</h6>
-                      </span> 
-                      )}
-                      {appStatus === "absent" &&(
-                      <span>
-                        <h6 className="font-semibold m-0">Absent</h6>
-                      </span> 
-                      )}
-                      {appStatus === "rejected" &&(
-                      <span>
-                        <h6 className="font-semibold m-0">Cancelled</h6>
-                      </span> 
-                      )}
-
+                  {appStatus === "approved" && (
+                    <span>
+                      <h6 className="font-semibold m-0">Accepted</h6>
+                    </span>
+                  )}
+                  {appStatus === "pending" && (
+                    <span>
+                      <h6 className="font-semibold m-0">Pending</h6>
+                    </span>
+                  )}
+                  {appStatus === "completed" && (
+                    <span>
+                      <h6 className="font-semibold m-0">Completed</h6>
+                    </span>
+                  )}
+                  {appStatus === "absent" && (
+                    <span>
+                      <h6 className="font-semibold m-0">Absent</h6>
+                    </span>
+                  )}
+                  {appStatus === "rejected" && (
+                    <span>
+                      <h6 className="font-semibold m-0">Cancelled</h6>
+                    </span>
+                  )}
                 </div>
               </Col>
 
@@ -300,55 +331,66 @@ function ViewAppointments() {
               </Col>
 
               {appointment?.status === "approved" && (
-              <div className="flex justify-center items-center">
-              <Row gutter={[50, 0]}>
-              <Col span={8}>
-                <div className="resched-button pt-3">
-                  <Button
-                    type="primary"
-                    style={{
-                      width: "150px",
-                      height: "40px",
-                    }}
-                    danger
-                    onClick={() => changeAppointmentStatus(appointment, "absent")}
-                  >
-                    No-Show
-                  </Button>
+                <div className="flex justify-center items-center">
+                  <Row gutter={[50, 0]}>
+                    <Col span={8}>
+                     
+                      <div className="resched-button pt-3">
+                        <Button
+                          type="primary"
+                          style={{
+                            width: "150px",
+                            height: "40px",
+                          }}
+                          danger
+                          onClick={() =>
+                            changeAppointmentStatus(appointment, "absent")
+                          }
+                        >
+                          No-Show
+                        </Button>
+                      </div>
+                     
+                    </Col>
+                    <Col span={8}>
+                    
+                      <div className="resched-button pt-3">
+                      {user?.isDoctor === true && (
+                        <Button
+                          type="primary"
+                          style={{
+                            width: "150px",
+                            height: "40px",
+                          }}
+                          danger
+                          onClick={() =>
+                            navigate(`/book-appointment/${params.userId}`)
+                          }
+                        >
+                          Reschedule
+                        </Button>
+                        )}
+                      </div>
+                   
+                    </Col>
+                    <Col span={8}>
+                      <div className="resched-button pt-3">
+                        <Button
+                          type="primary"
+                          style={{ width: "150px", height: "40px" }}
+                          danger
+                          //baguhin function nung id hahaha
+                          onClick={() =>
+                            changeAppointmentStatus(appointment, "completed")
+                          }
+                        >
+                          Complete
+                        </Button>
+                      </div>
+                    </Col>
+                  </Row>
                 </div>
-              </Col>
-              <Col span={8}>
-                <div className="resched-button pt-3">
-                  <Button
-                     type="primary"
-                     style={{
-                       width: "150px",
-                       height: "40px",
-                     }}
-                     danger
-                    onClick={() => navigate(`/book-appointment/${params.userId}`)}
-                  >
-                    Reschedule
-                  </Button>
-                </div>
-              </Col>
-              <Col span={8}>
-                <div className="resched-button pt-3">
-                  <Button
-                    type="primary"
-                    style={{ width: "150px", height: "40px"}}
-                    danger
-                    //baguhin function nung id hahaha
-                    onClick={() => changeAppointmentStatus(appointment, "completed")}
-                  >
-                    Complete
-                  </Button>
-                </div>
-              </Col>
-              </Row>
-              </div>
               )}
-
             </Row>
           </Card>
         </Col>

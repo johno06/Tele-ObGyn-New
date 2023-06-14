@@ -22,10 +22,10 @@ function LineChart() {
     <>
       <div className="linechart">
         <div>
-          <Title level={5}>Active Users</Title>
-          <Paragraph className="lastweek">
+          <Title level={5}>Appointments</Title>
+          {/* <Paragraph className="lastweek">
             than last week <span className="bnb2">+30%</span>
-          </Paragraph>
+          </Paragraph> */}
         </div>
         <div className="sales">
           <ul>

@@ -1,11 +1,11 @@
-import { Button, Col, DatePicker, Row, TimePicker } from "antd";
+import { Avatar, Button, Card, Col, DatePicker, Row, TimePicker } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Main from "../../layouts/Main";
 import { hideLoading, showLoading } from "../../redux/alertSlice";
-import moment from 'moment'
+import moment from "moment";
 import toast from "react-hot-toast";
 
 function BookAppointment() {
@@ -23,14 +23,13 @@ function BookAppointment() {
   const params = useParams();
   const dispatch = useDispatch();
 
- const handleDateChange = date => {
-  setDate(date);
-};
+  const handleDateChange = (date) => {
+    setDate(date);
+  };
 
-const handleTimeChange = time => {
-  setTime(time);
-};
-
+  const handleTimeChange = (time) => {
+    setTime(time);
+  };
 
   const getDoctorData = async (docId) => {
     try {
@@ -58,32 +57,31 @@ const handleTimeChange = time => {
   };
 
   const getAppointmentData = async () => {
-  try {
-    dispatch (showLoading ());
-    const response = await axios.post (
-      '/api/doctor/get-appointment-id',
-      {
-        _id: params.doctorId,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem ('token')}`,
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        "/api/doctor/get-appointment-id",
+        {
+          _id: params.doctorId,
         },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      dispatch(hideLoading());
+      if (response.data.success) {
+        setDoctor(response.data.data.doctorInfo);
+        setPatient(response.data.data.userInfo);
+        getDoctorData(response.data.data.doctorId);
       }
-    );
-
-    dispatch (hideLoading ());
-    if (response.data.success) {
-      setDoctor (response.data.data.doctorInfo);
-      setPatient (response.data.data.userInfo);
-      getDoctorData(response.data.data.doctorId);
+    } catch (error) {
+      console.log(error);
+      dispatch(hideLoading());
     }
-  } catch (error) {
-    console.log (error);
-    dispatch (hideLoading ());
-  }
-};
-
+  };
 
   // const getUserData = async () => {
   //   try {
@@ -110,13 +108,13 @@ const handleTimeChange = time => {
   //   }
   // };
 
-
   const updateAppointment = async () => {
     setIsAvailable(false);
     try {
       const data = {
-        date: (date).format("YYYY-MM-DD"),
-        time: (time).format("HH:mm") + " - " + (time).add(1, 'hour').format("HH:mm"),
+        date: date.format("YYYY-MM-DD"),
+        time:
+          time.format("HH:mm") + " - " + time.add(1, "hour").format("HH:mm"),
       };
       const response = await axios.patch(
         `/api/doctor/updateBookingAppointment/${params.doctorId}`,
@@ -130,15 +128,15 @@ const handleTimeChange = time => {
 
       dispatch(hideLoading());
       if (response.data.success) {
-        toast.success("Update Booking Success");
+        toast.success(response.data.message);
         navigate("/appointments");
+        
       }
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error("Error updating appointment:", error);
     }
   };
-
 
   const checkAvailability = async () => {
     try {
@@ -147,8 +145,9 @@ const handleTimeChange = time => {
         "/api/doctor/check-booking-availability",
         {
           doctorId: params.doctorId,
-          date: (date).format("YYYY-MM-DD"),
-          time: (time).format("HH:mm") + " - " + (time).add(1, 'hour').format("HH:mm"),
+          date: date.format("YYYY-MM-DD"),
+          time:
+            time.format("HH:mm") + " - " + time.add(1, "hour").format("HH:mm"),
         },
         {
           headers: {
@@ -176,95 +175,94 @@ const handleTimeChange = time => {
     getAppointmentData();
   }, []);
 
+  const { Meta } = Card;
+
+  const disabledHours = () => {
+    // Return an array of hours to disable
+    return [0, 1, 2, 3, 4, 5, 6, 13, 14, 15, 16, 17, 18, 19, 21, 20,22, 23, 24];
+  };
+
+  const disabledDate = current => {
+    // Disable all days except Wednesdays and Saturdays
+    return !(current.day() === 3 || current.day() === 6);
+  };
+
   return (
     <Main>
       <>
         {doctor && (
           <div>
-            <h2 className="page-title">
-            Patient:  {patient.name} {patient.surname}
-            </h2>
-            <p>
-                  <b>Phone Number: </b>
-                  {patient.phone}
-                </p>
-                <p>
-                  <b>email: </b>
-                  {patient.email}
-                </p>
-            <hr />
-            <Row gutter={20} className="mt-5" align="middle">
-              <Col span={8} sm={24} xs={24} lg={8}>
-                <h1 className="normal-text">
-                  <b>Consultation Hours: </b> {doc?.timings[0]} -{" "}
-                  {doc?.timings[1]}
-                </h1>
-                <h1 className="normal-text text-danger ">
-                  <b>Every Wednesday and Saturday </b>
-                </h1>
-                <div className="d-flex flex-column">
-                  <DatePicker
-                    selected = {date}
-                    style={{ width: "100%" }}
-                    format="YYYY-MM-DD"
-                    onChange={handleDateChange}
-                  />
-
-                  <TimePicker
-                    style={{ width: "100%" }}
-                    format="HH:00"
-                    className="mt-3"
-                    onChange={handleTimeChange}
-                  />
-
-                  {/* <Row gutter={[8, 8]}>
-                    <Col span={12}>
-                      <Button
-                        className="primary-button mt-3 full-width-button"
-                        onClick={() => {
-                          setConsultationType("Online");
-                          //console.log(consultationType);
-                        }}
-                      >
-                        Online Appointment
-                      </Button>
-                    </Col>
-                    <Col span={12}>
-                      <Button
-                        className="primary-button mt-3 full-width-button"
-                        onClick={() => {
-                          setConsultationType("Clinic");
-                          // console.log(consultationType);
-                        }}
-                      >
-                        Clinic Appointment
-                      </Button>
-                    </Col>
-                  </Row> */}
-
-                  {!isAvailable && (
-                    <Button
-                      type="danger"
-                      className="primary-button mt-3 full-width-button"
-                      onClick={checkAvailability}
+            <Card
+              style={{
+                width: 400,
+              }}
+            >
+              <Meta
+                avatar={
+                  <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />
+                }
+                title={`${patient.name} ${patient.surname}`}
+                description={`${patient.phone}`}
+              />
+              <Row gutter={20}  align="middle">
+                <Col
+                  style={{ padding: "20px" }}
+                  span={8}
+                  sm={24}
+                  xs={24}
+                  lg={24}
+                >
+                  <h1 className="normal-text">
+                    <b>Consultation Hours: </b> {doc?.timings[0]} -{" "}
+                    {doc?.timings[1]}
+                  </h1>
+                  <h1 className="normal-text  ">
+                    <b>Every Wednesday and Saturday </b>
+                  </h1>
+                  <div className="d-flex flex-column">
+                    <DatePicker
+                      disabledDate={disabledDate}
+                      selected={date}
                       style={{ width: "100%" }}
-                    >
-                      Check Availability
-                    </Button>
-                  )}
+                      format="YYYY-MM-DD"
+                      onChange={handleDateChange}
+                    />
 
-                  {isAvailable && (
-                    <Button
-                      className="primary-button mt-3 full-width-button"
-                      onClick={updateAppointment}
-                    >
-                      Book Appointment
-                    </Button>
-                  )}
-                </div>
-              </Col>
-              <Col span={8} sm={24} xs={24} lg={8}></Col>
-            </Row>
+                    <TimePicker
+                      disabledHours={disabledHours}
+                      style={{ width: "100%" }}
+                      format="HH:00"
+                      className="mt-3"
+                      onChange={handleTimeChange}
+                    />
+
+                    {!isAvailable && (
+                      <Button
+                        type="primary"
+                        className="primary-button mt-3 full-width-button"
+                        onClick={checkAvailability}
+                        style={{ width: "100%" }}
+                        danger
+                      >
+                        Check Availability
+                      </Button>
+                    )}
+
+                    {isAvailable && (
+                      <Button
+                        type="primary"
+                        danger
+                        className="mt-3 "
+                        onClick={updateAppointment}
+                      >
+                        Book Appointment
+                      </Button>
+                    )}
+                  </div>
+                </Col>
+                <Col span={8} sm={24} xs={24} lg={8}></Col>
+              </Row>
+            </Card>
           </div>
         )}
       </>
