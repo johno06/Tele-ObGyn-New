@@ -184,7 +184,7 @@ function BookAppointment() {
 
   const disabledDate = current => {
     // Disable all days except Wednesdays and Saturdays
-    return !(current.day() === 3 || current.day() === 6);
+    return (current.day() === 6 || current.day() === 7);
   };
 
   return (
@@ -217,7 +217,7 @@ function BookAppointment() {
                     {doc?.timings[1]}
                   </h1>
                   <h1 className="normal-text  ">
-                    <b>Every Wednesday and Saturday </b>
+                    <b> Monday - Friday </b>
                   </h1>
                   <div className="d-flex flex-column">
                     <DatePicker
