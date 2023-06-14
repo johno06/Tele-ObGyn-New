@@ -142,7 +142,7 @@ router.post("/register-admin", async (req, res) => {
       expiresIn: "7d",
     });
 
-    const link = "http://" + req.hostname + ":3000/verify?token=" + token;
+    const link = "https://fuentes-clinic-website.onrender.com/verify?token=" + token;
 
     const sendMail = await sendVerificationEmail(newuser.email, link);
 
@@ -220,7 +220,7 @@ router.post("/register-doctor", async (req, res) => {
       expiresIn: "7d",
     });
 
-    const link = "http://" + req.hostname + ":3000/verify?token=" + token;
+    const link = "https://fuentes-clinic-website.onrender.com/verify?token=" + token;
 
     const sendMail = await sendVerificationEmail(newuser.email, link);
 
