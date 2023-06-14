@@ -20,6 +20,7 @@ import pendingAppointment from "../assets/images/pendingApp.png";
 import approvedAppointment from "../assets/images/approve.png";
 
 function Home() {
+  
   const { user } = useSelector((state) => state.user);
   const [doctors, setDoctor] = useState([]);
   const dispatch = useDispatch();
@@ -159,11 +160,11 @@ function Home() {
             <DataCounter />
           </Row>
           <Row gutter={[24, 0]}>
-            <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
+            {/* <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
               <Card bordered={false} className="criclebox h-full">
                 <EChart />
               </Card>
-            </Col>
+            </Col> */}
             <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
               <Card bordered={false} className="criclebox h-full">
                 <LineChart />

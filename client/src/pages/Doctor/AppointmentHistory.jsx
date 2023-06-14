@@ -170,7 +170,7 @@ function DoctorHistoryAppointments () {
           {record.status === 'approved' &&
             <div className="action-item">
               <NavLink to={`/doctor/appointments/${record._id}`}>
-                <a>Edit</a>
+                <p>Edit</p>
               </NavLink>
             </div>}
 
@@ -180,6 +180,9 @@ function DoctorHistoryAppointments () {
                 <button className="link-button">View</button>
               </NavLink>
             </div>}
+
+
+
           {record.status === 'pending' &&
             <div className="action-item">
               <NavLink to={`/doctor/appointments/${record._id}`}>

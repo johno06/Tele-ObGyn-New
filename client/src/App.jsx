@@ -52,9 +52,6 @@ function App() {
   return (
     <Router>
       {loading && (
-        // <div className="spinner-parent">
-        //   <div className="pulse" role="status"></div>
-        // </div>
         <div className="loader fullScreen">
           <div className="wrapper">
             <div className="inner" />
@@ -63,10 +60,10 @@ function App() {
         </div>
       )}
       <Toaster position="top-center" reverseOrder={false} />
-
+{/* kakabago ko lang */}
       <Routes>
         <Route
-          path="/home"
+          path="/"
           element={
             <PublicRoute>
               <MainNav />
@@ -156,7 +153,7 @@ function App() {
           }
         />
         <Route
-          path="/"
+          path="/home"
           element={
             <ProtectedRoute>
               <Home />
