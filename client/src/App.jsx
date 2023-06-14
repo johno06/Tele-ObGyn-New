@@ -50,7 +50,7 @@ import Messenger3 from "./pages/Admin/chat";
 function App() {
   const { loading } = useSelector((state) => state.alerts);
   return (
-    <Router>
+    <Router basename="/">
       {loading && (
         // <div className="spinner-parent">
         //   <div className="pulse" role="status"></div>
