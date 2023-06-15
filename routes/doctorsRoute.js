@@ -345,8 +345,8 @@ router.post (
       const toTime = moment (timeRange[1], 'HH:mm').toISOString ();
       const doctorId = req.body.doctorId;
 
-      const appointments = await Appointment.find ({
-        doctorId,
+      const appointments = await Appointment.findOne({
+        // doctorId,
         date,
         time: {$gte: fromTime, $lt: toTime}, // Changed condition to check for exact date and time match
       });
