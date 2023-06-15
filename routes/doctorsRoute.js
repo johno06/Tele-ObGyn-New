@@ -335,7 +335,7 @@ router.post("/book-appointment", authMiddleware, async (req, res) => {
 });
 
 router.post (
-  '/check-booking-availabilit',
+  '/check-booking-availability',
   authMiddleware,
   async (req, res) => {
     try {
