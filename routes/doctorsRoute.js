@@ -347,7 +347,7 @@ router.post (
 
       const appointments = await Appointment.findOne({
         // doctorId,
-        date,
+        date: date,
         time: {$gte: fromTime, $lt: toTime}, // Changed condition to check for exact date and time match
       });
 
