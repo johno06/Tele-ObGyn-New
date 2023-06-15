@@ -182,10 +182,10 @@ function BookAppointment() {
     return [0, 1, 2, 3, 4, 5, 6, 13, 14, 15, 16, 17, 18, 19, 21, 20,22, 23, 24];
   };
 
-  const disabledDate = current => {
-    // Disable all days except Wednesdays and Saturdays
-    return (current.day() === 6 || current.day() === 7);
-  };
+const disabledDate = current => {
+  // Disable Sundays and Saturdays
+  return (current.day() === 0 || current.day() === 6);
+};
 
   return (
     <Main>
