@@ -348,8 +348,20 @@ router.post (
       const appointments = await Appointment.findOne({
         doctorId,
         date: date,
-        time: {$gte: fromTime, $lt: toTime}, // Changed condition to check for exact date and time match
+        time: {fromTime, toTime}, // Changed condition to check for exact date and time match
       });
+
+      // Appointment.findOne (
+      // {date: date, time: {fromTime, toTime}},
+      // (err, appointment) => {
+      //   if (err) {
+      //     res.json ({
+      //       success: false,
+      //       msg: 'The Date and Time is not available.',
+      //     });
+      //     console.log (err);
+      //     res.json (err);
+      //   }
 
       if (appointments.length > 0) {
         return res.status (200).send ({
