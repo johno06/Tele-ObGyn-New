@@ -335,22 +335,24 @@ router.post("/book-appointment", authMiddleware, async (req, res) => {
 });
 
 router.post (
-  '/check-booking-availability',
+  '/check-booking-availabilit',
   authMiddleware,
   async (req, res) => {
     try {
+      // const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
       const date = moment (req.body.date, 'YYYY-MM-DD').toISOString ();
-      const timeRange = req.body.time.split (' - ');
-      const fromTime = moment (timeRange[0], 'HH:mm').toISOString ();
-      const toTime = moment (timeRange[1], 'HH:mm').toISOString ();
+      const fromTime = moment (req.body.time, 'HH:mm')
+        .subtract (1, 'hours')
+        .toISOString ();
+      const toTime = moment (req.body.time, 'HH:mm')
+        .add (1, 'hours')
+        .toISOString ();
       const doctorId = req.body.doctorId;
-
-      const appointments = await Appointment.findOne ({
+      const appointments = await Appointment.find ({
         doctorId,
         date,
-        time: {$gte: fromTime, $lt: toTime}, // Changed condition to check for exact date and time match
+        time: {$gte: fromTime, $lte: toTime},
       });
-
       if (appointments.length > 0) {
         return res.status (200).send ({
           message: 'Appointments not available',
@@ -372,6 +374,7 @@ router.post (
     }
   }
 );
+
 
 router.patch("/updateRtcToken/:id", async (req, res, next) => {
   try {
